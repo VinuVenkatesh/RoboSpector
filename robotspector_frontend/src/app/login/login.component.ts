@@ -13,10 +13,10 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
     
-    constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService) {}
+    constructor(private formBuilder:FormBuilder) {}
     //one space between methods
     ngOnInit() {
-      console.log("working");
+    
       this.form = this.formBuilder.group({
      
        
@@ -25,16 +25,18 @@ export class LoginComponent {
         
      })
     }
-
+    
     loginSubmit() {
-      console.log(`log in clicked ${this.form.valid}}`);
-      console.log(this.form.value     );
+      console.log("=====");
+      console.log(this.form.value);
+      console.log("=====");
       if (this.form.valid == false ){
         
         this.submitMessage = "Username or password invalid"
-        return;
+        
       }else{
-        this.submitMessage = "";
+        this.submitMessage = "Suceess";
+        
       }
      
     }

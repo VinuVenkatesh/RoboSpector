@@ -34,20 +34,19 @@
                 <form [formGroup] = "form" action="" (ngSubmit) = "loginSubmit()" style="margin-left: 5rem;">
                     <div class="form-group pb-2" >
                       <label style="font-weight: 600;" for="formGroupExampleInput">Username</label>
-                      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Username">
+                      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" formControlName = "username">
                     </div>
                     <div class="form-group">
                       <label style="font-weight: 600;" for="formGroupExampleInput2">Password</label>
-                      <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+                      <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" formControlName = "password">
                     </div>
 
 
-
-                    <input type = "button" class = "p-2 mt-4 text-white " style = "width: 100%;   border-radius: .25rem; background-color:#19B2EA; font-weight: 600; border:none ;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);"  value = "Log in">
+                   <span *ngIf="submitMessage" class="error-message" style="color:#FF5C5C; ">{{submitMessage}}</span>
+                    <input type = "submit" class = "p-2 mt-4 text-white " style = "width: 100%;   border-radius: .25rem; background-color:#19B2EA; font-weight: 600; border:none ;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);"  value = "Log in">
                   
-                    <!-- <button class = "d-flex  pt-2 d-flex  justify-content-center mt-2" style="font-weight: 600; background-color: transparent; border: transparent; width: 100%; color: #19B2EA;; margin-left: auto; margin-right: auto;">
-                        Continue as guest
-                    </button> -->
+                    
+            
                 </form>
                 <button class = "d-flex  pt-2 d-flex  justify-content-center mt-2" style="background-color: transparent; margin-left: 2.5rem;font-weight: 600;  border: transparent; width: 100%; color: #19B2EA;; ">
                     Continue as guest

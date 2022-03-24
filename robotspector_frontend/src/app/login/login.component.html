@@ -31,7 +31,7 @@
                     </span>
                 </span>
 
-                <form style="margin-left: 5rem;">
+                <form [formGroup] = "form" action="" (ngSubmit) = "loginSubmit()" style="margin-left: 5rem;">
                     <div class="form-group pb-2" >
                       <label style="font-weight: 600;" for="formGroupExampleInput">Username</label>
                       <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Username">
@@ -40,10 +40,21 @@
                       <label style="font-weight: 600;" for="formGroupExampleInput2">Password</label>
                       <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
                     </div>
-                  </form>
 
-                  <input type = "button" class = "p-2 mt-4 text-white " style = "border-radius: .25rem;  margin-left:5rem ;background-color:#19B2EA; font-weight: 600; border:none ;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);"  value = "Log in">
-            </div>
+
+
+                    <input type = "button" class = "p-2 mt-4 text-white " style = "width: 100%;   border-radius: .25rem; background-color:#19B2EA; font-weight: 600; border:none ;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);"  value = "Log in">
+                  
+                    <!-- <button class = "d-flex  pt-2 d-flex  justify-content-center mt-2" style="font-weight: 600; background-color: transparent; border: transparent; width: 100%; color: #19B2EA;; margin-left: auto; margin-right: auto;">
+                        Continue as guest
+                    </button> -->
+                </form>
+                <button class = "d-flex  pt-2 d-flex  justify-content-center mt-2" style="background-color: transparent; margin-left: 2.5rem;font-weight: 600;  border: transparent; width: 100%; color: #19B2EA;; ">
+                    Continue as guest
+                </button>
+                
+                 
+                </div>
         </div>
         <div class="p-2 d-flex justify-content-center"  style=" width: 50vw;  object-fit:contain; background-image: radial-gradient( circle farthest-corner at 7.2% 13.6%,  rgba(37,249,245,1) 0%, rgba(8,70,218,1) 90% );">
             

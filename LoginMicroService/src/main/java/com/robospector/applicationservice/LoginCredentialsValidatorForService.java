@@ -12,10 +12,11 @@ import com.robospector.domain.User;
 public class LoginCredentialsValidatorForService {
 
 	private static final int MIN_CREDENTIALS_LENGTH = 8;
+	private static final String SPECIAL_CHARACTER_REGEX= "[^A-Za-z0-9 ]";
 	
 	public void validate(String credentials) throws InvalidUserNameOrPasswordServiceException {
-		System.out.println("test");
-		Pattern pattern = Pattern.compile("[^A-Za-z0-9 ]");
+		
+		Pattern pattern = Pattern.compile(SPECIAL_CHARACTER_REGEX);
         Matcher matcher = pattern.matcher(credentials);
         
 		if(credentials.length() < MIN_CREDENTIALS_LENGTH) {

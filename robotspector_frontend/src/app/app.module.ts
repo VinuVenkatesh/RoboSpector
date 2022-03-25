@@ -8,12 +8,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EquipmentSingleViewComponent } from './equipment-single-view/equipment-single-view.component';
 import { InspectorProfileComponent } from './inspector-profile/inspector-profile.component';
+import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar.component';
+import { DashboardButtonComponent } from './dashboard-button/dashboard-button.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     EquipmentSingleViewComponent,
     InspectorProfileComponent,
+    DashboardSidebarComponent,
+    DashboardButtonComponent,
    
   ],
   imports: [

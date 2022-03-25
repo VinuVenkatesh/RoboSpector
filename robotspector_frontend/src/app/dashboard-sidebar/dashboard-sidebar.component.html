@@ -1,0 +1,9 @@
+<div class = "d-flex flex-column pt-4" style="  max-width: 21vw; height:100vh;font-family: 'Montserrat', sans-serif;">
+    <ul *ngFor="let title of dashboardButtonTitles;let i=index;" style=" margin-right: auto; list-style: none;">
+       
+            <app-dashboard-button [title] = "title" [image] = dashboardButtonImages[i] >
+            </app-dashboard-button>
+      
+    </ul>
+    
+ </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-equipment-single-view',
@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class EquipmentSingleViewComponent implements OnInit {
 
   constructor() { }
+
+  @Input()
+  title?:String;
 
   ngOnInit(): void {
   }

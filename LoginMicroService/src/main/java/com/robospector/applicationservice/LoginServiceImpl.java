@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
 	private LoginCredentialsValidatorForService credentialsValidatorForService;
 
 	@Override
-	public String userAuthentication(User user) throws InvalidUserNameOrPasswordServiceException, UsernameAndPasswordDoNotMatchException {
+	public String authenticateUser(User user) throws InvalidUserNameOrPasswordServiceException, UsernameAndPasswordDoNotMatchException {
 		credentialsValidatorForService.validate(user.getUsername());
 		credentialsValidatorForService.validate(user.getPassword());
 		Optional<User> savedUser = repository.findByUsernameAndPassword(user.getUsername(), user.getPassword());

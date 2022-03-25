@@ -37,7 +37,7 @@ public class LoginController {
 		try {
 			credentialsValidatorForController.validator(user.getUsername());
 			credentialsValidatorForController.validator(user.getPassword());
-			return new ResponseEntity<>(service.userAuthentication(user), HttpStatus.OK);
+			return new ResponseEntity<>(service.authenticateUser(user), HttpStatus.OK);
 		} catch (NoSpacesInUserNameOrPasswordControllerException | UsernameAndPasswordDoNotMatchException | InvalidUserNameOrPasswordServiceException e) {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
 		}

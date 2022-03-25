@@ -6,27 +6,33 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
+import com.robospector.domain.User;
+
 @Component("loginCredentialsValidatorForService")
 public class LoginCredentialsValidatorForService {
 
 	private static final int MAX_PASSWORD_SIZE = 8;
 	
-	public Optional<String> validator(String credentials) {
+	public void validator(String credentials) throws InvalidUserNameOrPasswordServiceException {
 		
-		Optional<String> errorMessage = Optional.empty();
 		Pattern pattern = Pattern.compile("[^A-Za-z0-9 ]");
         Matcher matcher = pattern.matcher(credentials);
         
 		if(credentials.length() < MAX_PASSWORD_SIZE) {
-			errorMessage = Optional.of("Username and Password must be atleast 8 characters long");
+			throw new InvalidUserNameOrPasswordServiceException("Username and Password must be atleast 8 characters long");
 		}
 		else if(!credentials.chars().anyMatch(Character::isUpperCase)) {
-			errorMessage = Optional.of("Username and Password must contain atleast 1 uppercase");
+			throw new InvalidUserNameOrPasswordServiceException("Username and Password must contain atleast 1 uppercase");
 		}
 		else if(!matcher.find()) {
-        	errorMessage = Optional.of("Username and Password must contain atleast 1 special character");
+			throw new InvalidUserNameOrPasswordServiceException("Username and Password must contain atleast 1 special character");
         }
 		
-        return errorMessage;
+	}
+	
+	public void isEmpty(Optional<User> savedUser) throws UsernameAndPasswordDoNotMatchException {
+		if (savedUser.isEmpty()) {
+			throw new UsernameAndPasswordDoNotMatchException("Invalid Username or Password");
+		}
 	}
 }

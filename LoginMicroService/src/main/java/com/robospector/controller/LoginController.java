@@ -1,6 +1,6 @@
 package com.robospector.controller;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,20 +26,18 @@ public class LoginController {
 	private LoginCredentialsValidatorForController credentialsValidatorForController;
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> userLogin(@RequestBody User user) throws NoSpacesInUserNameOrPasswordControllerException {
+	public ResponseEntity<?> userLogin(@RequestBody User user) {
 		
-		Optional<String> validUser = credentialsValidatorForController.validator(user.getUsername());
-		Optional<String> validPassword = credentialsValidatorForController.validator(user.getPassword());
+		try {
+			credentialsValidatorForController.validator(user.getUsername());
+			credentialsValidatorForController.validator(user.getPassword());
+			return new ResponseEntity<>(service.userAuthentication(user), HttpStatus.OK);
+		} catch (NoSpacesInUserNameOrPasswordControllerException | UsernameAndPasswordDoNotMatchException | InvalidUserNameOrPasswordServiceException e) {
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+		}
 		
-		if(!validUser.isEmpty() || !validPassword.isEmpty()) {
-			throw new NoSpacesInUserNameOrPasswordControllerException();
-		}
-		else {
-			try {
-				return new ResponseEntity<>(service.userAuthentication(user), HttpStatus.OK);
-			} catch (UsernameAndPasswordDoNotMatchException | InvalidUserNameOrPasswordServiceException e) {
-				return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-			}
-		}
+		
+		
+
 	}
 }

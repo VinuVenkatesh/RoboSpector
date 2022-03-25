@@ -6,7 +6,7 @@ spring:
   application:
     name: login-microservice
   datasource:
-    url: jdbc:mysql://cgi-stackroute-mysql:3306/login?autoReconnect=true
+    url: jdbc:mysql://cgi-stackroute-mysql:3306/cgi?createDatabaseIfNotExist=true&autoReconnect=true
     username: root
     password: root123
   jpa:

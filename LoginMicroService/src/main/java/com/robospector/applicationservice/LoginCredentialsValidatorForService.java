@@ -13,8 +13,8 @@ public class LoginCredentialsValidatorForService {
 
 	private static final int MAX_PASSWORD_SIZE = 8;
 	
-	public void validator(String credentials) throws InvalidUserNameOrPasswordServiceException {
-		
+	public void validate(String credentials) throws InvalidUserNameOrPasswordServiceException {
+		System.out.println("test");
 		Pattern pattern = Pattern.compile("[^A-Za-z0-9 ]");
         Matcher matcher = pattern.matcher(credentials);
         

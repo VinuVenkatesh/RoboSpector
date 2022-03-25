@@ -2,6 +2,9 @@ package com.robospector.controller;
 
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -28,12 +31,18 @@ public class LoginController {
 	@PostMapping("/login")
 	public ResponseEntity<?> userLogin(@RequestBody User user) {
 		
+		Map<String, String> tokenMap = new HashMap<>();
+		
 		try {
 			credentialsValidatorForController.validator(user.getUsername());
 			credentialsValidatorForController.validator(user.getPassword());
-			return new ResponseEntity<>(service.userAuthentication(user), HttpStatus.OK);
+			service.userAuthentication(user);
+			String jwtToken = service.generateJwtToken(user.getUsername());
+			tokenMap.put("token", jwtToken);
+			return new ResponseEntity<>(tokenMap, HttpStatus.OK);
 		} catch (NoSpacesInUserNameOrPasswordControllerException | UsernameAndPasswordDoNotMatchException | InvalidUserNameOrPasswordServiceException e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+			tokenMap.put("message", e.getMessage());
+			return new ResponseEntity<>(tokenMap,HttpStatus.NOT_FOUND);
 		}
 		
 		

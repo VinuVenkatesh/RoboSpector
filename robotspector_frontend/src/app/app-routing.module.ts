@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
-
+import { Routes, RouterModule } from '@angular/router';
+import { EquipmentSingleViewComponent } from "./equipment-single-view/equipment-single-view.component";
+import { LoginComponent } from './login/login.component';
+// Implement the routes for all components
+// Add route where base path has to be redirected to 'addissue'
+const routes:Routes = [
+    {path:"EquipmentSingleViewComponent",component:EquipmentSingleViewComponent},
+    {path:"",component:LoginComponent},
+    
+  ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+// AppRoutingModule is responsible for routing to all the components
 export class AppRoutingModule { }

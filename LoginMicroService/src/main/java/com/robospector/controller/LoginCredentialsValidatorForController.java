@@ -1,20 +1,14 @@
 package com.robospector.controller;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 
 @Component("loginCredentialsValidatorForController")
 public class LoginCredentialsValidatorForController {
 
-	public Optional<String> validator(String credentials) {
-		
-		Optional<String> errorMessage = Optional.empty();
+	public void validator(String credentials) throws NoSpacesInUserNameOrPasswordControllerException {
 		
 		if (credentials.matches(".*\\s.*")) {
-			errorMessage = Optional.of("No Spaces Allowed in UserName or Password");
+			throw new NoSpacesInUserNameOrPasswordControllerException("No Spaces Allowed in Username or Password");
 		}
-		
-		return errorMessage;
 	}
 }

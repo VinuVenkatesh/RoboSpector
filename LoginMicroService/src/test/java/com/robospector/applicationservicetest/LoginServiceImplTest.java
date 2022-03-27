@@ -14,10 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.robospector.applicationservice.InvalidUserNameOrPasswordServiceException;
 import com.robospector.applicationservice.LoginCredentialsValidatorForService;
 import com.robospector.applicationservice.LoginServiceImpl;
-import com.robospector.applicationservice.UsernameAndPasswordDoNotMatchException;
+import com.robospector.applicationservice.exception.InvalidUserNameOrPasswordServiceException;
+import com.robospector.applicationservice.exception.UsernameAndPasswordDoNotMatchException;
 import com.robospector.domain.User;
 import com.robospector.repository.LoginRepository;
 

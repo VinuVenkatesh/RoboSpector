@@ -1,6 +1,5 @@
 package com.robospector.controllertest;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -12,63 +11,55 @@ import org.mockito.MockitoAnnotations;
 
 import com.robospector.applicationservice.LoginService;
 import com.robospector.controller.LoginController;
-import com.robospector.controller.LoginCredentialsValidatorForController;
-import com.robospector.controller.NoSpacesInUserNameOrPasswordControllerException;
+import com.robospector.controller.CredentialsEmptySpaceValidator;
+import com.robospector.controller.SpacesPresentInUserNameOrPasswordException;
 import com.robospector.domain.User;
 
-
 public class LoginControllerTest {
-	
-	private static final String VALID_ADMIN_NAME = "andrew.Warner";
-	private static final String VALID_ADMIN_PASSWORD = "Adm!nW@rn3r";
-	private static final String VALID_ADMIN_ROLE = "admin";
+
+	private static final String A_VALID_ADMIN_NAME = "andrew.Warner";
+	private static final String A_VALID_ADMIN_PASSWORD = "Adm!nW@rn3r";
+	private static final String ADMIN_ROLE = "admin";
 	private User user;
-	
+
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		user = new User();
 	}
-	
+
 	@Mock
-	private LoginCredentialsValidatorForController credentialsValidatorForController;
-	
+	private CredentialsEmptySpaceValidator credentialsEmptySpaceValidator;
+
 	@Mock
 	private LoginService loginService;
-	
+
 	@InjectMocks
 	private LoginController loginController;
-	
+
 	@Test
-	public void givenValidAdminUserName_whenuserLogin_thenShouldValidateUserName() throws NoSpacesInUserNameOrPasswordControllerException {
-		user.setUsername(VALID_ADMIN_NAME);
-		user.setPassword(VALID_ADMIN_PASSWORD);
-		user.setRole(VALID_ADMIN_ROLE);
-		
-		loginController.userLogin(user);
-		
-		verify(credentialsValidatorForController,times(1)).validator(VALID_ADMIN_NAME);
+	public void givenAValidAdminUserName_whenLogin_thenShouldCheckForUserCredentialsEmptySpaces()
+			throws SpacesPresentInUserNameOrPasswordException {
+		user.setUsername(A_VALID_ADMIN_NAME);
+		user.setPassword(A_VALID_ADMIN_PASSWORD);
+		user.setRole(ADMIN_ROLE);
+
+		loginController.login(user);
+
+		verify(credentialsEmptySpaceValidator, times(1)).validate(user);
 	}
-	
+
+/*
 	@Test
-	public void givenValidAdminPassword_whenuserLogin_thenShouldValidatePassword() throws NoSpacesInUserNameOrPasswordControllerException {
-		user.setUsername(VALID_ADMIN_NAME);
-		user.setPassword(VALID_ADMIN_PASSWORD);
-		user.setRole(VALID_ADMIN_ROLE);
-		
-		loginController.userLogin(user);
-		
-		verify(credentialsValidatorForController,times(1)).validator(VALID_ADMIN_PASSWORD);
+	public void givenValidAdmin_whenuserLogin_thenShouldValidatePassword()
+			throws NoSpacesInUserNameOrPasswordControllerException {
+		user.setUsername(A_VALID_ADMIN_NAME);
+		user.setPassword(A_VALID_ADMIN_PASSWORD);
+		user.setRole(ADMIN_ROLE);
+
+		loginController.login(user);
+
+		verify(credentialsValidatorForController, times(1)).validate(A_VALID_ADMIN_PASSWORD);
 	}
-	
-	@Test
-	public void givenValidAdmin_whenuserLogin_thenShouldValidatePassword() throws NoSpacesInUserNameOrPasswordControllerException {
-		user.setUsername(VALID_ADMIN_NAME);
-		user.setPassword(VALID_ADMIN_PASSWORD);
-		user.setRole(VALID_ADMIN_ROLE);
-		
-		loginController.userLogin(user);
-		
-		verify(credentialsValidatorForController,times(1)).validator(VALID_ADMIN_PASSWORD);
-	}
+	*/
 }

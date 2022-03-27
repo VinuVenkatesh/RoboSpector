@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
+import com.robospector.applicationservice.exception.InvalidUserNameOrPasswordServiceException;
+import com.robospector.applicationservice.exception.UsernameAndPasswordDoNotMatchException;
 import com.robospector.domain.User;
 
 @Component("loginCredentialsValidatorForService")

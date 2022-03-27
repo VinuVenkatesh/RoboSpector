@@ -8,9 +8,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.robospector.applicationservice.InvalidUserNameOrPasswordServiceException;
 import com.robospector.applicationservice.LoginCredentialsValidatorForService;
-import com.robospector.applicationservice.UsernameAndPasswordDoNotMatchException;
+import com.robospector.applicationservice.exception.InvalidUserNameOrPasswordServiceException;
+import com.robospector.applicationservice.exception.UsernameAndPasswordDoNotMatchException;
 import com.robospector.domain.User;
 
 public class LoginCredentialsValidatorForServiceTest {

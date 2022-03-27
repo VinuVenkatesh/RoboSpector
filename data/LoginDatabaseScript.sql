@@ -10,7 +10,7 @@ CREATE TABLE login (
 
 INSERT INTO login(username,password,role)
 	VALUES
-		('andrew.warner','Adm!nW@rn3r','admin'),
-        ('aston.gale','AG!234%^&','engineer'),
-        ('roma.healy','RH^&*123ly','engineer'),
-        ('kiyan.calhoun','32a!a9wRR','engineer');
+		('andrew.Warner','Adm!nW@rn3r','admin'),
+        ('aston.Gale','AG!234%^&','engineer'),
+        ('roma.Healy','RH^&*123ly','engineer'),
+        ('kiyan.Calhoun','32a!a9wRR','engineer');

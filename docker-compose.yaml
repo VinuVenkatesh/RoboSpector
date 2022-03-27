@@ -2,10 +2,14 @@ version: "3.9"
 services:
   cgi-stackroute-mysql:
     image: "mysql:latest"
+    cap_add:
+      -  SYS_NICE  # CAP_SYS_NICE
     environment:
       -  MYSQL_ROOT_PASSWORD=root123
     ports:
       -  3307:3306
+    expose:
+      - 3306
     volumes:
       -  ./data/:/docker-entrypoint-initdb.d
     healthcheck:
@@ -17,7 +21,7 @@ services:
     ports:
       -  8001:8001
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://cgi-stackroute-mysql:3306/cgi?createDatabaseIfNotExist=true&autoReconnect=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://cgi-stackroute-mysql:3306/login?autoReconnect=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
     depends_on:

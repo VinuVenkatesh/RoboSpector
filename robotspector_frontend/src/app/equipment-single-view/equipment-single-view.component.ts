@@ -7,12 +7,42 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EquipmentSingleViewComponent implements OnInit {
 
+  slider:any;
+  isDown:any = false;
+  startX:any;
+  scrollLeft:any;
+
   constructor() { }
 
   @Input()
   title?:String;
 
   ngOnInit(): void {
+    this.slider = document.querySelector('#commenters');
+   
+  }
+  onMouseDown(e:MouseEvent){
+    console.log("Mouse has been clicked down");
+    
+    this.isDown = true;
+    this.slider.classList.add('active');
+    this.startX = e.pageX - this.slider.offsetLeft;
+    this.scrollLeft = this.slider.scrollLeft;
+  }
+  onMouseLeave(e:MouseEvent){
+    this.isDown = false;
+    this.slider.classList.remove('active');
+  }
+  onMouseUp(e:MouseEvent){
+    this.isDown = false;
+    this.slider.classList.remove('active');
+  }
+  onMouseMove(e:MouseEvent){
+    if(!this.isDown) return;
+    e.preventDefault();
+    const x = e.pageX - this.slider.offsetLeft;
+    const walk = (x - this.startX) * 3; //scroll-fast
+    this.slider.scrollLeft = this.scrollLeft - walk;
   }
 
 }

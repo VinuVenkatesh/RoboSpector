@@ -10,6 +10,9 @@ import { EquipmentSingleViewComponent } from './equipment-single-view/equipment-
 import { InspectorProfileComponent } from './inspector-profile/inspector-profile.component';
 import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar.component';
 import { DashboardButtonComponent } from './dashboard-button/dashboard-button.component';
+import { CommentViewComponent } from './comment-view/comment-view.component';
+import { PersonCardComponent } from './person-card/person-card.component';
+import { LocationViewComponent } from './location-view/location-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +21,9 @@ import { DashboardButtonComponent } from './dashboard-button/dashboard-button.co
     InspectorProfileComponent,
     DashboardSidebarComponent,
     DashboardButtonComponent,
+    CommentViewComponent,
+    PersonCardComponent,
+    LocationViewComponent,
    
   ],
   imports: [

@@ -30,13 +30,12 @@ public class LoginServiceImpl implements LoginService {
 	private LoginCredentialsValidatorForService credentialsValidatorForService;
 
 	@Override
-	public void userAuthentication(User user)
+	public void authenticateUser(User user)
 			throws InvalidUserNameOrPasswordServiceException, UsernameAndPasswordDoNotMatchException {
-		credentialsValidatorForService.validator(user.getUsername());
-		credentialsValidatorForService.validator(user.getPassword());
+		credentialsValidatorForService.validate(user.getUsername());
+		credentialsValidatorForService.validate(user.getPassword());
 		Optional<User> savedUser = repository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-		credentialsValidatorForService.isEmpty(savedUser);
-		
+		credentialsValidatorForService.isEmpty(savedUser);	
 	}
 
 	@Override
@@ -47,5 +46,4 @@ public class LoginServiceImpl implements LoginService {
 				.signWith(SignatureAlgorithm.HS256, key)
 				.compact();
 	}
-
 }

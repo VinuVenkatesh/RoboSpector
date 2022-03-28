@@ -6,5 +6,4 @@ public class InvalidUserNameOrPasswordServiceException extends Exception {
 	public InvalidUserNameOrPasswordServiceException(String message) {
 		super(message);
 	}
-
 }

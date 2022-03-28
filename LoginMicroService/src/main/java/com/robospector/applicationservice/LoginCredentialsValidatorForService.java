@@ -13,14 +13,15 @@ import com.robospector.domain.User;
 @Component("loginCredentialsValidatorForService")
 public class LoginCredentialsValidatorForService {
 
-	private static final int MAX_PASSWORD_SIZE = 8;
+	private static final int MIN_CREDENTIALS_LENGTH = 8;
+	private static final String SPECIAL_CHARACTER_REGEX= "[^A-Za-z0-9 ]";
 	
-	public void validator(String credentials) throws InvalidUserNameOrPasswordServiceException {
+	public void validate(String credentials) throws InvalidUserNameOrPasswordServiceException {
 		
-		Pattern pattern = Pattern.compile("[^A-Za-z0-9 ]");
+		Pattern pattern = Pattern.compile(SPECIAL_CHARACTER_REGEX);
         Matcher matcher = pattern.matcher(credentials);
         
-		if(credentials.length() < MAX_PASSWORD_SIZE) {
+		if(credentials.length() < MIN_CREDENTIALS_LENGTH) {
 			throw new InvalidUserNameOrPasswordServiceException("Username and Password must be atleast 8 characters long");
 		}
 		else if(!credentials.chars().anyMatch(Character::isUpperCase)) {

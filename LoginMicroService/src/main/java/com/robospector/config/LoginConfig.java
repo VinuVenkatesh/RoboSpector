@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.robospector.applicationservice.LoginCredentialsValidatorForService;
-import com.robospector.controller.LoginCredentialsValidatorForController;
+import com.robospector.controller.CredentialsEmptySpaceValidator;
 
 @Configuration
 public class LoginConfig {
@@ -15,7 +15,7 @@ public class LoginConfig {
 	}
 	
 	@Bean
-	public LoginCredentialsValidatorForController getCredentialsValidatorForController() {
-		return new LoginCredentialsValidatorForController();
+	public CredentialsEmptySpaceValidator getCredentialsValidatorForController() {
+		return new CredentialsEmptySpaceValidator();
 	}
 }

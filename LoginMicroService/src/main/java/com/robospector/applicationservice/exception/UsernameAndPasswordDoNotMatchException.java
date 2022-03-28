@@ -1,4 +1,4 @@
-package com.robospector.applicationservice;
+package com.robospector.applicationservice.exception;
 
 
 

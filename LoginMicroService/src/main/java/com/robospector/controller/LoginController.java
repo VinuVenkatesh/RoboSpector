@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.robospector.applicationservice.InvalidUserNameOrPasswordServiceException;
 import com.robospector.applicationservice.LoginService;
-import com.robospector.applicationservice.UsernameAndPasswordDoNotMatchException;
+import com.robospector.applicationservice.exception.InvalidUserNameOrPasswordServiceException;
+import com.robospector.applicationservice.exception.UsernameAndPasswordDoNotMatchException;
 import com.robospector.domain.User;
 
 @RestController
@@ -44,9 +44,5 @@ public class LoginController {
 			tokenMap.put("message", e.getMessage());
 			return new ResponseEntity<>(tokenMap,HttpStatus.NOT_FOUND);
 		}
-		
-		
-		
-
 	}
 }

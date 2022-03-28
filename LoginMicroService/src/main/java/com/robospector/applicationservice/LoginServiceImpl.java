@@ -5,7 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.robospector.applicationservice.exception.InvalidUserNameOrPasswordServiceException;
+import com.robospector.applicationservice.exception.UsernameAndPasswordDoNotMatchException;
 import com.robospector.domain.User;
 import com.robospector.repository.LoginRepository;
 
@@ -15,7 +19,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-	String key = "test";
+	@Value("${jwt.secret}")
+	private String key;
 	
 	@Autowired
 	private LoginRepository repository;
@@ -25,7 +30,8 @@ public class LoginServiceImpl implements LoginService {
 	private LoginCredentialsValidatorForService credentialsValidatorForService;
 
 	@Override
-	public void userAuthentication(User user) throws InvalidUserNameOrPasswordServiceException, UsernameAndPasswordDoNotMatchException {
+	public void userAuthentication(User user)
+			throws InvalidUserNameOrPasswordServiceException, UsernameAndPasswordDoNotMatchException {
 		credentialsValidatorForService.validator(user.getUsername());
 		credentialsValidatorForService.validator(user.getPassword());
 		Optional<User> savedUser = repository.findByUsernameAndPassword(user.getUsername(), user.getPassword());

@@ -2,7 +2,6 @@ server:
   port: 8001
   error:
     include-stacktrace: on-param
-
 spring:
   application:
     name: login-microservice

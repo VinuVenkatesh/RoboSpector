@@ -9,11 +9,16 @@
     will-change: transform;
     user-select: none;
     cursor: pointer;
+    background-color: orange;
 }
 
 #commenters.active {
-    background: rgba(255,255,255,0.3);
     cursor: grabbing;
     cursor: -webkit-grabbing;
     transform: scale(1);
   }
+
+  input:active, input:focus {
+    border-color: pink;
+    color:#6B96A4;
+}

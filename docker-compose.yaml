@@ -16,10 +16,18 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+
   angular-app:
     image: "robospector-front-end"
     ports:
       -  4200:80
+    depends_on:
+      cgi-stackroute-mysql:
+        condition: service_healthy
+    build:
+      context: "./robotspector_frontend"
+      dockerfile: "Dockerfile"
+
   login-service:
     image: "cgi-spring-boot"
     ports:
@@ -32,6 +40,5 @@ services:
       cgi-stackroute-mysql:
         condition: service_healthy
     build:
-      context: "./robotspector_frontend"
       context: "./LoginMicroService"
       dockerfile: "Dockerfile"

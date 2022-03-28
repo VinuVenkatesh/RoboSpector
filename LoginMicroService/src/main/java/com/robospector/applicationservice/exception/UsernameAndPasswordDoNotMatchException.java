@@ -7,5 +7,4 @@ public class UsernameAndPasswordDoNotMatchException extends Exception {
 	public UsernameAndPasswordDoNotMatchException(String message) {
 		super(message);
 	}
-
 }

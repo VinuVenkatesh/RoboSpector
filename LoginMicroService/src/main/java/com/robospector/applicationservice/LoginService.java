@@ -6,5 +6,7 @@ import com.robospector.domain.User;
 
 public interface LoginService {
 
-	public String authenticateUser(User user) throws UsernameAndPasswordDoNotMatchException, InvalidUserNameOrPasswordServiceException;
+	public void authenticateUser(User user)
+			throws UsernameAndPasswordDoNotMatchException, InvalidUserNameOrPasswordServiceException;
+	public String generateJwtToken(String username);
 }

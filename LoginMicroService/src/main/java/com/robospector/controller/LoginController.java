@@ -1,6 +1,7 @@
 package com.robospector.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +23,7 @@ public class LoginController {
 
 	@Autowired
 	private LoginService service;
-	
+
 	@Autowired
 	private  LoginRepository loginRepository;
 
@@ -35,25 +36,22 @@ public class LoginController {
 		return "Login service is alive";
 	}
 	
-	@GetMapping("/list")
-	public ResponseEntity<?> getAllUsers() {
-		List<User> allUsers = loginRepository.findAll();
-		
-		if(allUsers.isEmpty()) {
-			return new ResponseEntity<>("No users found", HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity<>(allUsers, HttpStatus.OK);
-	}
-
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User user) {
+
+		Map<String, String> tokenMap = new HashMap<>();
+
 		try {
 			credentialsValidatorForController.validate(user);
-			return new ResponseEntity<>(service.authenticateUser(user), HttpStatus.OK);
-		} catch (SpacesPresentInUserNameOrPasswordException | UsernameAndPasswordDoNotMatchException
-				| InvalidUserNameOrPasswordServiceException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+			service.authenticateUser(user);
+			String jwtToken = service.generateJwtToken(user.getUsername());
+			tokenMap.put("token", jwtToken);
+			return new ResponseEntity<>(tokenMap, HttpStatus.OK);
+		} catch (SpacesPresentInUserNameOrPasswordException |
+				UsernameAndPasswordDoNotMatchException |
+				InvalidUserNameOrPasswordServiceException e) {
+			tokenMap.put("message", e.getMessage());
+			return new ResponseEntity<>(tokenMap,HttpStatus.NOT_FOUND);
 		}
 	}
 }

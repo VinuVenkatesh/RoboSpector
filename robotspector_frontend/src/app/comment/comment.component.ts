@@ -18,7 +18,7 @@ export class CommentComponent implements OnInit {
 
   }
   getBorderColor(){
-    console.log("the role is" + this.role);
+   
     if ( this.role == "admin"){
       return "#5C5CE0";
     }else if (this.role == "engineer"){

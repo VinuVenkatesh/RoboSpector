@@ -15,7 +15,7 @@ import com.robospector.repository.InspectionRepository;
 public class InspectionServiceImpl implements InspectionService {
 
 	@Autowired
-	RandomInspectionDetailsGenerator dateTimeGenerator;
+	RandomInspectionDetailsGenerator detailsGenerator;
 	
 	@Autowired
 	InspectionRepository inspectionRepository;
@@ -23,7 +23,7 @@ public class InspectionServiceImpl implements InspectionService {
 	@Override
 	public List<Inspection> getAllInspections(String name) throws NoSuchInspectionException {
 		List<Inspection> list = inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(name);
-		if(list.isEmpty()) {
+		if(list == null || list.isEmpty()) {
 			throw new NoSuchInspectionException("No inspections exist for this equipment");
 		}
 		return list;
@@ -57,9 +57,9 @@ public class InspectionServiceImpl implements InspectionService {
 	public Inspection addInspection(String name) {
 		Inspection inspection = new Inspection();
 		inspection.setDateTime();
-		inspection.getDateTime().setRandomDate(dateTimeGenerator.createRandomDate());
-		inspection.getDateTime().setRandomTime(dateTimeGenerator.createRandomTime());
-		inspection.setCollectingTime(dateTimeGenerator.createRandomCollectingTime());
+		inspection.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
+		inspection.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
+		inspection.setCollectingTime(detailsGenerator.createRandomCollectingTime());
 		inspection.setName(name);
 		return inspectionRepository.save(inspection);
 	}

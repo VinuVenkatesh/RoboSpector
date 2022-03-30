@@ -29,7 +29,7 @@ public class InspectionConfig{
 	}
 	
 	@Bean
-	public RandomInspectionDetailsGenerator dateTimeGenerator () {
+	public RandomInspectionDetailsGenerator detailsGenerator () {
 		return new RandomInspectionDetailsGenerator();
 	}
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./inspector-list.component.css">
+</head>
+
+
+<div id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="gap:10px; max-height:80vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
+  <app-inspector-card severityLevel="1"></app-inspector-card>
+  <app-inspector-card severityLevel="2"></app-inspector-card>
+  <app-inspector-card severityLevel="3"></app-inspector-card>
+  <app-inspector-card severityLevel="4"></app-inspector-card>
+</div>
+
+</html>
+

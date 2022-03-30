@@ -15,6 +15,9 @@ import { PersonCardComponent } from './person-card/person-card.component';
 import { LocationViewComponent } from './location-view/location-view.component';
 import { CommentComponent } from './comment/comment.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { CommenterListComponent } from './commenter-list/commenter-list.component';
+import { InspectorCardComponent } from './inspector-card/inspector-card.component';
+import { InspectorListComponent } from './inspector-list/inspector-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +31,9 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     LocationViewComponent,
     CommentComponent,
     CommentListComponent,
+    CommenterListComponent,
+    InspectorCardComponent,
+    InspectorListComponent,
    
   ],
   imports: [

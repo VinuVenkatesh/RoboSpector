@@ -9,14 +9,22 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 </head>
-
-    <div id = "comments" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" style="max-height:30vh;overflow: auto; display: grid; font-family: 'Montserrat';"  class="  align-content-start">
-        <app-comment image = "1" role = "admin" author = "Marthan Laury" date = "January 10th 2021" comment = {{comments[0]}}></app-comment>
-        <app-comment image = "2" role = "engineer" author = "Marcus Rubicon" date = "December 21th 20201" comment = {{comments[1]}}></app-comment>
-        <app-comment image = "3" role = "inspector" author = "Hailey Molton" date = "December 20th 20201" comment = {{comments[2]}}></app-comment>
-        <app-comment image = "4" role = "engineer" author = "Jessica Ralph" date = "December 18th 20201" comment = {{comments[3]}}></app-comment>
-        <app-comment image = "5" role = "inspector" author = "Theodosia Jones" date = "December 18th 20201" comment = {{comments[4]}}></app-comment>
+<div style="font-family: 'Montserrat';">
+    <div class="ml-2 d-flex" style="margin-right: auto;  width: 100%; ">
+        <div class = "d-flex justify-content-center" style="margin-right: auto;">
+            <div class = "d-flex mb-2 align-items-center" style="gap:10px;  max-width:max-content;">
+                <span style="color:#6DCEF1;  font-size: small;" >Jospeh Kale</span>
+                <div style="border-radius: 50%; border-width: 5px; width: 10px; height: 10px; background-color: #C4C4C4;"></div>
+                <span style="color: #B7B7B7; font-size: small;">January 10th 2021</span>
+            </div>
+          </div>
     </div>
+    
+        <div id = "comments" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" style="max-height:45vh;overflow: auto; display: grid; font-family: 'Montserrat';"  class="  align-content-start">
+            <span style="font-size:medium; line-height: 2;">{{comment}}</span>
+        </div>
+</div>
+
 
 </html>
 

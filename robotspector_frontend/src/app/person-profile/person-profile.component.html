@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+    <div  (mouseover)="onMouseOver($event)" (mouseleave)="onMouseLeave($event)" [ngStyle]="{'background-color': getBackgroundColor(),'box-shadow':getBoxShadow()} "  class = " pb-2 ml-auto px-3 d-flex justify-content-between align-items-center" style="cursor: pointer; border-radius: 15px; gap: 10px;max-width: 300px;  min-width: min-content; max-height: 32px; ">
+        <div (click)="logout()" id = "logout-button" [ngStyle]="{'display': getDisplay()}"  class = "px-2 py-1 text-white" style=" cursor: pointer; font-weight:bold;  font-size: x-small; background-color: #19B2EA; border-radius: 5px;">
+            Log Out
+        </div>
+        <div id = "logout-name" [ngStyle]="{'display': getDisplay()}" style="font-size: small; min-width: min-content; ">
+            Jessica Malto
+        </div>
+        <img  style="border: 2px solid #869DA6; border-radius: 50%; height: 30px; object-fit: cover;"  src = "../../assets/images/person_profile_5.png"/>
+    </div>
+
+</html>
+

@@ -12,15 +12,13 @@ public class Inspection {
 	private DateTime dateTime;
 	private int collectingTime;
 	private VerificationDetails verificationDetails;
-	private InspectionResult inspectionResult;
 
-	public Inspection(String name, int collectingTime, VerificationDetails verificationDetails, InspectionResult inspectionResult) {
+	public Inspection(String name, int collectingTime, VerificationDetails verificationDetails) {
 		super();
 		this.name = name;
 		this.dateTime = new DateTime();
 		this.collectingTime = collectingTime;
 		this.verificationDetails = verificationDetails;
-		this.inspectionResult = inspectionResult;
 	}
 
 	public Inspection() {
@@ -37,14 +35,6 @@ public class Inspection {
 
 	public void setDateTime() {
 		this.dateTime = new DateTime();
-	}
-
-	public InspectionResult getInspectionResult() {
-		return inspectionResult;
-	}
-
-	public void setInspectionResult(InspectionResult inspectionResult) {
-		this.inspectionResult = inspectionResult;
 	}
 
 	public String getName() {

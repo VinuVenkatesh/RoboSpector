@@ -30,5 +30,12 @@ public class DateTime {
 	public void setTime() {
 		this.time = LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))); 
 	}
-
+	
+	public void setRandomDate(LocalDate date) {
+		this.date = date;
+	}
+	
+	public void setRandomTime(LocalTime time) {
+		this.time = time;
+	}
 }

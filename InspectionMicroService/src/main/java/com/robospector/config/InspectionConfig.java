@@ -9,13 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 
+import com.robospector.applicationservice.RandomInspectionDetailsGenerator;
 import com.robospector.converters.DateToStringConverter;
 import com.robospector.converters.StringToTimeConverter;
 import com.robospector.converters.TimeToStringConverter;
 
 
 @Configuration
-public class Converters{
+public class InspectionConfig{
 
 
 	@Bean
@@ -25,5 +26,10 @@ public class Converters{
 		converters.add(new DateToStringConverter());
 		converters.add(new TimeToStringConverter());
 		return new MongoCustomConversions(converters);
+	}
+	
+	@Bean
+	public RandomInspectionDetailsGenerator dateTimeGenerator () {
+		return new RandomInspectionDetailsGenerator();
 	}
 }

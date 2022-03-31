@@ -1,5 +1,5 @@
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DataServiceService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-dashboard-button',
@@ -10,21 +10,22 @@ export class DashboardButtonComponent implements OnInit {
 
 
   @Input()
-  title:String = "";
+  title:String = "ddsada";
   @Input()
   image?:String;
-  @Output() 
-  public dashBoardButtonClicked;
+  
 
-  constructor() {
-    this.dashBoardButtonClicked = new EventEmitter<string>();
+  constructor(private dataSharing: DataServiceService) {
+    // this.dataSharing.SharingData.subscribe((res:any) =>{
+    //   this.title = res;
+    // })
    }
 
   ngOnInit(): void {
+    
   }
   onDashBoardButtonClicked(){
-    console.log("Dash board button clicked");
-    this.dashBoardButtonClicked.emit(this.title.valueOf());
+    this.dataSharing.changeDataSubject(this.title);
   }
   
 }

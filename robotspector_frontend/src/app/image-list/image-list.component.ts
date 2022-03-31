@@ -1,28 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DataServiceService } from '../services/data-service.service';
-@Component({
-  selector: 'app-equipment-single-view',
-  templateUrl: './equipment-single-view.component.html',
-  styleUrls: ['./equipment-single-view.component.css']
-})
-export class EquipmentSingleViewComponent implements OnInit {
+import { Component, OnInit } from '@angular/core';
 
+@Component({
+  selector: 'app-image-list',
+  templateUrl: './image-list.component.html',
+  styleUrls: ['./image-list.component.css']
+})
+export class ImageListComponent implements OnInit {
   slider:any;
   isDown:any = false;
   startX:any;
   scrollLeft:any;
-  currentView:String = "location";
-  viewTitles = {"Inspection":"Inspection", "Location":"Location", "Comments":"comments"};
-  constructor(private dataSharing: DataServiceService) {}
-
-  @Input()
-  title?:String;
+  constructor() { }
 
   ngOnInit(): void {
-   
-    this.dataSharing.SharingData.subscribe((res:any) =>{
-      this.currentView = res;
-    })
+    this.slider = document.querySelector('#engine-image-list');
   }
   onMouseDown(e:MouseEvent){
     
@@ -46,5 +37,4 @@ export class EquipmentSingleViewComponent implements OnInit {
     const walk = (x - this.startX) * 3; //scroll-fast
     this.slider.scrollLeft = this.scrollLeft - walk;
   }
-  
 }

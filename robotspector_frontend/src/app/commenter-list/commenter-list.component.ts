@@ -18,8 +18,6 @@ export class CommenterListComponent implements OnInit {
     this.slider = document.querySelector('#commenters');
   }
   onMouseDown(e:MouseEvent){
-    console.log("Mouse has been clicked down");
-    
     this.isDown = true;
     this.slider.classList.add('active');
     this.startX = e.pageX - this.slider.offsetLeft;

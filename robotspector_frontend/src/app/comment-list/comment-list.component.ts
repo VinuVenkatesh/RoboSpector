@@ -40,7 +40,6 @@ Gravida quis blandit turpis cursus in hac habitasse platea dictumst. Ultricies i
     this.slider.classList.remove('active');
   }
   onMouseUp(e:MouseEvent){
-    console.log("Mouse UP",this.slider);
     this.isDown = false;
     this.slider.classList.remove('active');
   }

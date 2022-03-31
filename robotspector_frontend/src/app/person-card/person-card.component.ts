@@ -27,7 +27,6 @@ export class PersonCardComponent implements OnInit {
    
   }
   getImage(imageNumber?:String):String{
-    console.log("../../assets/images/turbine_" + imageNumber + ".jpg");
     return "../../assets/images/turbine_" + imageNumber + ".jpg";
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataServiceService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-inspector-list',
@@ -13,11 +14,14 @@ export class InspectorListComponent implements OnInit {
   comment:String = `Sturdy , albeit needs further inspection potential mechanical issues Sturdy , 
   albeit needs further needs further inspection Sturdy , albeit needs further inspection 
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
-  constructor() { }
+  constructor(private dataSharing: DataServiceService) { 
+    dataSharing.SharingData.subscribe((res:any) =>{
+      
+    })
+  }
 
   ngOnInit(): void {
     this.slider = document.querySelector('#comments_inspection');
-    console.log("The slider is", this.slider);
   }
   onMouseDown(e:MouseEvent){
     this.isDown = true;
@@ -30,7 +34,6 @@ export class InspectorListComponent implements OnInit {
     this.slider.classList.remove('active');
   }
   onMouseUp(e:MouseEvent){
-    console.log("Mouse UP",this.slider);
     this.isDown = false;
     this.slider.classList.remove('active');
   }

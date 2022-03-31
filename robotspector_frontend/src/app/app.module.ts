@@ -19,6 +19,7 @@ import { CommenterListComponent } from './commenter-list/commenter-list.componen
 import { InspectorCardComponent } from './inspector-card/inspector-card.component';
 import { InspectorListComponent } from './inspector-list/inspector-list.component';
 import { PersonProfileComponent } from './person-profile/person-profile.component';
+import { ImageListComponent } from './image-list/image-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { PersonProfileComponent } from './person-profile/person-profile.componen
     InspectorCardComponent,
     InspectorListComponent,
     PersonProfileComponent,
+    ImageListComponent,
    
   ],
   imports: [

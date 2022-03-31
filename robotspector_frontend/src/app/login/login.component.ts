@@ -27,9 +27,6 @@ export class LoginComponent {
     }
     
     loginSubmit() {
-      console.log("=====");
-      console.log(this.form.value);
-      console.log("=====");
       if (this.form.valid == false ){
         
         this.submitMessage = "Username or password invalid"

@@ -7,9 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class DataServiceService {
   SharingData = new Subject();//subject
    constructor() { }
-
- //update value
   changeDataSubject(data: any) {
-    this.SharingData.next(data.value);
+    this.SharingData.next(data);
   }
 }

@@ -1,0 +1,15 @@
+server:
+  port: 8002
+  error:
+    include-stacktrace: on-param
+spring:
+  application:
+    name: inspectionresult-microservice
+  datasource:
+    url: jdbc:mysql://localhost:3306/inspectionresult?createDatabaseIfNotExist=true
+    username: root
+    password: Karumari*08
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

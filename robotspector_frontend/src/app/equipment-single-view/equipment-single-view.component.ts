@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { DataServiceService } from '../services/data-service.service';
 @Component({
   selector: 'app-equipment-single-view',
   templateUrl: './equipment-single-view.component.html',
@@ -13,7 +13,11 @@ export class EquipmentSingleViewComponent implements OnInit {
   scrollLeft:any;
   currentView:String = "location";
   
-  constructor() { }
+  constructor(private datasharing: DataServiceService) {
+    datasharing.SharingData.subscribe((res: any) => {
+      this.currentView= res;
+    })
+   }
 
   @Input()
   title?:String;

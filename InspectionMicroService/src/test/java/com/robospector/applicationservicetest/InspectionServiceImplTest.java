@@ -2,6 +2,7 @@ package com.robospector.applicationservicetest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,7 +38,8 @@ public class InspectionServiceImplTest {
 	private static final InspectionResult INSPECTION_RESULT = new InspectionResult();
 	private static final int SEVERITY = 2;
 	private static final String NAME = "Minor wear";
-	private static final String INSPECTION_ID = "321321231";
+	private static final String VALID_INSPECTION_ID = "321321231";
+	private static final String INVALID_INSPECTION_ID = "123";
 	
 	@Mock
 	private InspectionRepository inspectionRepository;
@@ -64,7 +66,7 @@ public class InspectionServiceImplTest {
 		obj.setName(VALID_EQUIPMENT_NAME);
 		inspectionList.add(obj);
 		inspection = obj;
-		inspection.setId(INSPECTION_ID);
+		inspection.setId(VALID_INSPECTION_ID);
 		obj.setCollectingTime(detailsGenerator.createRandomCollectingTime());
 		obj.setDateTime();
 		obj.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
@@ -72,6 +74,12 @@ public class InspectionServiceImplTest {
 		obj.setName(VALID_EQUIPMENT_NAME);
 		inspectionList.add(obj);
 		verificationDetails = new VerificationDetails();
+		verificationDetails.setEngineerComment(ENGINEER_COMMENT);
+		verificationDetails.setVerifiedBy(ENGINEER_ID);
+		INSPECTION_RESULT.setName(NAME);
+		INSPECTION_RESULT.setSeverity(SEVERITY);
+		verificationDetails.setInspectionResult(INSPECTION_RESULT);
+		inspection.setVerificationDetails(verificationDetails);
 	}
 	
 	@Test
@@ -89,7 +97,7 @@ public class InspectionServiceImplTest {
 		when(inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(INVALID_EQUIPMENT_NAME)).thenReturn(Collections.emptyList());
 
 		try {
-			List<Inspection> list = inspectionService.getAllInspections(INVALID_EQUIPMENT_NAME);
+			inspectionService.getAllInspections(INVALID_EQUIPMENT_NAME);
 			fail();
 		} catch (NoSuchInspectionException e) {
 			assertEquals(INSPECTION_ERROR_MESSAGE_1, e.getMessage());
@@ -112,7 +120,7 @@ public class InspectionServiceImplTest {
 		when(inspectionRepository.findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(INVALID_EQUIPMENT_NAME)).thenReturn(Optional.empty());
 		
 		try {
-			Inspection savedInspection = inspectionService.getRecentInspection(INVALID_EQUIPMENT_NAME);
+			inspectionService.getRecentInspection(INVALID_EQUIPMENT_NAME);
 			fail();
 		} catch (NoSuchInspectionException e) {
 			assertEquals(INSPECTION_ERROR_MESSAGE_2, e.getMessage());
@@ -122,27 +130,44 @@ public class InspectionServiceImplTest {
 	@Test
 	public void givenVerificationDetailsWithValidInspectionId_whenAddVerificationDetailsToInspection_thenShouldReturnInspectionWithSavedVerificationDetails()
 			throws NoSuchInspectionException {
-		verificationDetails.setEngineerComment(ENGINEER_COMMENT);
-		verificationDetails.setVerifiedBy(ENGINEER_ID);
-		INSPECTION_RESULT.setName(NAME);
-		INSPECTION_RESULT.setSeverity(SEVERITY);
-		verificationDetails.setInspectionResult(INSPECTION_RESULT);
-		inspection.setVerificationDetails(verificationDetails);
-		when(inspectionRepository.findById(INSPECTION_ID)).thenReturn(Optional.of(inspection));
+		when(inspectionRepository.findById(VALID_INSPECTION_ID)).thenReturn(Optional.of(inspection));
 		when(inspectionRepository.save(inspection)).thenReturn(inspection);
 		
-		Inspection savedInspection = inspectionService.addVerificationDetailsToInspection(INSPECTION_ID, verificationDetails);
+		Inspection savedInspection = inspectionService.addVerificationDetailsToInspection(VALID_INSPECTION_ID, verificationDetails);
 		
-		verify(inspectionRepository,times(1)).findById(INSPECTION_ID);
+		verify(inspectionRepository,times(1)).findById(VALID_INSPECTION_ID);
 		assertEquals(INSPECTION_RESULT, savedInspection.getVerificationDetails().getInspectionResult());
 		assertEquals(ENGINEER_COMMENT, savedInspection.getVerificationDetails().getEngineerComment());
 		assertEquals(ENGINEER_ID, savedInspection.getVerificationDetails().getVerifiedBy());
 
 	}
 	
+	@Test
+	public void givenVerificationDetailsWithInValidInspectionId_whenAddVerificationDetailsToInspection_thenShouldThorwNoSuchInspectionException() {
+		when(inspectionRepository.findById(INVALID_INSPECTION_ID)).thenReturn(Optional.empty());
+		
+		try {
+			inspectionService.addVerificationDetailsToInspection(INVALID_INSPECTION_ID, verificationDetails);
+			fail();
+		} catch (NoSuchInspectionException e) {
+			assertEquals(INSPECTION_ERROR_MESSAGE_2, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void givenEquipmentName_whenAddInspection_thenShouldReturnSavedInspectionForThatEquipment() {
+		when(inspectionRepository.save(any())).thenReturn(inspection);
+		
+		Inspection savedInspection = inspectionService.addInspection(VALID_EQUIPMENT_NAME);
+		
+		verify(inspectionRepository,times(1)).save(any());
+		assertEquals(inspection, savedInspection);
+	}
+	
 	@AfterEach
 	public void tearDown() {
 		inspectionList = Collections.emptyList();
 		inspection = null;
+		verificationDetails = null;
 	}
 }

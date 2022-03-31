@@ -1,3 +1,4 @@
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -13,9 +14,11 @@ export class DashboardButtonComponent implements OnInit {
   @Input()
   image?:String;
   @Output() 
-  public dashBoardButtonClicked = new EventEmitter<string>();
+  public dashBoardButtonClicked;
 
-  constructor() { }
+  constructor() {
+    this.dashBoardButtonClicked = new EventEmitter<string>();
+   }
 
   ngOnInit(): void {
   }

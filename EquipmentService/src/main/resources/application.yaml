@@ -1,0 +1,11 @@
+server:
+  port: 8002
+  
+spring:
+  application:
+    name: equipment-service
+  data:
+    mongodb:
+      database: equipment
+      port: 27017
+      host: mongodb

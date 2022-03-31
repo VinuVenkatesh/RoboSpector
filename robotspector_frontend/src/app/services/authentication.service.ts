@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthenticationService {
 
-  url = "http://localhost:3000/auth/v1/";
+  url = "http://localhost:8001/login/";
   constructor(private httpClient:HttpClient) {
 
   }
@@ -17,11 +17,11 @@ export class AuthenticationService {
   }
 
   setBearerToken(token:any) {
-    localStorage.setItem('bearerToken',token);
+    localStorage.setItem('token',token);
   }
 
   getBearerToken() {
-    return localStorage.getItem('bearerToken');
+    return localStorage.getItem('token');
   }
 
   // isUserAuthenticated(): Promise<boolean> {

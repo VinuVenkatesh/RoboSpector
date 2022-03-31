@@ -1,0 +1,16 @@
+server:
+  port: 8005
+  
+spring:
+  application:
+    name: eureka-server
+    
+#Disable this app as eureka client
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

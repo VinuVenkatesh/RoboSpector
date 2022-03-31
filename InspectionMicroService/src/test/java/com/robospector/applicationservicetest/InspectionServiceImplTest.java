@@ -22,6 +22,8 @@ import com.robospector.applicationservice.InspectionServiceImpl;
 import com.robospector.applicationservice.RandomInspectionDetailsGenerator;
 import com.robospector.applicationservice.exception.NoSuchInspectionException;
 import com.robospector.domain.Inspection;
+import com.robospector.domain.InspectionResult;
+import com.robospector.domain.VerificationDetails;
 import com.robospector.repository.InspectionRepository;
 
 public class InspectionServiceImplTest {
@@ -30,6 +32,12 @@ public class InspectionServiceImplTest {
 	private static final String INVALID_EQUIPMENT_NAME = "test123";
 	private static final String INSPECTION_ERROR_MESSAGE_1 = "No inspections exist for this equipment";
 	private static final String INSPECTION_ERROR_MESSAGE_2 = "The inspection does not exist";
+	private static final String ENGINEER_COMMENT = "This is a test comment";
+	private static final int ENGINEER_ID = 1;
+	private static final InspectionResult INSPECTION_RESULT = new InspectionResult();
+	private static final int SEVERITY = 2;
+	private static final String NAME = "Minor wear";
+	private static final String INSPECTION_ID = "321321231";
 	
 	@Mock
 	private InspectionRepository inspectionRepository;
@@ -39,6 +47,7 @@ public class InspectionServiceImplTest {
 	
 	private List<Inspection> inspectionList;
 	private Inspection inspection;
+	private VerificationDetails verificationDetails;
 	
 	@InjectMocks
 	private InspectionServiceImpl inspectionService;
@@ -55,12 +64,14 @@ public class InspectionServiceImplTest {
 		obj.setName(VALID_EQUIPMENT_NAME);
 		inspectionList.add(obj);
 		inspection = obj;
+		inspection.setId(INSPECTION_ID);
 		obj.setCollectingTime(detailsGenerator.createRandomCollectingTime());
 		obj.setDateTime();
 		obj.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
 		obj.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
 		obj.setName(VALID_EQUIPMENT_NAME);
 		inspectionList.add(obj);
+		verificationDetails = new VerificationDetails();
 	}
 	
 	@Test
@@ -97,14 +108,36 @@ public class InspectionServiceImplTest {
 	}
 	
 	@Test
-	public void givenInValidEquipmentName_whenGetRecentInspection_thenShouldReturnTheMostRecentInspection() {
+	public void givenInValidEquipmentName_whenGetRecentInspection_thenShouldThrowNoSuchInspectionException() {
 		when(inspectionRepository.findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(INVALID_EQUIPMENT_NAME)).thenReturn(Optional.empty());
 		
 		try {
 			Inspection savedInspection = inspectionService.getRecentInspection(INVALID_EQUIPMENT_NAME);
+			fail();
 		} catch (NoSuchInspectionException e) {
 			assertEquals(INSPECTION_ERROR_MESSAGE_2, e.getMessage());
 		}	
+	}
+	
+	@Test
+	public void givenVerificationDetailsWithValidInspectionId_whenAddVerificationDetailsToInspection_thenShouldReturnInspectionWithSavedVerificationDetails()
+			throws NoSuchInspectionException {
+		verificationDetails.setEngineerComment(ENGINEER_COMMENT);
+		verificationDetails.setVerifiedBy(ENGINEER_ID);
+		INSPECTION_RESULT.setName(NAME);
+		INSPECTION_RESULT.setSeverity(SEVERITY);
+		verificationDetails.setInspectionResult(INSPECTION_RESULT);
+		inspection.setVerificationDetails(verificationDetails);
+		when(inspectionRepository.findById(INSPECTION_ID)).thenReturn(Optional.of(inspection));
+		when(inspectionRepository.save(inspection)).thenReturn(inspection);
+		
+		Inspection savedInspection = inspectionService.addVerificationDetailsToInspection(INSPECTION_ID, verificationDetails);
+		
+		verify(inspectionRepository,times(1)).findById(INSPECTION_ID);
+		assertEquals(INSPECTION_RESULT, savedInspection.getVerificationDetails().getInspectionResult());
+		assertEquals(ENGINEER_COMMENT, savedInspection.getVerificationDetails().getEngineerComment());
+		assertEquals(ENGINEER_ID, savedInspection.getVerificationDetails().getVerifiedBy());
+
 	}
 	
 	@AfterEach

@@ -38,7 +38,7 @@ export class PersonProfileComponent implements OnInit {
     return this.backgroundColor;
   }
   getBoxShadow(){
-    console.log("box shadow working");
+  
     return this.showShadow ? "0px 10px 2px -3px rgba(0,0,0,0.1)" : '';
   }
   logout(){

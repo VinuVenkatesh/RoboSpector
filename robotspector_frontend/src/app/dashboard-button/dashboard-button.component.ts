@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-button',
@@ -9,13 +9,19 @@ export class DashboardButtonComponent implements OnInit {
 
 
   @Input()
-  title?:String;
+  title:String = "";
   @Input()
   image?:String;
+  @Output() 
+  public dashBoardButtonClicked = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  onDashBoardButtonClicked(){
+    console.log("Dash board button clicked");
+    this.dashBoardButtonClicked.emit(this.title.valueOf());
+  }
+  
 }

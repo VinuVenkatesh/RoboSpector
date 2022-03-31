@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-dashboard-sidebar',
@@ -11,8 +12,9 @@ export class DashboardSidebarComponent implements OnInit {
 
   dashboardButtonTitles:String[] = ["comments","clock","inspection","location"];
   dashboardButtonImages:String[] = ["comments_icon","clock_icon","inspection_icon","location_icon"];
-
   ngOnInit(): void {
   }
-
+  changeCurrentView(e:Event){
+    console.log("Chanage view from dashboard");
+  }
 }

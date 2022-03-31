@@ -11,7 +11,8 @@ export class EquipmentSingleViewComponent implements OnInit {
   isDown:any = false;
   startX:any;
   scrollLeft:any;
-
+  currentView:String = "location";
+  
   constructor() { }
 
   @Input()
@@ -44,5 +45,7 @@ export class EquipmentSingleViewComponent implements OnInit {
     const walk = (x - this.startX) * 3; //scroll-fast
     this.slider.scrollLeft = this.scrollLeft - walk;
   }
-
+  changeCurrentView(e:Event){
+    console.log("Event from equipment view");
+  }
 }

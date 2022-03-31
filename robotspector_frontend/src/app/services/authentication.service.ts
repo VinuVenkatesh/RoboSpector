@@ -17,11 +17,11 @@ export class AuthenticationService {
   }
 
   setBearerToken(token:any) {
-    localStorage.setItem('bearerToken',token);
+    localStorage.setItem('token',token);
   }
 
   getBearerToken() {
-    return localStorage.getItem('bearerToken');
+    return localStorage.getItem('token');
   }
 
   // isUserAuthenticated(): Promise<boolean> {

@@ -11,7 +11,7 @@ public class InspectionDto {
 
 	@Id
 	private String id;
-	private String name;
+	private int equipmentId;
 	private DateTime dateTime;
 	private int collectingTime;
 	private VerificationDetails verificationDetails;
@@ -29,12 +29,12 @@ public class InspectionDto {
 		this.dateTime = dateTime;
 	}
 
-	public String getName() {
-		return name;
+	public int getEquipmentId() {
+		return equipmentId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEquipmentId(int equipmentId) {
+		this.equipmentId = equipmentId;
 	}
 
 	public DateTime getDateTime() {

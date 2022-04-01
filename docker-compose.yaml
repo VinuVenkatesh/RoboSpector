@@ -20,6 +20,30 @@ services:
       -  $LOGIN_MY_SQL_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
     networks:
       -  main-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+
+  inspection-result-service-mysql:
+    image: "mysql:latest"
+    container_name: inspection-result-service-mysql
+    hostname: inspection-result-service-mysql
+    restart: unless-stopped
+    ports:
+      -  $INSPECTION_RESULT_MY_SQL_HOST_PORT:3306
+    environment:
+      -  MYSQL_ROOT_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
+    volumes:
+      -  $INSPECTION_RESULT_MY_SQL_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
+    networks:
+      -  main-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
 
   mongo:
     image: mongo:4.4
@@ -41,6 +65,12 @@ services:
     networks:
       - main-network
     command: ["--bind_ip", "0.0.0.0"]
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/MyDatabaseName --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
 
 
   angular-app:
@@ -63,7 +93,8 @@ services:
     container_name: $LOGIN_APP_NAME
     restart: on-failure
     depends_on:
-      - login-service-mysql
+      login-service-mysql:
+        condition: service_healthy
     ports:
       -  $LOGIN_SERVER_HOST_PORT:8001
     environment:
@@ -76,6 +107,7 @@ services:
     networks:
       -  main-network
 
+
   equipment-service:
     build:
       context: ./EquipmentService
@@ -84,7 +116,8 @@ services:
     container_name: $APP_NAME
     restart: on-failure
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     ports:
       - $SERVER_HOST_PORT:8002
     environment:
@@ -100,3 +133,25 @@ services:
       - SPRING_DATA_MONGODB_DATABASE=$MONGO_DB
     networks:
       - main-network
+
+  inspectionresult-microservice:
+    build:
+      context: "./InspectionResultMicroService"
+      dockerfile: "Dockerfile"
+    image: $INSPECTION_RESULT_APP_NAME
+    container_name: $INSPECTION_RESULT_APP_NAME
+    restart: on-failure
+    depends_on:
+      inspection-result-service-mysql:
+        condition: service_healthy
+    ports:
+      -  $INSPECTION_RESULT_SERVER_HOST_PORT:8003
+    environment:
+      -  SERVER_PORT=8003
+      -  SPRING_PROFILES_ACTIVE=prod
+      -  SPRING_APPLICATION_NAME=$INSPECTION_RESULT_APP_NAME
+      -  SPRING_DATASOURCE_URL=jdbc:mysql://inspection-result-service-mysql:3306/inspectionresult?autoReconnect=true
+      -  SPRING_DATASOURCE_USERNAME=$INSPECTION_RESULT_MY_SQL_ROOT_USERNAME
+      -  SPRING_DATASOURCE_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
+    networks:
+      -  main-network

@@ -5,6 +5,6 @@ RUN mvn -f /home/inspectionResultApp/pom.xml clean install
 
 # Create Spring Boot image
 FROM openjdk:11
-COPY --from=loginBuild /home/inspectionResultApp/target/LoginMicroService-0.0.1-SNAPSHOT.jar cgi.war
-ENTRYPOINT ["java", "-jar", "-Dserver.port=8001", "cgi.war"]
+COPY --from=loginBuild /home/inspectionResultApp/target/InspectionResultMicroService-0.0.1-SNAPSHOT.jar cgi.war
+ENTRYPOINT ["java", "-jar", "-Dserver.port=8003", "cgi.war"]
 EXPOSE 8003

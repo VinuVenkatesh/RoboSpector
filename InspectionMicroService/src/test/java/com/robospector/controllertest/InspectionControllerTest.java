@@ -1,8 +1,6 @@
 package com.robospector.controllertest;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -38,10 +36,8 @@ import com.robospector.domain.VerificationDetails;
 @AutoConfigureMockMvc
 public class InspectionControllerTest {
 	
-	private static final String VALID_EQUIPMENT_NAME = "test";
-	private static final String INVALID_EQUIPMENT_NAME = "test123";
-	private static final String INSPECTION_ERROR_MESSAGE_1 = "No inspections exist for this equipment";
-	private static final String INSPECTION_ERROR_MESSAGE_2 = "The inspection does not exist";
+	private static final int VALID_EQUIPMENT_ID = 1;
+	private static final int INVALID_EQUIPMENT_ID = 10;
 	private static final String ENGINEER_COMMENT = "This is a test comment";
 	private static final int ENGINEER_ID = 1;
 	private static final InspectionResult INSPECTION_RESULT = new InspectionResult();
@@ -74,7 +70,7 @@ public class InspectionControllerTest {
 		obj.setDateTime();
 		obj.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
 		obj.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
-		obj.setName(VALID_EQUIPMENT_NAME);
+		obj.setEquipmentId(VALID_EQUIPMENT_ID);
 		inspectionList.add(obj);
 		inspection = obj;
 		inspection.setId(VALID_INSPECTION_ID);
@@ -82,7 +78,7 @@ public class InspectionControllerTest {
 		obj.setDateTime();
 		obj.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
 		obj.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
-		obj.setName(VALID_EQUIPMENT_NAME);
+		obj.setEquipmentId(VALID_EQUIPMENT_ID);
 		inspectionList.add(obj);
 		verificationDetails = new VerificationDetails();
 		verificationDetails.setEngineerComment(ENGINEER_COMMENT);
@@ -96,9 +92,9 @@ public class InspectionControllerTest {
 	@Test
 	public void givenValidEquipmentName_whenMostRecentInspection_thenShouldReturnMostRecentInspectionWithStatusOk()
 			throws Exception {
-		when(inspectionService.getRecentInspection(VALID_EQUIPMENT_NAME)).thenReturn(inspection);
+		when(inspectionService.getRecentInspection(VALID_EQUIPMENT_ID)).thenReturn(inspection);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/recent/" + VALID_EQUIPMENT_NAME)
+		mockMvc.perform(MockMvcRequestBuilders.get("/recent/" + VALID_EQUIPMENT_ID)
 				.contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -107,9 +103,9 @@ public class InspectionControllerTest {
 	@Test
 	public void givenInvalidEquipmentName_whenMostRecentInspection_thenShouldErrorMessageWithStatusNotFound()
 			throws Exception {
-		doThrow(NoSuchInspectionException.class).when(inspectionService).getRecentInspection(INVALID_EQUIPMENT_NAME);
+		doThrow(NoSuchInspectionException.class).when(inspectionService).getRecentInspection(INVALID_EQUIPMENT_ID);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/recent/" + INVALID_EQUIPMENT_NAME)
+		mockMvc.perform(MockMvcRequestBuilders.get("/recent/" + INVALID_EQUIPMENT_ID)
 				.contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
@@ -142,9 +138,9 @@ public class InspectionControllerTest {
 	@Test
 	public void givenEquipmentNameToAdd_whenCreateInspection_thenShouldReturnAddedWithStatusOk()
 			throws Exception {
-		when(inspectionService.addInspection(VALID_EQUIPMENT_NAME)).thenReturn(inspection);
+		when(inspectionService.addInspection(VALID_EQUIPMENT_ID)).thenReturn(inspection);
 		
-		mockMvc.perform(MockMvcRequestBuilders.post("/add/" + VALID_EQUIPMENT_NAME)
+		mockMvc.perform(MockMvcRequestBuilders.post("/add/" + VALID_EQUIPMENT_ID)
 				.contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -153,9 +149,9 @@ public class InspectionControllerTest {
 	@Test
 	public void givenValidEquipmentName_whenGetAllInspectionsForEquipment_thenShouldReturnListOfInspections()
 			throws Exception {
-		when(inspectionService.getAllInspections(VALID_EQUIPMENT_NAME)).thenReturn(inspectionList);
+		when(inspectionService.getAllInspections(VALID_EQUIPMENT_ID)).thenReturn(inspectionList);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/getall/" + VALID_EQUIPMENT_NAME)
+		mockMvc.perform(MockMvcRequestBuilders.get("/getall/" + VALID_EQUIPMENT_ID)
 				.contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -166,33 +162,33 @@ public class InspectionControllerTest {
 			throws Exception {
 		doThrow(NoSuchInspectionException.class).when(inspectionService).getAllInspections(any());
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/getall/" + INVALID_EQUIPMENT_NAME)
+		mockMvc.perform(MockMvcRequestBuilders.get("/getall/" + INVALID_EQUIPMENT_ID)
 				.contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
 	}
 	
-	@Test
-	public void givenValidEquipmentName_whenDeleteAllInspectionsForEquipment_thenShouldReturnStatusOk()
-			throws Exception {
-		doNothing().when(inspectionService).deleteInspections(VALID_EQUIPMENT_NAME);
-		
-		mockMvc.perform(MockMvcRequestBuilders.delete("/deleteall/" + VALID_EQUIPMENT_NAME)
-				.contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-	}
-	
-	@Test
-	public void givenInvalidEquipmentName_whenDeleteAllInspectionsForEquipment_thenShouldThrowNoSuchInspectionException()
-			throws Exception {
-		doThrow(NoSuchInspectionException.class).when(inspectionService).deleteInspections(any());
-		
-		mockMvc.perform(MockMvcRequestBuilders.delete("/deleteall/" + VALID_EQUIPMENT_NAME)
-				.contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andDo(MockMvcResultHandlers.print());
-	}
+//	@Test
+//	public void givenValidEquipmentName_whenDeleteAllInspectionsForEquipment_thenShouldReturnStatusOk()
+//			throws Exception {
+//		doNothing().when(inspectionService).deleteInspections(VALID_EQUIPMENT_ID);
+//		
+//		mockMvc.perform(MockMvcRequestBuilders.delete("/deleteall/" + VALID_EQUIPMENT_ID)
+//				.contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(MockMvcResultHandlers.print());
+//	}
+//	
+//	@Test
+//	public void givenInvalidEquipmentName_whenDeleteAllInspectionsForEquipment_thenShouldThrowNoSuchInspectionException()
+//			throws Exception {
+//		doThrow(NoSuchInspectionException.class).when(inspectionService).deleteInspections(any());
+//		
+//		mockMvc.perform(MockMvcRequestBuilders.delete("/deleteall/" + VALID_EQUIPMENT_ID)
+//				.contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isNotFound())
+//                .andDo(MockMvcResultHandlers.print());
+//	}
 	
 	private static String asJsonString(final Object obj) {
         try {

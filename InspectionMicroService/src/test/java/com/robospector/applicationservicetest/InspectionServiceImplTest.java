@@ -3,7 +3,6 @@ package com.robospector.applicationservicetest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,8 +29,8 @@ import com.robospector.repository.InspectionRepository;
 
 public class InspectionServiceImplTest {
 
-	private static final String VALID_EQUIPMENT_NAME = "test";
-	private static final String INVALID_EQUIPMENT_NAME = "test123";
+	private static final int VALID_EQUIPMENT_ID = 1;
+	private static final int INVALID_EQUIPMENT_ID = 10;
 	private static final String INSPECTION_ERROR_MESSAGE_1 = "No inspections exist for this equipment";
 	private static final String INSPECTION_ERROR_MESSAGE_2 = "The inspection does not exist";
 	private static final String ENGINEER_COMMENT = "This is a test comment";
@@ -64,7 +63,7 @@ public class InspectionServiceImplTest {
 		obj.setDateTime();
 		obj.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
 		obj.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
-		obj.setName(VALID_EQUIPMENT_NAME);
+		obj.setEquipmentId(VALID_EQUIPMENT_ID);
 		inspectionList.add(obj);
 		inspection = obj;
 		inspection.setId(VALID_INSPECTION_ID);
@@ -72,7 +71,7 @@ public class InspectionServiceImplTest {
 		obj.setDateTime();
 		obj.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
 		obj.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
-		obj.setName(VALID_EQUIPMENT_NAME);
+		obj.setEquipmentId(VALID_EQUIPMENT_ID);
 		inspectionList.add(obj);
 		verificationDetails = new VerificationDetails();
 		verificationDetails.setEngineerComment(ENGINEER_COMMENT);
@@ -86,20 +85,20 @@ public class InspectionServiceImplTest {
 	@Test
 	public void givenValidEquipmentName_whenGetAllInspections_thenShouldReturnListOfInspectionsForThatEquipment()
 			throws NoSuchInspectionException {
-		when(inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_NAME)).thenReturn(inspectionList);
+		when(inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_ID)).thenReturn(inspectionList);
 		
-		List<Inspection> list = inspectionService.getAllInspections(VALID_EQUIPMENT_NAME);
+		List<Inspection> list = inspectionService.getAllInspections(VALID_EQUIPMENT_ID);
 		
-		verify(inspectionRepository,times(1)).findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_NAME);
+		verify(inspectionRepository,times(1)).findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_ID);
 		assertEquals(inspectionList, list);
 	}
 	
 	@Test
 	public void givenInvalidEquipmentName_whenGetAllInspections_ThenShouldThrowNoSuchInspectionException() {
-		when(inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(INVALID_EQUIPMENT_NAME)).thenReturn(Collections.emptyList());
+		when(inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(INVALID_EQUIPMENT_ID)).thenReturn(Collections.emptyList());
 
 		try {
-			inspectionService.getAllInspections(INVALID_EQUIPMENT_NAME);
+			inspectionService.getAllInspections(INVALID_EQUIPMENT_ID);
 			fail();
 		} catch (NoSuchInspectionException e) {
 			assertEquals(INSPECTION_ERROR_MESSAGE_1, e.getMessage());
@@ -110,20 +109,20 @@ public class InspectionServiceImplTest {
 	@Test
 	public void givenValidEquipmentName_whenGetRecentInspection_thenShouldReturnTheMostRecentInspection()
 			throws NoSuchInspectionException {
-		when(inspectionRepository.findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(VALID_EQUIPMENT_NAME)).thenReturn(Optional.of(inspection));
+		when(inspectionRepository.findFirstByEquipmentIdOrderByDateTimeDateDescDateTimeTimeDesc(VALID_EQUIPMENT_ID)).thenReturn(Optional.of(inspection));
 		
-		Inspection savedInspection = inspectionService.getRecentInspection(VALID_EQUIPMENT_NAME);
+		Inspection savedInspection = inspectionService.getRecentInspection(VALID_EQUIPMENT_ID);
 		
-		verify(inspectionRepository,times(1)).findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(VALID_EQUIPMENT_NAME);
+		verify(inspectionRepository,times(1)).findFirstByEquipmentIdOrderByDateTimeDateDescDateTimeTimeDesc(VALID_EQUIPMENT_ID);
 		assertEquals(inspection, savedInspection);
 	}
 	
 	@Test
 	public void givenInValidEquipmentName_whenGetRecentInspection_thenShouldThrowNoSuchInspectionException() {
-		when(inspectionRepository.findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(INVALID_EQUIPMENT_NAME)).thenReturn(Optional.empty());
+		when(inspectionRepository.findFirstByEquipmentIdOrderByDateTimeDateDescDateTimeTimeDesc(INVALID_EQUIPMENT_ID)).thenReturn(Optional.empty());
 		
 		try {
-			inspectionService.getRecentInspection(INVALID_EQUIPMENT_NAME);
+			inspectionService.getRecentInspection(INVALID_EQUIPMENT_ID);
 			fail();
 		} catch (NoSuchInspectionException e) {
 			assertEquals(INSPECTION_ERROR_MESSAGE_2, e.getMessage());
@@ -161,38 +160,38 @@ public class InspectionServiceImplTest {
 	public void givenEquipmentName_whenAddInspection_thenShouldReturnSavedInspectionForThatEquipment() {
 		when(inspectionRepository.save(any())).thenReturn(inspection);
 		
-		Inspection savedInspection = inspectionService.addInspection(VALID_EQUIPMENT_NAME);
+		Inspection savedInspection = inspectionService.addInspection(VALID_EQUIPMENT_ID);
 		
 		verify(inspectionRepository,times(1)).save(any());
 		assertEquals(inspection, savedInspection);
 	}
 	
-	@Test
-	public void givenValidEquipmentName_whenDeleteInspections_thenShouldDeleteAllInspectionsForGivenEquipmentName()
-			throws NoSuchInspectionException {
-		when(inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_NAME)).thenReturn(inspectionList);
-		doNothing().when(inspectionRepository).deleteAll(inspectionList);
-		
-		inspectionService.deleteInspections(VALID_EQUIPMENT_NAME);
-		
-		verify(inspectionRepository,times(1)).findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_NAME);
-		verify(inspectionRepository,times(1)).deleteAll(inspectionList);
-
-	}
-	
-	@Test
-	public void givenInvalidEquipmentName_whenDeleteInspections_thenShouldThrowNoSuchInspectionException() {
-		when(inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_NAME)).thenReturn(Collections.emptyList());
-	
-		try {
-			inspectionService.deleteInspections(VALID_EQUIPMENT_NAME);
-			fail();
-		} catch (NoSuchInspectionException e) {
-			assertEquals(INSPECTION_ERROR_MESSAGE_1, e.getMessage());
-		}
-
-		
-	}
+//	@Test
+//	public void givenValidEquipmentName_whenDeleteInspections_thenShouldDeleteAllInspectionsForGivenEquipmentName()
+//			throws NoSuchInspectionException {
+//		when(inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_ID)).thenReturn(inspectionList);
+//		doNothing().when(inspectionRepository).deleteAll(inspectionList);
+//		
+//		inspectionService.deleteInspections(VALID_EQUIPMENT_ID);
+//		
+//		verify(inspectionRepository,times(1)).findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_ID);
+//		verify(inspectionRepository,times(1)).deleteAll(inspectionList);
+//
+//	}
+//	
+//	@Test
+//	public void givenInvalidEquipmentName_whenDeleteInspections_thenShouldThrowNoSuchInspectionException() {
+//		when(inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(VALID_EQUIPMENT_ID)).thenReturn(Collections.emptyList());
+//	
+//		try {
+//			inspectionService.deleteInspections(VALID_EQUIPMENT_ID);
+//			fail();
+//		} catch (NoSuchInspectionException e) {
+//			assertEquals(INSPECTION_ERROR_MESSAGE_1, e.getMessage());
+//		}
+//
+//		
+//	}
 	
 	@AfterEach
 	public void tearDown() {

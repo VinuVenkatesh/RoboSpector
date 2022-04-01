@@ -8,14 +8,14 @@ public class Inspection {
 
 	@Id
 	private String id;
-	private String equipmentId;
+	private int equipmentId;
 	private DateTime dateTime;
 	private int collectingTime;
 	private VerificationDetails verificationDetails;
 
-	public Inspection(String name, int collectingTime, VerificationDetails verificationDetails) {
+	public Inspection(int equipmentId, int collectingTime, VerificationDetails verificationDetails) {
 		super();
-		this.equipmentId = name;
+		this.equipmentId = equipmentId;
 		this.dateTime = new DateTime();
 		this.collectingTime = collectingTime;
 		this.verificationDetails = verificationDetails;
@@ -37,12 +37,12 @@ public class Inspection {
 		this.dateTime = new DateTime();
 	}
 
-	public String getName() {
+	public int getEquipmentId() {
 		return equipmentId;
 	}
 
-	public void setName(String name) {
-		this.equipmentId = name;
+	public void setEquipmentId(int equipmentId) {
+		this.equipmentId = equipmentId;
 	}
 
 	public DateTime getDateTime() {

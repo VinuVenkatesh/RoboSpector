@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +29,10 @@ public class InspectionController {
 	@Autowired
 	private InspectionResultService inspectionResultControllerService;
 	
-	@GetMapping("/recent/{name}")
-	public InspectionDto mostRecentInspection(@PathVariable("name") String name) {
+	@GetMapping("/recent/{equipmentId}")
+	public InspectionDto mostRecentInspection(@PathVariable("equipmentId") int equipmentId) {
 		try {
-			Inspection recentInspection = inspectionService.getRecentInspection(name);
+			Inspection recentInspection = inspectionService.getRecentInspection(equipmentId);
 			InspectionDto inspectionDto = mapper.map(recentInspection, InspectionDto.class);
 			return inspectionDto;
 		} catch (NoSuchInspectionException e) {
@@ -52,15 +51,15 @@ public class InspectionController {
 		}
 	}
 
-	@PostMapping("/add/{name}")
-	public ResponseEntity<?> createInspection(@PathVariable("name") String name) {
-		return new ResponseEntity<>(inspectionService.addInspection(name), HttpStatus.OK);
+	@PostMapping("/add/{equipmentId}")
+	public ResponseEntity<?> createInspection(@PathVariable("equipmentId") int equipmentId) {
+		return new ResponseEntity<>(inspectionService.addInspection(equipmentId), HttpStatus.OK);
 	}
 
-	@GetMapping("/getall/{name}")
-	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable("name") String name) {
+	@GetMapping("/getall/{equipmentId}")
+	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable("equipmentId") int equipmentId) {
 		try {
-			return new ResponseEntity<>(inspectionService.getAllInspections(name), HttpStatus.OK);
+			return new ResponseEntity<>(inspectionService.getAllInspections(equipmentId), HttpStatus.OK);
 		} catch (NoSuchInspectionException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}

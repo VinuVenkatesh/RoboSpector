@@ -8,11 +8,11 @@ public class PieceOfEquipment {
 
 	@Id
 	private int id;
-
 	private String name;
 	private Location location;
 	private int aging;
 	private String comment;
+	private boolean isArchived;
 
 	public PieceOfEquipment() {
 		super();
@@ -67,10 +67,17 @@ public class PieceOfEquipment {
 		this.comment = comment;
 	}
 
+	public boolean isArchived() {
+		return isArchived;
+	}
+
+	public void setArchived(boolean isArchived) {
+		this.isArchived = isArchived;
+	}
+
 	@Override
 	public String toString() {
 		return "PieceOfEquipment [id=" + id + ", name=" + name + ", location=" + location + ", aging=" + aging
-				+ ", comment=" + comment + "]";
+				+ ", comment=" + comment + ", isArchived=" + isArchived + "]";
 	}
-
 }

@@ -1,32 +1,46 @@
 package com.robospector.service;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.robospector.applicationService.EquipmentService;
-import com.robospector.domain.User;
+import com.robospector.applicationService.EquipmentServiceImpl;
+import com.robospector.domain.PieceOfEquipment;
+import com.robospector.repository.EquipmentRepository;
 
 @ExtendWith(MockitoExtension.class)
 class EquipmentServiceImplTest {
 
-	private static User user1;
+	private PieceOfEquipment aPieceOfEquipment;
 	
-	private EquipmentService equipmentService;
+	@Mock
+	private EquipmentRepository equipmentRepository;
+	
+	@InjectMocks
+	private EquipmentServiceImpl equipmentService;
 	
 	@BeforeEach
 	public void setUp() {
-		user1 = new User();
+		aPieceOfEquipment = new PieceOfEquipment();
 	}
 	
-	// ToDo Verify userToken then set creationpermission to true
-	// verify if user has permission to create before creating
-	
 	@Test
-	void whenCreatePieceOfEquipment_thenEquipmentShouldBeCreated() {
-		user1.grantCreationPermission(true);
+	void givenAPieceOfEquipment_whenCreatePieceOfEquipment_thenEquipmentShouldNotBeArchived() { // Todo: rename method to save()
+		equipmentService.createPieceOfEquipment(aPieceOfEquipment);
 		
-		//PieceOfEquipement pieceOfEquipement	= equipmentService.createPieceOfEquipment();
+		assertFalse(aPieceOfEquipment.isArchived());
+	}
+		
+	@Test
+	void givenAPieceOfEquipemnt_whenCreatePieceOfEquipment_thenRepositorySouldSaveThePieceOfEquipement() {
+		equipmentService.createPieceOfEquipment(aPieceOfEquipment);
+		
+		verify(equipmentRepository).save(aPieceOfEquipment);
 	}
 }

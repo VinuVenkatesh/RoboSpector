@@ -1,4 +1,4 @@
-package com.robospector.controller;
+package com.robospector.controller.dto;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;

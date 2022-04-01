@@ -8,4 +8,4 @@ spring:
     mongodb:
       database: equipment
       port: 27017
-      host: mongodb
+      host: localhost

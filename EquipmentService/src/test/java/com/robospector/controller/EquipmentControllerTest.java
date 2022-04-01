@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.robospector.applicationService.EquipmentService;
+import com.robospector.controller.dto.PieceOfEquipmentDto;
+import com.robospector.controller.exception.InvalidInputException;
 import com.robospector.domain.PieceOfEquipment;
 
 @SpringBootTest
@@ -38,11 +40,16 @@ class EquipmentControllerTest {
 	@BeforeEach
 	public void setUp() {
 		createAPieceOfEquipmentDto();
-		//equipmentController = new EquipmentController(equipmentService);
-		//mockMvc = MockMvcBuilders.standaloneSetup(equipmentController).build();
+	}
+	/*
+	public void givenEquipementDto_whenCreatePieceOfEquipment_thenShouldValidateTheDto() throws InvalidInputException {
+		equipmentController.createPieceOfEquipment(pieceOfEquipmentDto);
+		
+		verify(null);
 	}
 	
-	// TODO: Test if user has been given creation permission
+	 */
+	
 	/*
 	@Test
 	public void givenEquipementDto_whenCreatePieceOfEquipment_thenShouldConvertToPieceOfEquipementClass() {

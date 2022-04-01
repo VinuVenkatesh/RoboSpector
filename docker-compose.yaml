@@ -155,3 +155,5 @@ services:
       -  SPRING_DATASOURCE_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
     networks:
       -  main-network
+
+  

@@ -28,20 +28,6 @@ public class EquipmentController {
 	public ResponseEntity<?> heartbeatTest() {
 		return new ResponseEntity<>("Equipment service is alive", HttpStatus.OK);
 	}
-	
-	@GetMapping("/all")
-	public ResponseEntity<?> getAllEquipment() {
-		System.out.println("==========================================================================");
-		System.out.println("Got here: getAll");
-		System.out.println("==========================================================================");
-		List<PieceOfEquipment> equipmentRetrieved = equipmentService.getAllEquipemt();
-		
-		if(equipmentRetrieved.isEmpty()) {
-			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
-	}
 
 	@PostMapping("/create")
 	public ResponseEntity<?> createPieceOfEquipment(@RequestBody PieceOfEquipmentDto pieceOfEquipmentDto) {
@@ -58,4 +44,19 @@ public class EquipmentController {
 		//return new ResponseEntity<>("Got here", HttpStatus.OK);
 		return new ResponseEntity<>(pieceOfEquipmentRetrieved, HttpStatus.OK);
 	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<?> getAllEquipment() {
+		System.out.println("==========================================================================");
+		System.out.println("Got here: getAll");
+		System.out.println("==========================================================================");
+		List<PieceOfEquipment> equipmentRetrieved = equipmentService.getAllEquipemt();
+		
+		if(equipmentRetrieved.isEmpty()) {
+			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
+	}
+
 }

@@ -91,6 +91,8 @@ public class EquipmentController {
 			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
 		}
 		
+		//PieceOfEquipmentDto pieceOfEquipement = mapper.map(equipmentRetrieved, PieceOfEquipmentDto.class);
+		
 		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
 	}
 }

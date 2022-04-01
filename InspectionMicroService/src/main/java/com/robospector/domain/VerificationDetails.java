@@ -9,7 +9,6 @@ public class VerificationDetails {
 
 	public VerificationDetails() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public VerificationDetails(int verifiedBy, InspectionResult inspectionResult, String engineerComment) {

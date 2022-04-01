@@ -30,5 +30,4 @@ public class InspectionResult {
 	public void setSeverity(int severity) {
 		this.severity = severity;
 	}
-
 }

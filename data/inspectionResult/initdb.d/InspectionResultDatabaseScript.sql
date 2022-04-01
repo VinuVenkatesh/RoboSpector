@@ -14,5 +14,3 @@ INSERT INTO result(name,severity)
         ('Minor wear',2),
         ('Major wear',3),
         ('On-site inspection required',4);
-        
-DROP inspectionresult;

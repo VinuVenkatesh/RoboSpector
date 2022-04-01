@@ -1,0 +1,210 @@
+version: "3.9"
+
+networks:
+  main-network:
+    external:
+      name: $NETWORK_NAME
+
+
+services:
+  login-service-mysql:
+    image: "mysql:latest"
+    container_name: login-service-mysql
+    hostname: login-service-mysql
+    restart: unless-stopped
+    ports:
+      -  $LOGIN_MY_SQL_HOST_PORT:3306
+    environment:
+      -  MYSQL_ROOT_PASSWORD=$LOGIN_MY_SQL_ROOT_PASSWORD
+    volumes:
+      -  $LOGIN_MY_SQL_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
+    networks:
+      -  main-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+
+  inspection-result-service-mysql:
+    image: "mysql:latest"
+    container_name: inspection-result-service-mysql
+    hostname: inspection-result-service-mysql
+    restart: unless-stopped
+    ports:
+      -  $INSPECTION_RESULT_MY_SQL_HOST_PORT:3306
+    environment:
+      -  MYSQL_ROOT_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
+    volumes:
+      -  $INSPECTION_RESULT_MY_SQL_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
+    networks:
+      -  main-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+
+  mongo:
+    image: mongo:4.4
+    container_name: mongo
+    hostname: mongo
+    restart: unless-stopped
+    ports:
+      - $MONGO_HOST_PORT:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE=$MONGO_DB
+      - MONGO_DB_USERNAME=$MONGO_DB_USERNAME
+      - MONGO_DB_PASSWORD=$MONGO_DB_PASSWORD
+    volumes:
+      - $MONGO_DATA_HOST_PATH:/data/db/
+      - $MONGO_LOG_HOST_PATH:/var/log/mongodb/
+      - $MONGO_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
+    networks:
+      - main-network
+    command: ["--bind_ip", "0.0.0.0"]
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/equipment --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 12
+  
+
+  inspection-mongo:
+    image: mongo:4.4
+    container_name: inspection-mongo
+    hostname: inspection-mongo
+    restart: unless-stopped
+    ports:
+      - $INSPECTION_MONGO_HOST_PORT:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$INSPECTION_MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$INSPECTION_MONGO_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE=$INSPECTION_MONGO_DB
+      - MONGO_DB_USERNAME=$INSPECTION_MONGO_DB_USERNAME
+      - MONGO_DB_PASSWORD=$INSPECTION_MONGO_DB_PASSWORD
+    volumes:
+      - $INSPECTION_MONGO_DATA_HOST_PATH:/data/db/
+      - $INSPECTION_MONGO_LOG_HOST_PATH:/var/log/mongodb/
+      - $INSPECTION_MONGO_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
+    networks:
+      - main-network
+    command: ["--bind_ip", "0.0.0.0"]
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/inspection --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+
+
+  angular-app:
+    image: "robospector-front-end"
+    ports:
+      -  4200:80
+    depends_on:
+      -  login-service-mysql
+    build:
+      context: "./robotspector_frontend"
+      dockerfile: "Dockerfile"
+    networks:
+      -  main-network
+
+  login-service:
+    build:
+      context: "./LoginMicroService"
+      dockerfile: "Dockerfile"
+    image: $LOGIN_APP_NAME
+    container_name: $LOGIN_APP_NAME
+    restart: on-failure
+    depends_on:
+      login-service-mysql:
+        condition: service_healthy
+    ports:
+      -  $LOGIN_SERVER_HOST_PORT:8001
+    environment:
+      -  SERVER_PORT=8001
+      -  SPRING_PROFILES_ACTIVE=prod
+      -  SPRING_APPLICATION_NAME=$LOGIN_APP_NAME
+      -  SPRING_DATASOURCE_URL=jdbc:mysql://login-service-mysql:3306/login?autoReconnect=true
+      -  SPRING_DATASOURCE_USERNAME=$LOGIN_MY_SQL_ROOT_USERNAME
+      -  SPRING_DATASOURCE_PASSWORD=$LOGIN_MY_SQL_ROOT_PASSWORD
+    networks:
+      -  main-network
+
+
+  equipment-service:
+    build:
+      context: ./EquipmentService
+      dockerfile: Dockerfile
+    image: $APP_NAME
+    container_name: $APP_NAME
+    restart: on-failure
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - $SERVER_HOST_PORT:8002
+    environment:
+      - SERVER_PORT=8002
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_APPLICATION_NAME=$APP_NAME
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=$MONGO_DB
+      - SPRING_DATA_MONGODB_AUTO_INDEX_CREATION=$MONGO_AUTO_INDEX_CREATION
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_USERNAME=$MONGO_DB_USERNAME
+      - SPRING_DATA_MONGODB_PASSWORD=$MONGO_DB_PASSWORD
+      - SPRING_DATA_MONGODB_DATABASE=$MONGO_DB
+    networks:
+      - main-network
+
+  inspectionresult-microservice:
+    build:
+      context: "./InspectionResultMicroService"
+      dockerfile: "Dockerfile"
+    image: $INSPECTION_RESULT_APP_NAME
+    container_name: $INSPECTION_RESULT_APP_NAME
+    restart: on-failure
+    depends_on:
+      inspection-result-service-mysql:
+        condition: service_healthy
+    ports:
+      -  $INSPECTION_RESULT_SERVER_HOST_PORT:8003
+    environment:
+      -  SERVER_PORT=8003
+      -  SPRING_PROFILES_ACTIVE=prod
+      -  SPRING_APPLICATION_NAME=$INSPECTION_RESULT_APP_NAME
+      -  SPRING_DATASOURCE_URL=jdbc:mysql://inspection-result-service-mysql:3306/inspectionresult?autoReconnect=true
+      -  SPRING_DATASOURCE_USERNAME=$INSPECTION_RESULT_MY_SQL_ROOT_USERNAME
+      -  SPRING_DATASOURCE_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
+    networks:
+      -  main-network
+
+  inspection-service:
+    build:
+      context: ./InspectionMicroService
+      dockerfile: Dockerfile
+    image: $INSPECTION_APP_NAME
+    container_name: $INSPECTION_APP_NAME
+    restart: on-failure
+    depends_on:
+      inspection-mongo:
+        condition: service_healthy
+    ports:
+      - $INSPECTION_SERVER_HOST_PORT:8004
+    environment:
+      - SERVER_PORT=8004
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_APPLICATION_NAME=$INSPECTION_APP_NAME
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=$INSPECTION_MONGO_DB
+      - SPRING_DATA_MONGODB_AUTO_INDEX_CREATION=$INSPECTION_MONGO_AUTO_INDEX_CREATION
+      - SPRING_DATA_MONGODB_HOST=inspection-mongo
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_USERNAME=$INSPECTION_MONGO_DB_USERNAME
+      - SPRING_DATA_MONGODB_PASSWORD=$INSPECTION_MONGO_DB_PASSWORD
+      - SPRING_DATA_MONGODB_DATABASE=$INSPECTION_MONGO_DB
+    networks:
+      - main-network

@@ -13,7 +13,7 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
     
-    constructor(private formBuilder:FormBuilder) {}
+    constructor(private formBuilder:FormBuilder,private service:AuthenticationService) {}
     //one space between methods
     ngOnInit() {
     
@@ -27,14 +27,41 @@ export class LoginComponent {
     }
     
     loginSubmit() {
+<<<<<<< HEAD
       if (this.form.valid == false ){
+=======
+      console.log("=====");
+      console.log(this.form.value);
+      console.log("=====");
+
+      this.service.authenticateUser(this.form.value).subscribe( (data:any) =>{
+>>>>>>> draftFeign
         
-        this.submitMessage = "Username or password invalid"
+        if (data!=null){
         
-      }else{
-        this.submitMessage = "Suceess";
-        
+         this.service.setBearerToken(data['token']);
+        }
+      },
+      (error) =>{
+        if (error!= null){
+          if (error.message.includes("403")){
+            this.submitMessage = "Unauthorized";
+            return;
+          }
+          this.submitMessage = error.message;
+        }
       }
-     
+      
+      )
     }
+    //   if (this.form.valid == false ){
+        
+    //     this.submitMessage = "Username or password invalid"
+        
+    //   }else{
+    //     this.submitMessage = "Suceess";
+        
+    //   }
+     
+    // }
 }

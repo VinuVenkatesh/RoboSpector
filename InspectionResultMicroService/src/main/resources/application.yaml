@@ -1,0 +1,22 @@
+server:
+  port: 8003
+  error:
+    include-stacktrace: on-param
+spring:
+  application:
+    name: inspectionresult-microservice
+  datasource:
+    url: jdbc:mysql://localhost:3306/inspectionresult?autoReconnect=true
+    username: root
+    password: Karumari*08
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8005/eureka/

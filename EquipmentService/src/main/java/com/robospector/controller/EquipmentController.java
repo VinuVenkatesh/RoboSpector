@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,11 @@ import com.robospector.controller.exception.InvalidInputException;
 import com.robospector.domain.PieceOfEquipment;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class EquipmentController {
+	
+	private static final int MIN_NUMBER_OF_INSPECTIONS = 5;
+	private static final int MAX_NUMBER_OF_INSPECTIONS = 10;
 	
 	@Autowired
 	private PieceOfEquipmentDtoValidator pieceOfEquipmentDtoValidator;
@@ -31,10 +35,13 @@ public class EquipmentController {
 	private EquipmentService equipmentService;
 	
 	@Autowired
-	private InspectionService inspectionServiceFeign;
+	private InspectionService inspectionService;
 	
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private RandomNumberGenerator randomNumberGenerator;
 	
 	@PostMapping("/")
 	public ResponseEntity<?> heartbeatTest() {
@@ -46,13 +53,19 @@ public class EquipmentController {
 	@PostMapping("/create")
 	public ResponseEntity<?> createPieceOfEquipment(@RequestBody PieceOfEquipmentDto pieceOfEquipmentDto)
 			throws InvalidInputException {
+		
 		pieceOfEquipmentDtoValidator.validate(pieceOfEquipmentDto);
 		
+		int amountOfInspectionsToBeCreated = randomNumberGenerator.getRandomNumberBetween(MIN_NUMBER_OF_INSPECTIONS, MAX_NUMBER_OF_INSPECTIONS);
 		PieceOfEquipment pieceOfEquipement = mapper.map(pieceOfEquipmentDto, PieceOfEquipment.class);
 		PieceOfEquipment pieceOfEquipmentCreated = equipmentService.createPieceOfEquipment(pieceOfEquipement);
 		
 		if(pieceOfEquipmentCreated == null) {
 			return new ResponseEntity<>("Could not create equipement", HttpStatus.BAD_REQUEST);
+		}
+				
+		for (int i = 0; i < amountOfInspectionsToBeCreated; i++) {
+			inspectionService.createInspection(pieceOfEquipmentCreated.getId());
 		}
 		
 		return new ResponseEntity<>(pieceOfEquipmentCreated, HttpStatus.OK);
@@ -102,14 +115,14 @@ public class EquipmentController {
 		});
 		
 		pieceOfEquipementList.forEach(x ->{
-			x.setInspection(inspectionServiceFeign.mostRecentInspection(x.getName()));
+			x.setInspection(inspectionService.mostRecentInspection(x.getId()));
 		});
 		
 		return new ResponseEntity<>(pieceOfEquipementList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/equipment/{name}")
-	public ResponseEntity<?> testControllerMethod(@PathVariable ("name") String name ){
-		return new ResponseEntity<>(inspectionServiceFeign.getAllInspectionsForEquipment(name).getBody(),HttpStatus.OK);
+	@GetMapping("/equipment/{equipmentId}")
+	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable ("equipmentId") int equipmentId ){
+		return new ResponseEntity<>(inspectionService.getAllInspectionsForEquipment(equipmentId).getBody(),HttpStatus.OK);
 	}
 }

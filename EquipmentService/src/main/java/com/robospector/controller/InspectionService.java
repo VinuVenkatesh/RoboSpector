@@ -11,12 +11,12 @@ import com.robospector.controller.dto.InspectionDto;
 @FeignClient(name =  "INSPECTION-SERVICE")
 public interface InspectionService {
 
-	@PostMapping("/add/{name}")
-	public ResponseEntity<?> createInspection(@PathVariable("name") String name);
+	@PostMapping("/add/{equipmentId}")
+	public ResponseEntity<?> createInspection(@PathVariable("equipmentId") int equipmentId);
 	
-	@GetMapping("/getall/{name}")
-	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable("name") String name);
+	@GetMapping("/getall/{equipmentId}")
+	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable("equipmentId") int equipmentId);
 	
-	@GetMapping("/recent/{name}")
-	public InspectionDto mostRecentInspection(@PathVariable("name") String name);
+	@GetMapping("/recent/{equipmentId}")
+	public InspectionDto mostRecentInspection(@PathVariable("equipmentId") int equipmentId);
 }

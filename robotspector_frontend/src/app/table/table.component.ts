@@ -11,6 +11,8 @@ export class TableComponent implements OnInit {
   isDown:any = false;
   startY:any;
   scrollTop:any;
+  severityLevels = [5,4,3,2,1,1,1,1,1];
+  age = [10,40,30,25,80,99,70,60,10];
   constructor() {}
 
   ngOnInit(): void {

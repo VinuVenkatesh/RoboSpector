@@ -15,7 +15,8 @@ public class PieceOfEquipmentDto {
 	private int aging;
 	private String comment;
 	private String createdBy;
-
+	private InspectionDto inspection;
+	
 	public int getId() {
 		return id;
 	}
@@ -62,6 +63,15 @@ public class PieceOfEquipmentDto {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+	
+
+	public InspectionDto getInspection() {
+		return inspection;
+	}
+
+	public void setInspection(InspectionDto inspection) {
+		this.inspection = inspection;
 	}
 
 	@Override

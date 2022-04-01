@@ -1,29 +1,21 @@
-package com.robospector.domain;
+package com.robospector.controller.dto;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
 
-@Document(collection = "inspectiondetails")
-public class Inspection {
+import com.robospector.domain.DateTime;
+import com.robospector.domain.VerificationDetails;
+
+@Component
+public class InspectionDto {
 
 	@Id
 	private String id;
-	private String equipmentId;
+	private String name;
 	private DateTime dateTime;
 	private int collectingTime;
 	private VerificationDetails verificationDetails;
 
-	public Inspection(String name, int collectingTime, VerificationDetails verificationDetails) {
-		super();
-		this.equipmentId = name;
-		this.dateTime = new DateTime();
-		this.collectingTime = collectingTime;
-		this.verificationDetails = verificationDetails;
-	}
-
-	public Inspection() {
-		super();
-	}
 
 	public String getId() {
 		return id;
@@ -33,16 +25,16 @@ public class Inspection {
 		this.id = id;
 	}
 
-	public void setDateTime() {
-		this.dateTime = new DateTime();
+	public void setDateTime(DateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getName() {
-		return equipmentId;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.equipmentId = name;
+		this.name = name;
 	}
 
 	public DateTime getDateTime() {

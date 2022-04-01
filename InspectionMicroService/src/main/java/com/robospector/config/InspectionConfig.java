@@ -4,6 +4,7 @@ package com.robospector.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -31,5 +32,10 @@ public class InspectionConfig{
 	@Bean
 	public RandomInspectionDetailsGenerator detailsGenerator () {
 		return new RandomInspectionDetailsGenerator();
+	}
+	
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
 	}
 }

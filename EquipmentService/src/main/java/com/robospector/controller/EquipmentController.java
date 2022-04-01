@@ -1,5 +1,6 @@
 package com.robospector.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,9 @@ public class EquipmentController {
 	private EquipmentService equipmentService;
 	
 	@Autowired
+	private InspectionService inspectionServiceFeign;
+	
+	@Autowired
 	private ModelMapper mapper;
 	
 	@PostMapping("/")
@@ -54,7 +58,7 @@ public class EquipmentController {
 		return new ResponseEntity<>(pieceOfEquipmentCreated, HttpStatus.OK);
 	}
 
-	@GetMapping("/find/{name_pattern}")
+	@GetMapping("/find/{name_pattern}") // should be done on front end
 	public ResponseEntity<?>getEquipmentWithNamePattern(@PathVariable("name_pattern") String namePattern) {
 		List<PieceOfEquipment> equipmentRetrieved = equipmentService.findEquipmentWithNamePattern(namePattern);
 		
@@ -86,13 +90,26 @@ public class EquipmentController {
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllEquipment() { // Use mapper here------- Also call other services to get data
 		List<PieceOfEquipment> equipmentRetrieved = equipmentService.getAllEquipemt();
+		List<PieceOfEquipmentDto> pieceOfEquipementList = new ArrayList<>();
 		
 		if(equipmentRetrieved.isEmpty()) {
 			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
 		}
 		
-		//PieceOfEquipmentDto pieceOfEquipement = mapper.map(equipmentRetrieved, PieceOfEquipmentDto.class);
+		equipmentRetrieved.forEach(x ->{
+			PieceOfEquipmentDto pieceOfEquipement = mapper.map(x, PieceOfEquipmentDto.class);
+			pieceOfEquipementList.add(pieceOfEquipement);
+		});
 		
-		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
+		pieceOfEquipementList.forEach(x ->{
+			x.setInspection(inspectionServiceFeign.mostRecentInspection(x.getName()));
+		});
+		
+		return new ResponseEntity<>(pieceOfEquipementList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/equipment/{name}")
+	public ResponseEntity<?> testControllerMethod(@PathVariable ("name") String name ){
+		return new ResponseEntity<>(inspectionServiceFeign.getAllInspectionsForEquipment(name).getBody(),HttpStatus.OK);
 	}
 }

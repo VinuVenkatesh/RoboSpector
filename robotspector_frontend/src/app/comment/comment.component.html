@@ -1,0 +1,14 @@
+<div  class = "d-flex flex-column ml-2 mb-4" style="line-height: 2; ">
+   
+    <div class = "d-flex justify-content-center">
+      <img src = '{{"../../assets/images/person_profile_" + image + ".png"}}' [ngStyle]="{'border-color': getBorderColor()}"  class = "mr-2" style="border: solid;  border-width: 2px;  border-radius: 50%;  height: 50px; width: 50px; object-fit: cover;"/>
+      <div class = "d-flex mb-2 flex-column" style="max-width:max-content; gap: 10px;">
+          <span style="color:#6DCEF1;  font-size: small;" >{{author}}</span>
+          <div style="border-radius: 50%; border-width: 5px; width: 10px; height: 10px; background-color: #C4C4C4;"></div>
+          <span style="color: #B7B7B7; font-size: small;">{{date}}</span>
+      </div>
+    </div>
+    <span style="font-size:medium;">{{comment}}</span>
+ </div>
+
+ 

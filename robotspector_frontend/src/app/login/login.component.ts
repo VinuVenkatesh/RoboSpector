@@ -12,52 +12,29 @@ export class LoginComponent {
     password = new FormControl();
     form: any;
     submitMessage: any;
-    
-    constructor(private formBuilder:FormBuilder,private service:AuthenticationService) {}
+
+    constructor(private formBuilder:FormBuilder) {}
     //one space between methods
     ngOnInit() {
-    
+
       this.form = this.formBuilder.group({
-     
-       
+
+
         "username": ['', [Validators.required,Validators.minLength(8)]],
         "password": ['', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/)]]
-        
+
      })
     }
-    
-    loginSubmit() {
-      console.log("=====");
-      console.log(this.form.value);
-      console.log("=====");
 
-      this.service.authenticateUser(this.form.value).subscribe( (data:any) =>{
-        
-        if (data!=null){
-        
-         this.service.setBearerToken(data['token']);
-        }
-      },
-      (error) =>{
-        if (error!= null){
-          if (error.message.includes("403")){
-            this.submitMessage = "Unauthorized";
-            return;
-          }
-          this.submitMessage = error.message;
-        }
+    loginSubmit() {
+      if (this.form.valid == false ){
+
+        this.submitMessage = "Username or password invalid"
+
+      }else{
+        this.submitMessage = "Suceess";
+
       }
-      
-      )
+
     }
-    //   if (this.form.valid == false ){
-        
-    //     this.submitMessage = "Username or password invalid"
-        
-    //   }else{
-    //     this.submitMessage = "Suceess";
-        
-    //   }
-     
-    // }
 }

@@ -1,0 +1,18 @@
+server:
+  port: 8001
+  error:
+    include-stacktrace: on-param
+spring:
+  application:
+    name: login-microservice
+  datasource:
+    url: jdbc:mysql://cgi-stackroute-mysql:3306/login?autoReconnect=true
+    username: root
+    password: root123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:  
+  secret: robotSpectorSecret

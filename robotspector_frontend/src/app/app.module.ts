@@ -22,6 +22,8 @@ import { PersonProfileComponent } from './person-profile/person-profile.componen
 import { ImageListComponent } from './image-list/image-list.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { TableRowComponent } from './table-row/table-row.component';
+import { SortHeaderComponent } from './sort-header/sort-header.component';
+import { TableComponent } from './table/table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,8 @@ import { TableRowComponent } from './table-row/table-row.component';
     ImageListComponent,
     MainDashboardComponent,
     TableRowComponent,
+    SortHeaderComponent,
+    TableComponent,
    
   ],
   imports: [

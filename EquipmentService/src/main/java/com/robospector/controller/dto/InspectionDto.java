@@ -3,7 +3,7 @@ package com.robospector.controller.dto;
 public class InspectionDto {
 
 	private String id;
-	private String name;
+	private int equipmentId;
 	private DateTimeDto dateTime;
 	private int collectingTime;
 	private VerificationDetailsDto verificationDetails;
@@ -20,12 +20,12 @@ public class InspectionDto {
 		this.dateTime = new DateTimeDto();
 	}
 
-	public String getName() {
-		return name;
+	public int getEquipmentId() {
+		return equipmentId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(int equipmentId) {
+		this.equipmentId = equipmentId;
 	}
 
 	public DateTimeDto getDateTime() {

@@ -32,10 +32,10 @@ public class InspectionController {
 	}
 
 	@PutMapping("/verify/{id}")
-	public ResponseEntity<?> addVerificationDetails(@PathVariable("id") String name,
+	public ResponseEntity<?> addVerificationDetails(@PathVariable("id") String id,
 			@RequestBody VerificationDetails verificationDetails) {
 		try {
-			Inspection obj = inspectionService.addVerificationDetailsToInspection(name, verificationDetails);
+			Inspection obj = inspectionService.addVerificationDetailsToInspection(id, verificationDetails);
 			return new ResponseEntity<>(obj, HttpStatus.OK);
 		} catch (NoSuchInspectionException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

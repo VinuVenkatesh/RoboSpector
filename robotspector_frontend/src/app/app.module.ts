@@ -20,6 +20,10 @@ import { InspectorCardComponent } from './inspector-card/inspector-card.componen
 import { InspectorListComponent } from './inspector-list/inspector-list.component';
 import { PersonProfileComponent } from './person-profile/person-profile.component';
 import { ImageListComponent } from './image-list/image-list.component';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { TableRowComponent } from './table-row/table-row.component';
+import { SortHeaderComponent } from './sort-header/sort-header.component';
+import { TableComponent } from './table/table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +42,10 @@ import { ImageListComponent } from './image-list/image-list.component';
     InspectorListComponent,
     PersonProfileComponent,
     ImageListComponent,
+    MainDashboardComponent,
+    TableRowComponent,
+    SortHeaderComponent,
+    TableComponent,
    
   ],
   imports: [

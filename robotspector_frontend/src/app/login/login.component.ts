@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl,FormBuilder,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { RouterService } from '../services/router.service';
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
 
-    constructor(private formBuilder:FormBuilder) {}
+    constructor(private formBuilder:FormBuilder, private router:Router) {}
     //one space between methods
     ngOnInit() {
 
@@ -36,5 +37,10 @@ export class LoginComponent {
 
       }
 
+
+    }
+
+    goToDashboad() {
+      this.router.navigate(['dashboard']);
     }
 }

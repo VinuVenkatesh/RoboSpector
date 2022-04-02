@@ -4,10 +4,13 @@ package com.robospector.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.robospector.applicationservice.RandomInspectionDetailsGenerator;
 import com.robospector.converters.DateToStringConverter;
@@ -31,5 +34,24 @@ public class InspectionConfig{
 	@Bean
 	public RandomInspectionDetailsGenerator detailsGenerator () {
 		return new RandomInspectionDetailsGenerator();
+	}
+	
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
+	}
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**")
+						.allowedOrigins("http://localhost:4200/")
+						.allowedMethods("GET","POST","PUT")
+						.allowedHeaders("*")
+						.allowCredentials(false).maxAge(3600);
+			}
+		};
 	}
 }

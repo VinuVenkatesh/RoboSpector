@@ -8,13 +8,13 @@ import com.robospector.domain.VerificationDetails;
 
 public interface InspectionService {
 
-	public List<Inspection> getAllInspections(String name) throws NoSuchInspectionException;
+	public List<Inspection> getAllInspections(int equipmentId) throws NoSuchInspectionException;
 
-	public Inspection getRecentInspection(String name) throws NoSuchInspectionException;
+	public Inspection getRecentInspection(int equipmentId) throws NoSuchInspectionException;
 
-	public Inspection addVerificationDetailsToInspection(String name, VerificationDetails verificationDetails) throws NoSuchInspectionException;
+	public Inspection addVerificationDetailsToInspection(String id, VerificationDetails verificationDetails) throws NoSuchInspectionException;
 	
-	public Inspection addInspection(String name);
+	public Inspection addInspection(int equipmentId);
 	
-	public void deleteInspections(String name) throws NoSuchInspectionException;
+	//public void deleteInspections(String name) throws NoSuchInspectionException;
 }

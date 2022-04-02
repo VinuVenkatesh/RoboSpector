@@ -12,7 +12,7 @@ import com.robospector.applicationservice.InspectionResultService;
 public class InspectionResultController {
 
 	@Autowired
-	InspectionResultService inspectionResultService;
+	private InspectionResultService inspectionResultService;
 	
 	@GetMapping("/list")
 	public ResponseEntity<?> getListOfInspectionResults(){

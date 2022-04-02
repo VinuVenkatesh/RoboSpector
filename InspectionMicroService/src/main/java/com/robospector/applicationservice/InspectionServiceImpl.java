@@ -21,8 +21,8 @@ public class InspectionServiceImpl implements InspectionService {
 	InspectionRepository inspectionRepository;
 	
 	@Override
-	public List<Inspection> getAllInspections(String name) throws NoSuchInspectionException {
-		List<Inspection> list = inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(name);
+	public List<Inspection> getAllInspections(int equipmentId) throws NoSuchInspectionException {
+		List<Inspection> list = inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(equipmentId);
 		if(list == null || list.isEmpty()) {
 			throw new NoSuchInspectionException("No inspections exist for this equipment");
 		}
@@ -30,8 +30,8 @@ public class InspectionServiceImpl implements InspectionService {
 	}
 
 	@Override
-	public Inspection getRecentInspection(String name) throws NoSuchInspectionException {
-		Optional<Inspection> optional = inspectionRepository.findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(name);
+	public Inspection getRecentInspection(int equipmentId) throws NoSuchInspectionException {
+		Optional<Inspection> optional = inspectionRepository.findFirstByEquipmentIdOrderByDateTimeDateDescDateTimeTimeDesc(equipmentId);
 		if(optional.isEmpty()) {
 			throw new NoSuchInspectionException("The inspection does not exist");
 		}
@@ -54,23 +54,23 @@ public class InspectionServiceImpl implements InspectionService {
 	}
 
 	@Override
-	public Inspection addInspection(String name) {
+	public Inspection addInspection(int equipmentId) {
 		Inspection inspection = new Inspection();
 		inspection.setDateTime();
 		inspection.getDateTime().setRandomDate(detailsGenerator.createRandomDate());
 		inspection.getDateTime().setRandomTime(detailsGenerator.createRandomTime());
 		inspection.setCollectingTime(detailsGenerator.createRandomCollectingTime());
-		inspection.setName(name);
+		inspection.setEquipmentId(equipmentId);
 		return inspectionRepository.save(inspection);
 	}
 
-	@Override
-	public void deleteInspections(String name) throws NoSuchInspectionException {
-		List<Inspection> list = inspectionRepository.findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(name);
-		if(list.isEmpty()) {
-			throw new NoSuchInspectionException("No inspections exist for this equipment");
-		}
-		inspectionRepository.deleteAll(list);
-	}
+//	@Override
+//	public void deleteInspections(String name) throws NoSuchInspectionException {
+//		List<Inspection> list = inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(name);
+//		if(list.isEmpty()) {
+//			throw new NoSuchInspectionException("No inspections exist for this equipment");
+//		}
+//		inspectionRepository.deleteAll(list);
+//	}
 
 }

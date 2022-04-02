@@ -1,12 +1,13 @@
 package com.robospector.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,11 @@ import com.robospector.controller.exception.InvalidInputException;
 import com.robospector.domain.PieceOfEquipment;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class EquipmentController {
+	
+	private static final int MIN_NUMBER_OF_INSPECTIONS = 5;
+	private static final int MAX_NUMBER_OF_INSPECTIONS = 10;
 	
 	@Autowired
 	private PieceOfEquipmentDtoValidator pieceOfEquipmentDtoValidator;
@@ -30,7 +35,13 @@ public class EquipmentController {
 	private EquipmentService equipmentService;
 	
 	@Autowired
+	private InspectionService inspectionService;
+	
+	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private RandomNumberGenerator randomNumberGenerator;
 	
 	@PostMapping("/")
 	public ResponseEntity<?> heartbeatTest() {
@@ -42,19 +53,25 @@ public class EquipmentController {
 	@PostMapping("/create")
 	public ResponseEntity<?> createPieceOfEquipment(@RequestBody PieceOfEquipmentDto pieceOfEquipmentDto)
 			throws InvalidInputException {
+		
 		pieceOfEquipmentDtoValidator.validate(pieceOfEquipmentDto);
 		
+		int amountOfInspectionsToBeCreated = randomNumberGenerator.getRandomNumberBetween(MIN_NUMBER_OF_INSPECTIONS, MAX_NUMBER_OF_INSPECTIONS);
 		PieceOfEquipment pieceOfEquipement = mapper.map(pieceOfEquipmentDto, PieceOfEquipment.class);
 		PieceOfEquipment pieceOfEquipmentCreated = equipmentService.createPieceOfEquipment(pieceOfEquipement);
 		
 		if(pieceOfEquipmentCreated == null) {
 			return new ResponseEntity<>("Could not create equipement", HttpStatus.BAD_REQUEST);
 		}
+				
+		for (int i = 0; i < amountOfInspectionsToBeCreated; i++) {
+			inspectionService.createInspection(pieceOfEquipmentCreated.getId());
+		}
 		
 		return new ResponseEntity<>(pieceOfEquipmentCreated, HttpStatus.OK);
 	}
 
-	@GetMapping("/find/{name_pattern}")
+	@GetMapping("/find/{name_pattern}") // should be done on front end
 	public ResponseEntity<?>getEquipmentWithNamePattern(@PathVariable("name_pattern") String namePattern) {
 		List<PieceOfEquipment> equipmentRetrieved = equipmentService.findEquipmentWithNamePattern(namePattern);
 		
@@ -86,13 +103,26 @@ public class EquipmentController {
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllEquipment() { // Use mapper here------- Also call other services to get data
 		List<PieceOfEquipment> equipmentRetrieved = equipmentService.getAllEquipemt();
+		List<PieceOfEquipmentDto> pieceOfEquipementList = new ArrayList<>();
 		
 		if(equipmentRetrieved.isEmpty()) {
 			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
 		}
 		
-		//PieceOfEquipmentDto pieceOfEquipement = mapper.map(equipmentRetrieved, PieceOfEquipmentDto.class);
+		equipmentRetrieved.forEach(x ->{
+			PieceOfEquipmentDto pieceOfEquipement = mapper.map(x, PieceOfEquipmentDto.class);
+			pieceOfEquipementList.add(pieceOfEquipement);
+		});
 		
-		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
+		pieceOfEquipementList.forEach(x ->{
+			x.setInspection(inspectionService.mostRecentInspection(x.getId()));
+		});
+		
+		return new ResponseEntity<>(pieceOfEquipementList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/equipment/{equipmentId}")
+	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable ("equipmentId") int equipmentId ){
+		return new ResponseEntity<>(inspectionService.getAllInspectionsForEquipment(equipmentId).getBody(),HttpStatus.OK);
 	}
 }

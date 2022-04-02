@@ -11,7 +11,7 @@ import com.robospector.domain.Inspection;
 @Repository
 public interface InspectionRepository extends MongoRepository<Inspection, String> {
 
-	Optional<Inspection> findFirstByNameOrderByDateTimeDateDescDateTimeTimeDesc(String name);
+	Optional<Inspection> findFirstByEquipmentIdOrderByDateTimeDateDescDateTimeTimeDesc(int equipmentId);
 	
-	List<Inspection> findByNameOrderByVerificationDetailsInspectionResultSeverityDesc(String name);
+	List<Inspection> findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(int equipmentId);
 }

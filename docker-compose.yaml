@@ -112,6 +112,30 @@ services:
     networks:
       -  main-network
 
+
+
+  eureka-server:
+    build:
+      context: "./RoboSpectorEurekaServer"
+      dockerfile: "Dockerfile"
+    image: eureka-server
+    container_name: eureka-server
+    restart: on-failure
+    ports:
+      -  $EUREKA_SERVER_HOST_PORT:8005
+    environment:
+      -  SERVER_PORT=8005
+      -  SPRING_PROFILES_ACTIVE=prod
+    networks:
+      -  main-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/actuator/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+  
+
   login-service:
     build:
       context: "./LoginMicroService"
@@ -134,7 +158,6 @@ services:
     networks:
       -  main-network
 
-
   equipment-service:
     build:
       context: ./EquipmentService
@@ -145,6 +168,8 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+      eureka-server:
+       condition: service_healthy
     ports:
       - $SERVER_HOST_PORT:8002
     environment:
@@ -171,6 +196,8 @@ services:
     depends_on:
       inspection-result-service-mysql:
         condition: service_healthy
+      eureka-server:
+       condition: service_healthy
     ports:
       -  $INSPECTION_RESULT_SERVER_HOST_PORT:8003
     environment:
@@ -193,6 +220,8 @@ services:
     depends_on:
       inspection-mongo:
         condition: service_healthy
+      eureka-server:
+       condition: service_healthy
     ports:
       - $INSPECTION_SERVER_HOST_PORT:8004
     environment:

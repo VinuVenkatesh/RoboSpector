@@ -1,8 +1,10 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://eureka-server:8005/eureka/
-      
-spring:
-  application:
-    name: eureka-server
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://eureka-server:8005/eureka/
+#      
+#spring:
+#  application:
+#    name: eureka-server
+
+#uncomment all this

@@ -9,9 +9,16 @@ spring:
       port: 27017
       database: inspections
       
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://eureka-server:8005/eureka/
+
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://eureka-server:8005/eureka/
+      defaultZone: http://localhost:8005/eureka/

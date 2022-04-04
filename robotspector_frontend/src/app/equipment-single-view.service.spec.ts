@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EquipmentSingleViewService } from './equipment-single-view.service';
+import { EquipmentSingleViewService } from './services/equipment-single-view.service';
 
 describe('EquipmentSingleViewService', () => {
   let service: EquipmentSingleViewService;

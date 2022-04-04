@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Equipment } from '../model/Equipment.model';
 import { Inspection } from '../model/Inspection.model';
 import { VerificationDetails } from '../model/VerificationDetails.model';
 
@@ -21,5 +22,10 @@ export class EquipmentSingleViewService {
   addVerificationDetails(verificationDetails : any, inspectionId:any){
     let url = this.inspectionServiceUrl + "/verify/" + inspectionId;
     return this.httpClient.put<VerificationDetails>(url,verificationDetails);
+  }
+
+  getSingleEquipment(equipmentId: any){
+    let url = this.equipmentServiceUrl + "/singleequipment/" + equipmentId;
+    return this.httpClient.get<Equipment>(url);
   }
 }

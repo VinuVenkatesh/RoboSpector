@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 
 @Component({
   selector: 'app-location-view',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private equipmentSingleViewService: EquipmentSingleViewService) { }
 
   ngOnInit(): void {
+    this.equipmentSingleViewService.getSingleEquipment(3).subscribe(data => {
+      console.log(data);
+    })
   }
 
 }

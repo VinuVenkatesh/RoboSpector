@@ -17,4 +17,6 @@ public interface EquipmentService {
 	PieceOfEquipment makeArchived(int equipmentId) throws EquipmentNotFoundException;
 
 	List<PieceOfEquipment> findEquipmentWithNamePattern(String namePattern);
+	
+	PieceOfEquipment getSingleEquipment(int equipmentId);
 }

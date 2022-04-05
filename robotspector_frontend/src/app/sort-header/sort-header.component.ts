@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sort-header',
@@ -9,6 +9,7 @@ export class SortHeaderComponent implements OnInit {
 
   constructor() { }
 
+  
   ngOnInit(): void {
   }
 

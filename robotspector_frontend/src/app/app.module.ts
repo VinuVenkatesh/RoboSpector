@@ -24,6 +24,11 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { TableRowComponent } from './table-row/table-row.component';
 import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { TableComponent } from './table/table.component';
+import { DetailedEquipmentOverviewComponent } from './detailed-equipment-overview/detailed-equipment-overview.component';
+import { DashboardPipePipe } from './dashboard-pipe.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SortHeaderTitleComponent } from './sort-header-title/sort-header-title.component';
+import { DashboardOrderByPipePipe } from './dashboard-order-by-pipe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +51,10 @@ import { TableComponent } from './table/table.component';
     TableRowComponent,
     SortHeaderComponent,
     TableComponent,
+    DetailedEquipmentOverviewComponent,
+    DashboardPipePipe,
+    SortHeaderTitleComponent,
+    DashboardOrderByPipePipe,
    
   ],
   imports: [
@@ -53,7 +62,8 @@ import { TableComponent } from './table/table.component';
     AppRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

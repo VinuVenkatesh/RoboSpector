@@ -14,7 +14,7 @@
         <div>
             <div class = "d-flex flex pt-4 px-2" >
                 <div class = "d-flex mr-auto flex-column">
-                    <span class = "pb-4" style="font-size: 1.5rem;" > Equipment | <span style = " font-weight: 500; z-index: 10; color:black"> Screwdriver </span></span>
+                    <span class = "pb-4" style="font-size: 1.5rem;" > Equipment <span [ngStyle]="{'display': title == '' || title == undefined ? 'none' : 'inline'}">|</span> <span style = " font-weight: 500; z-index: 10; color:black"> {{title}} </span></span>
                 <span class = "pb-4" style="letter-spacing:2px;">Inspections</span>
                 </div>
                 
@@ -23,7 +23,7 @@
         </div>
         <app-sort-header></app-sort-header>
         <div id = "table-controls" class = "d-flex px-2 justify-content-between align-items-center mb-4" style="gap:20px;">
-            <input style = "border-radius: 10px; width: 40vw; border: 1.5px solid #C4C4C4;"/>
+            <input class = "px-2" (keyup)="onKeyUp()" [(ngModel)] = "dashboardSearchText" style = "border-radius: 10px; width: 40vw; border: 1.5px solid #C4C4C4;"/>
             <div class = "d-flex" style="gap:10px; "  >
                 <div style="cursor: pointer; font-size: small; max-height: 25px; font-weight: 600; box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); color:white; background-color: #19B2EA; border-radius: 5px;" class = "d-flex py-2 px-4 justify-content-center align-items-center" >
                     Add
@@ -36,58 +36,7 @@
         <app-table></app-table>
     </div>
     
-    
-    <div class = "d-flex flex-column align-items-center just-content-center" style="text-align: left; max-width: 25 vw; height: 100vh;" >
-        <img class = "pt-3 mb-4" style = "text-align: left; font-weight: 600; object-fit:cover; border-radius: 50%; height: 200px; width: 200px;" src = "../../assets//images/engine_1.jpg"/>
-        <h4 class = "pb-2 font-bold mr-auto" style="text-align: left;">Cirrus Vision Jet Engine</h4>
-        <div  class = "mb-2 pb-2 d-flex flex-column mr-auto" style="gap:10px;">
-            <span style="color:#8F8F8F; font-weight: 600; font-size:x-small;" >Inspection date - 10/11/2021</span>
-            <span style="color:#8F8F8F; font-weight: 600; font-size: x-small; " > Verified date - 10/13/2022</span>
-        </div>
-        <div>
-            <div class = "d-flex justify-content-center mb-4 pr-4" >
-                <div class = "d-flex align-items-center justify-content-center" style=" color:black; border-radius: 50%; width: 55px; height: 55px; border: 2px solid #EA526F;">
-                    <div class = "d-flex flex-column align-items-center justify-cotent-center">
-                        <span style="font-weight:500; font-size: x-small">86</span>
-                        <span style="font-weight:300; font-size: x-small;">Age</span>
-                    </div>
-                </div>
-            </div>
-            <div class = "d-flex mb-3 justify-content-between">
-                <div class="px-3 mb-auto mt-auto align-self-end p-2  d-flex align-items-center justify-content-center"  [ngStyle]="{'background-color': '#A91212'}" style=" max-height: 1.2rem; max-width:80%; text-align: center;  border-top-left-radius: 15px; border-bottom-right-radius: 15px; color:white" >
-                    <span class="mr-2" style="font-size:xx-small;  font-weight: bold;">
-                       Minor Wear
-                    </span>
-                    <div  class="mr-2" style="border-radius: 50%; background-color: white; width: 5px; height: 5px;"></div>
-                    <span  style="font-size:xx-small;">
-                        Level 2
-                    </span>
-                </div>
-                <div class="mr-4 align-self-end p-2 px-3 d-flex align-items-center justify-content-center"  [ngStyle]="{'background-color': '#0E3C4E'}" style=" max-height: 1.2rem; max-width:80%; text-align: center;  border-top-left-radius: 15px; border-bottom-right-radius: 15px; color:white" >
-                    <span class="mr-2" style="font-size:xx-small;  font-weight: bold;">
-                       Collection
-                    </span>
-                    <div  class="mr-2" style="border-radius: 50%; background-color: white; width: 5px; height: 5px;"></div>
-                    <span  style="color: white;font-size:xx-small;">
-                        50 secs
-                    </span>
-                </div>
-            </div>
-            <div class = "d-flex flex-column just-content-center mb-auto mt-auto" >
-                <span style="letter-spacing:5px;" class = "pb-2"> Comments</span>
-                <div >
-                    <p style="font-size: small;">Sturdy , albeit needs further inspection potential mechanical issues Sturdy , 
-                        albeit needs further needs further inspection ...
-                    </p>
-                    <div class="d-flex" style="cursor:pointer;">
-                        <span style="font-size: small; font-weight: 600; color:#19B2EA;">Read More </span>
-                        <img class = "pt-1 pr-4"  src = "../../assets/images/arrow-blue.png" style="height: 15px; width: 75px; object-fit: contain;"/>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+    <app-detailed-equipment-overview></app-detailed-equipment-overview>
 </body>
 </html>
 

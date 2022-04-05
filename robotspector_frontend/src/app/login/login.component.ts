@@ -13,10 +13,10 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
     
-    constructor(private formBuilder:FormBuilder,private service:AuthenticationService) {}
+    constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService) {}
     //one space between methods
     ngOnInit() {
-    
+      
       this.form = this.formBuilder.group({
      
        
@@ -27,33 +27,28 @@ export class LoginComponent {
     }
     
     loginSubmit() {
-<<<<<<< HEAD
-      if (this.form.valid == false ){
-=======
-      console.log("=====");
-      console.log(this.form.value);
-      console.log("=====");
-
-      this.service.authenticateUser(this.form.value).subscribe( (data:any) =>{
->>>>>>> draftFeign
-        
-        if (data!=null){
-        
-         this.service.setBearerToken(data['token']);
-        }
-      },
-      (error) =>{
-        if (error!= null){
-          if (error.message.includes("403")){
-            this.submitMessage = "Unauthorized";
-            return;
-          }
-          this.submitMessage = error.message;
-        }
-      }
+      // this.router.routeToDashboard();
       
-      )
+      this.service.authenticateUser(this.form.value).subscribe((data:any) =>{
+
+        if (this.form.valid == false ){
+        
+          this.submitMessage = "Username or password invalid"
+          
+        }else{
+          if (data!= null){
+            console.log("There is data");
+            this.service.setToken(data);
+            this.router.routeToDashboard();
+          }
+          
+        }
+      })
+     
     }
+    
+
+
     //   if (this.form.valid == false ){
         
     //     this.submitMessage = "Username or password invalid"

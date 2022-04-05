@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-inspector-list',
@@ -14,7 +14,7 @@ export class InspectorListComponent implements OnInit {
   comment:String = `Sturdy , albeit needs further inspection potential mechanical issues Sturdy , 
   albeit needs further needs further inspection Sturdy , albeit needs further inspection 
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
-  constructor(private dataSharing: DataServiceService) { 
+  constructor(private dataSharing: DataService) { 
     dataSharing.SharingData.subscribe((res:any) =>{
       
     })

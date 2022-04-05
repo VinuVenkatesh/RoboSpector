@@ -1,0 +1,23 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import { Equipment } from './equipment-single-view/equipment';
+
+@Pipe({
+  name: 'dashboardPipe'
+})
+export class DashboardPipePipe implements PipeTransform {
+
+  transform(allEquipment?:Equipment[], searchText?: string) {
+    if (allEquipment === undefined) return;
+    if (searchText === undefined || searchText == '' || searchText.length === 0) return allEquipment;
+    let equipmentFound = [];
+    let currentSearchText = searchText == undefined ? '': searchText; 
+    for (let index = 0; index < allEquipment.length; index++) {
+      const equipment = allEquipment[index];
+      if (equipment.name?.toLowerCase().includes(currentSearchText.toLocaleLowerCase()) || equipment.location?.localtionurl?.toLowerCase().includes(currentSearchText.toLowerCase())){
+        equipmentFound.push(equipment);
+      }
+    }
+    return equipmentFound;
+  }
+
+}

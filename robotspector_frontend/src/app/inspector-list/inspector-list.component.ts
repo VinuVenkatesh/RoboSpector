@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Inspection } from '../model/Inspection.model';
 import { VerificationDetails } from '../model/VerificationDetails.model';
 import { DataServiceService } from '../services/data-service.service';
@@ -14,6 +15,8 @@ export class InspectorListComponent implements OnInit {
   isDown:any = false;
   startY:any;
   scrollTop:any;
+  subscription?:Subscription;
+  currentRole?:string;
   comment:String = `Sturdy , albeit needs further inspection potential mechanical issues Sturdy , 
   albeit needs further needs further inspection Sturdy , albeit needs further inspection 
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
@@ -44,17 +47,15 @@ export class InspectorListComponent implements OnInit {
       this.inspectionList = data;
       console.log(this.inspectionList);
     })
-    let verificationDetails : VerificationDetails = {
-      verifiedBy : 3,
-      inspectionResult : {
-        name : 'Acceptable',
-        severity : 1
-      },
-      engineerComment: "This is a test comment"
-    }
-    // this.equipmentSingleViewService.addVerificationDetails(verificationDetails,'624759e58115a23fffd2e61e').subscribe(data =>{
-    //   console.log(data);
-    // })
+    this.dataSharing.currentRole.subscribe(data =>{
+      this.currentRole = data;
+      console.log(data);
+    })
+    
+  }
+
+  ngOnDestroy(){
+    this.subscription?.unsubscribe();
   }
   onMouseDown(e:MouseEvent){
     this.isDown = true;

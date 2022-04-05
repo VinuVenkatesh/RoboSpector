@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl,FormBuilder,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { DataServiceService } from '../services/data-service.service';
 import { RouterService } from '../services/router.service';
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
 
-    constructor(private formBuilder:FormBuilder, private router:Router) {}
+    constructor(private formBuilder:FormBuilder, private router:Router, private data : DataServiceService) {}
     //one space between methods
     ngOnInit() {
 
@@ -41,6 +42,7 @@ export class LoginComponent {
     }
 
     goToDashboad() {
+      this.data.changeRole("guesdst");
       this.router.navigate(['dashboard']);
     }
 }

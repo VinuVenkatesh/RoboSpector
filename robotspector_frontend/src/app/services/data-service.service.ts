@@ -6,8 +6,15 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class DataServiceService {
   SharingData = new Subject();//subject
+
+  private role = new BehaviorSubject('guest');
+  currentRole = this.role.asObservable();
+
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
+  }
+  changeRole(newRole : string){
+    this.role.next(newRole);
   }
 }

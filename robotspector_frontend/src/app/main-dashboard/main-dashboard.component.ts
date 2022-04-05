@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataServiceService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainDashboardComponent implements OnInit {
 
-  constructor() { }
+  currentRole?:string;
+  subscription?: Subscription;
+
+  constructor(private data : DataServiceService) { }
 
   ngOnInit(): void {
+    this.subscription = this.data.currentRole.subscribe(data => {
+      this.currentRole = data;
+      console.log(this.currentRole);
+    })
   }
-
+  ngOnDestroy(){
+    this.subscription?.unsubscribe();
+  }
 }

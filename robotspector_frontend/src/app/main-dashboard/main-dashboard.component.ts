@@ -1,13 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
+
 @Component({
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
@@ -25,16 +18,25 @@ export class MainDashboardComponent implements OnInit {
   @Input()
   dashboardSearchText?:String;
 
+  @Input()
+  createModalState:Boolean = false;
+
   constructor(private dataSharing: DataService) { }
 
   ngOnInit(): void {
     this.dataSharing.detailedEquipmentData.subscribe((res:any) =>{
       this.title = res.name;
     })
+    this.dataSharing.currentCreateModalState.subscribe((res:any) =>{
+      this.createModalState = res;
+    })
   }
   
   onKeyUp(){
     console.log("key down clicked");
     this.dataSharing.changeDashboardInputText(this.dashboardSearchText);
+  }
+  onClickAddButton(){
+    this.dataSharing.changeCurrentCreateModalState(true);
   }
 }

@@ -10,6 +10,7 @@ export class DataService {
   currentSelectedRowData = new Subject();
   currentDashboardInputData = new Subject();
   currentSortOrder = new Subject();
+  currentCreateModalState = new Subject();
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
@@ -25,5 +26,8 @@ export class DataService {
   }
   changeSortOrder(data:any){
     this.currentSortOrder.next(data);
+  }
+  changeCurrentCreateModalState(data:boolean){
+    this.currentCreateModalState.next(data);
   }
 }

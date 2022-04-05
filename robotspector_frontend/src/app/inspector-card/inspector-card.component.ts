@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, MaxLengthValidator, Validators } from '@angular/forms';
+import { VerificationDetails } from '../model/VerificationDetails.model';
 
 @Component({
   selector: 'app-inspector-card',
@@ -25,9 +27,19 @@ export class InspectorCardComponent implements OnInit {
   @Input()
   verificationComment? : string;
 
-  constructor() { }
+  form : any;
+
+  verificationDetails?: VerificationDetails
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      verifiedBy :[3],
+      engineerComment:['test',[Validators.maxLength(1000)]],
+      name: ['Acceptable'],
+      severity:[1]
+    })
   }
 
   getColor(){
@@ -48,5 +60,17 @@ export class InspectorCardComponent implements OnInit {
         return "#DDE05C";
     }
    
+  }
+
+  onSubmit(){
+    this.verificationDetails = {
+      verifiedBy : this.form.get('verifiedBy').value,
+    inspectionResult:{
+        name : this.form.get('name').value,
+        severity : this.form.get('severity').value
+    },
+    engineerComment : this.form.get('engineerComment').value
+    }
+    console.log(this.verificationDetails)
   }
 }

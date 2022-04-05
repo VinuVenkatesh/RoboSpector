@@ -10,6 +10,55 @@
         rel="stylesheet">
 </head>
 <body class = "container d-flex " style="gap:50px; font-family: 'Montserrat'; max-height: 100vh;" >
+    <div style=" position: absolute; 
+    left: 0; 
+    right: 0; 
+    top: 0; 
+    bottom: 0; 
+    z-index: 10;
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 50vw; height: 90vh; 
+    background-color: #fff;
+    border-radius: 5px;">
+    <div class = "d-flex mt-4 flex-column" style="margin-left: 5vw;">
+       <span class = "mb-4" style="color: #002C3D; font-size: large;">Create Equipment</span>
+       <form class = "d-flex flex-column">
+           <div class = "d-flex flex-column mb-4">
+            <label for = "name-create" class = "pb-2" style="color:#19B2EA">Name</label>
+            <input id ="name-create" style="max-width:70%"/>
+           </div>
+           <div class = "d-flex flex-column mb-4">
+            <label for = "locationUrl-create" class = "pb-2" style="color:#19B2EA">Location</label>
+            <input id = "locationUrl-create" placeholder="Location URL" style="max-width:70%"/>
+           </div>
+           <div class = "d-flex flex-column mb-4">
+           
+            <div class = "d-flex" style="gap:10px;">
+                <input id = "long-create" placeholder="longitutde" style="max-width:20%"/>
+                <input id = "lat-create" placeholder="latitude" style="max-width:20%"/>
+            </div>
+            
+           </div>
+           <div class = "d-flex flex-column justify-content-center mb-2" style="  gap:10px;  width: 70%;" >
+            <label class = "ml-auto mr-auto" style="padding-right:100px;" for = "locationUrl-create"  style="color:#19B2EA">Age</label>
+                <input class = "ml-auto mr-auto" placeholder="50" style="max-width:30px"/>
+                <input class = "ml-auto mr-auto" style="width: 70%;" id = "age-create" type="range" min="1" max="100" value="50">
+           </div>
+           <div class = "d-flex flex-column justify-content-center mb-4" style="max-width: 70%;">
+               <span style="color:#19B2EA ;" class="mr-auto ml-auto mb-2">Comment</span>
+               <textarea ></textarea>
+           </div>
+           <input type="submit" 
+           value = "Create" 
+           style="border: none; border-radius: 5px; max-width: 70%; background-color: #19B2EA; color:white; font-weight: 700;"
+           class = "py-2"/>
+       </form>
+    </div>
+    
+    </div>
     <div>
         <div>
             <div class = "d-flex flex pt-4 px-2" >

@@ -43,6 +43,7 @@ export class LoginComponent {
 
     goToDashboad() {
       this.data.changeRole("guest");
+      this.data.changeUser_Name("Kyle");
       this.router.navigate(['dashboard']);
     }
 }

@@ -17,4 +17,6 @@ public interface InspectionService {
 	public Inspection addInspection(int equipmentId);
 	
 	//public void deleteInspections(String name) throws NoSuchInspectionException;
+	
+	public Inspection getMostRecentVerifiedInspection(int equipmentId);
 }

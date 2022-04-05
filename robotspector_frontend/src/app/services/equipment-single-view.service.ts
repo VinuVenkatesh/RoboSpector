@@ -28,4 +28,10 @@ export class EquipmentSingleViewService {
     let url = this.equipmentServiceUrl + "/singleequipment/" + equipmentId;
     return this.httpClient.get<Equipment>(url);
   }
+
+  getMostRecentVerification(equipmentId : any){
+    let url = this.inspectionServiceUrl + "/recent/verified/" + equipmentId;
+    return this.httpClient.get<Inspection>(url);
+  }
+
 }

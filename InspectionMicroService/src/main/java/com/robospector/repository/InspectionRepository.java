@@ -14,4 +14,6 @@ public interface InspectionRepository extends MongoRepository<Inspection, String
 	Optional<Inspection> findFirstByEquipmentIdOrderByDateTimeDateDescDateTimeTimeDesc(int equipmentId);
 	
 	List<Inspection> findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(int equipmentId);
+	
+	Optional<Inspection> findFirstByEquipmentIdAndVerificationDetailsNotNullOrderByDateTimeDateDescDateTimeTimeDesc(int equipmentId);
 }

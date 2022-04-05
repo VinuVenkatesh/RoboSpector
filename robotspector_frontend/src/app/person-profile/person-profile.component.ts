@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataServiceService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-person-profile',
@@ -13,11 +14,15 @@ export class PersonProfileComponent implements OnInit {
   display:String = "none";
   backgroundColor:String = "transparent"
   showShadow:Boolean = false;
-  constructor(private router:Router) {}
+  userName?: string;
+  constructor(private router:Router, private dataServiceService : DataServiceService) {}
 
   ngOnInit(): void {
     this.logoutButton = document.querySelector("#logout-button");
     this.logoutName = document.querySelector("#logout-name");
+    this.dataServiceService.currentUserName.subscribe(data =>{
+      this.userName = data;
+    })
   }
 
   onMouseOver(e:MouseEvent){

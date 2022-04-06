@@ -15,23 +15,24 @@ spring:
     show-sql: true
 
 #need to uncomment this 
-#eureka:
-#  client:
-#    fetch-registry: true
-#    register-with-eureka: true
-#    service-url:
-#      defaultZone: http://eureka-server:8005/eureka/
-      
-      
-#remove this
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8005/eureka/
+      defaultZone: http://eureka-server:8005/eureka/
+      
+#      
+##remove this
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8005/eureka/
 
-# http://localhost:8005/eureka/
+
+
 
 # eureka.client.serviceUrl.defaultZone=${EUREKA_SERVER:http://localhost:8761/eureka}
 

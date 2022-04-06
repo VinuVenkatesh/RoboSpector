@@ -14,11 +14,17 @@ export class DetailedEquipmentOverviewComponent implements OnInit {
   detailedEquipmentOverview?:DetailedEquipmentOverview;
 
   @Input()
+  currentEquipment:any;
+
+  @Input()
   age?:number;
 
   ngOnInit(): void {
     this.dataSharing.detailedEquipmentData.subscribe((res:any) =>{
       this.detailedEquipmentOverview = res;
+    })
+    this.dataSharing.curentSelectedEquipment.subscribe((res:any) =>{
+      this.currentEquipment = res;
     })
   }
   getAgeColor(){

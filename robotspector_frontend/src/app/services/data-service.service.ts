@@ -9,11 +9,13 @@ export class DataService {
   SharingData = new Subject();//subject
   detailedEquipmentData = new Subject();
   currentSelectedRowData = new Subject();
+  curentSelectedEquipment = new Subject();
   currentDashboardInputData = new Subject();
   currentSortOrder = new Subject();
   currentCreateModalState = new Subject();
   currentEquipmentLength = new Subject<string>();
   currentEquipmentList = new Subject<[Equipment]>();
+  currentAlertState = new Subject();
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
@@ -38,5 +40,11 @@ export class DataService {
   }
   changeCurrentEquipmentList(data:[Equipment]){
     this.currentEquipmentList.next(data);
+  }
+  changeCurrentAlertState(data:any){
+    this.currentAlertState.next(data);
+  }
+  changeCurentSelectedEquipment(data:any){
+    this.curentSelectedEquipment.next(data);
   }
 }

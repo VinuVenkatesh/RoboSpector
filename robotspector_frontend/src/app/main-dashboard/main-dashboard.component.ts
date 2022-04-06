@@ -47,10 +47,13 @@ export class MainDashboardComponent implements OnInit {
     this.dataSharing.changeCurrentCreateModalState(true);
   }
   onClickDeleteButton(){
-    this.equipmentService.deleteEquipment(this.currentRowId).subscribe((data:any) =>{
-      console.log("=============");
-      console.log("delete request sent", data);
-      console.log("=============");
-    });
+    this.dataSharing.changeCurrentAlertState(true);
+    // this.equipmentService.deleteEquipment(this.currentRowId).subscribe((data:any) =>{
+    //     if (data != null){
+    //       this.equipmentService.getAllEquipment().subscribe((data:any) =>{
+    //         this.dataSharing.changeCurrentEquipmentList(data);
+    //       })
+    //     }
+    // });
   }
 }

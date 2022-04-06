@@ -43,6 +43,8 @@ export class CreateModalComponent implements OnInit {
   comment = new FormControl();
   equipmentLength?:string;
   equipmentForm: any;
+  @Input()
+  ageSliderValue:any = 50;
   constructor(private formBuilder:FormBuilder,private dataSharing: DataService, private equipmentService:EquipmentService) {}
   
   
@@ -85,17 +87,13 @@ export class CreateModalComponent implements OnInit {
     equipmentToSend.aging = formValues.age;
     
     this.equipmentService.createEquipment(equipmentToSend).subscribe((data:any) =>{
-      console.log("==============");
-      console.log("inside create =>", data);
-      console.log("==============");
-     
+      if (data != null){
+        this.equipmentService.getAllEquipment().subscribe((data:any) =>{
+          this.dataSharing.changeCurrentEquipmentList(data);
+        })
+      }
     });
-    this.equipmentService.getAllEquipment().subscribe((data:any) =>{
-      console.log("==============");
-      console.log("inside get all =>", data);
-      console.log("==============");
-      this.dataSharing.changeCurrentEquipmentList(data);
-    })
+    
     this.dataSharing.changeCurrentCreateModalState(false);
   }
   convertToEquipmentList(data:any):any{
@@ -114,5 +112,9 @@ export class CreateModalComponent implements OnInit {
       listOfEquipment.push(element);
     }
     return listOfEquipment;
+  }
+  setSliderValue(event:any){
+    this.ageSliderValue = parseInt(event.target.value);
+    console.log(event.target.value);
   }
 }

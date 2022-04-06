@@ -10,6 +10,8 @@ export class DashboardOrderByPipePipe implements PipeTransform {
   transform(allEquipment?:Equipment[], column?:string , sortOrder?:string) {
     if (allEquipment === undefined || column === undefined || sortOrder === undefined) return;
     if ( column == '' || sortOrder.length === 0) return allEquipment;
+    const noName = (element:any) => element.name ==  undefined || element.name == '';
+    if (allEquipment.some(noName)) return allEquipment; 
     switch(column.toLowerCase()){
       case "name":
         if (sortOrder == 'dsc'){

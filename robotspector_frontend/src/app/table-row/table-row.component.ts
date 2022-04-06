@@ -82,8 +82,8 @@ export class TableRowComponent implements OnInit {
   changeDetailedEquipmentOverview(){
     console.log("The detailed view has been clicked");
     this.dataSharing.changeCurrentSelectedRowData(this.equipment?.id);
+    this.dataSharing.changeCurentSelectedEquipment(this.equipment);
     this.dataSharing.changedetailedEquipmentData({age:this.age,name:this.name,collectionTime:this.collection});
-  
     console.log("Selection status is", this.isSelected);
   }
 }

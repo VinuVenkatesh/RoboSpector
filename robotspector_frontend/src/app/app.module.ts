@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SortHeaderTitleComponent } from './sort-header-title/sort-header-title.component';
 import { DashboardOrderByPipePipe } from './dashboard-order-by-pipe.pipe';
 import { CreateModalComponent } from './create-modal/create-modal.component';
+import { AlertComponent } from './alert/alert.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { CreateModalComponent } from './create-modal/create-modal.component';
     SortHeaderTitleComponent,
     DashboardOrderByPipePipe,
     CreateModalComponent,
+    AlertComponent,
    
   ],
   imports: [

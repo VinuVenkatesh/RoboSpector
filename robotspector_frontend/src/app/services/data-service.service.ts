@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Equipment } from '../equipment-single-view/equipment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataServiceService {
+export class DataService {
   SharingData = new Subject();//subject
 
   private role = new BehaviorSubject('guest');
@@ -16,6 +17,15 @@ export class DataServiceService {
   private engineerName = new BehaviorSubject('Kevin');
   currentEngineerName = this.engineerName.asObservable();
 
+  detailedEquipmentData = new Subject();
+  currentSelectedRowData = new Subject();
+  curentSelectedEquipment = new Subject();
+  currentDashboardInputData = new Subject();
+  currentSortOrder = new Subject();
+  currentCreateModalState = new Subject();
+  currentEquipmentLength = new Subject<string>();
+  currentEquipmentList = new Subject<[Equipment]>();
+  currentAlertState = new Subject();
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
@@ -29,5 +39,32 @@ export class DataServiceService {
 
   changeEngineerName(newEngineerName : string){
     this.engineerName.next(newEngineerName);
+  }
+  changedetailedEquipmentData(data:any){
+    this.detailedEquipmentData.next(data);
+  }
+  changeCurrentSelectedRowData(data:any){
+    this.currentSelectedRowData.next(data);
+  }
+  changeDashboardInputText(data:any){
+    this.currentDashboardInputData.next(data);
+  }
+  changeSortOrder(data:any){
+    this.currentSortOrder.next(data);
+  }
+  changeCurrentCreateModalState(data:boolean){
+    this.currentCreateModalState.next(data);
+  }
+  changeCurrentEquipmentLength(data:string){
+    this.currentEquipmentLength.next(data);
+  }
+  changeCurrentEquipmentList(data:[Equipment]){
+    this.currentEquipmentList.next(data);
+  }
+  changeCurrentAlertState(data:any){
+    this.currentAlertState.next(data);
+  }
+  changeCurentSelectedEquipment(data:any){
+    this.curentSelectedEquipment.next(data);
   }
 }

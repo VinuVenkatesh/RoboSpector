@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataServiceService } from '../services/data-service.service';
 import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
+import { DataService } from '../services/data-service.service';
 @Component({
   selector: 'app-equipment-single-view',
   templateUrl: './equipment-single-view.component.html',
@@ -14,20 +14,19 @@ export class EquipmentSingleViewComponent implements OnInit {
   scrollLeft:any;
   currentView:String = "location";
   viewTitles = {"Inspection":"Inspection", "Location":"Location", "Comments":"comments"};
-  constructor(private dataSharing: DataServiceService) {}
+  constructor(private dataSharing: DataService) {}
 
   @Input()
   title?:String;
 
-
   ngOnInit(): void {
-   
+
     this.dataSharing.SharingData.subscribe((res:any) =>{
       this.currentView = res;
     })
   }
   onMouseDown(e:MouseEvent){
-    
+
     this.isDown = true;
     this.slider.classList.add('active');
     this.startX = e.pageX - this.slider.offsetLeft;
@@ -48,5 +47,5 @@ export class EquipmentSingleViewComponent implements OnInit {
     const walk = (x - this.startX) * 3; //scroll-fast
     this.slider.scrollLeft = this.scrollLeft - walk;
   }
-  
+
 }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { Equipment } from '../equipment-single-view/equipment';
+import { DataService } from '../services/data-service.service';
+import {EquipmentService} from '../services/EquipmentService'
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -11,12 +13,34 @@ export class TableComponent implements OnInit {
   isDown:any = false;
   startY:any;
   scrollTop:any;
-  severityLevels = [5,4,3,2,1,1,1,1,1];
-  age = [10,40,30,25,80,99,70,60,10];
-  constructor() {}
+  equipment?:[Equipment];
+  searchText:string = "";
+  @Input()
+  sortColumnOrder = {column:"name",order:"dsc"};
+  @Input()
+  equipmentLength?:Number;
+  constructor(private service:EquipmentService,private dataSharing: DataService) {}
 
   ngOnInit(): void {
     this.slider = document.querySelector('#table');
+    this.service.getAllEquipment().subscribe((data:any) =>{
+      if (data != null){
+       this.equipment = data;
+       this.equipmentLength = data.length;
+       this.dataSharing.changeCurrentEquipmentLength(data.length);
+       console.log("data from table", this.equipment);
+      }
+    })
+    this.dataSharing.currentDashboardInputData.subscribe((res:any) =>{
+      this.searchText = res;
+    })
+    this.dataSharing.currentSortOrder.subscribe((res:any) =>{
+      this.sortColumnOrder = res;
+    })
+    this.dataSharing.currentEquipmentList.subscribe((res:[Equipment]) =>{
+      this.equipment = res;
+    })
+    
   }
   onMouseDown(e:MouseEvent){
     this.isDown = true;

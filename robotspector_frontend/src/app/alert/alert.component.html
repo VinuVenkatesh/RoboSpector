@@ -1,0 +1,47 @@
+<div [@fade] = "alertState ? 'show' : 'hide'"  (click) = "toggleAlertState()" *ngIf="alertState"  style="position:absolute; 
+width: 100vw; 
+height: 100vh; 
+background-color: rgba(0,0,0,0.2);
+left: 0; 
+ right: 0; 
+ top: 0; 
+ bottom: 0; 
+ z-index: 10;
+ ">
+
+</div>
+<div [@fade] = "alertState ? 'show' : 'hide'"  (click) = "toggleAlertState()" *ngIf="alertState" style="
+position: absolute; 
+    left: 0; 
+    right: 0; 
+    top: 0; 
+    bottom: 0; 
+    z-index: 10;
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: #FFF;
+    font-family: 'Montserrat';
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); border-radius: 10px;
+background-color: white; 
+box-shadow: 4px 9px 3px 0px rgba(0,0,0,0.1);
+width:427px;
+height:277px;
+">
+    <div class = "d-flex justify-content-center flex-column align-items-center align-items-center" style="text-align:text-center; width: 100%; height: 100%;">
+        <span style="color: #8F8F8F; display: inline-block; width: 70%; height:50px; text-align: center;" class = "mt-auto mb-auto">Are you sure you want to 
+            <span class = "mt-auto mb-auto display: inline-block; width: 70%; height:50px; text-align: center;" style="color: #F05365; font-weight: bold;">delete</span>
+            <span style="font-weight: bold;"> {{currentEquipment.name}} ?</span>
+        </span>
+        <div (click) = "onClickNo()" 
+        class = "d-flex justify-content-center align-items-center mb-3"
+         style=" cursor: pointer; box-shadow: 4px 5px 0px 0px rgba(0,0,0,0.1);color:white;border-radius: .25rem; 
+         width: 85%; height:50px;font-weight: bold; background-color: #C4C4C4;">
+         No</div>
+        <div (click) = "onClickYes()" class = "d-flex justify-content-center align-items-center mb-3"
+         style=" cursor: pointer; box-shadow: 4px 5px 0px 0px rgba(0,0,0,0.1);color:white;border-radius: .25rem; width: 85%; height:50px;
+         font-weight: bold; background-color: #F05365;">Yes</div>
+    </div>
+    
+</div>

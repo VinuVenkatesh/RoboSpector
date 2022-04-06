@@ -12,11 +12,10 @@ export class AuthenticationService {
   }
 
   authenticateUser(data:any) {
-   
     return this.httpClient.post(this.url, {"username":data.username, "password":data.password});
   }
 
-  setBearerToken(token:any) {
+  setToken(token:any) {
     localStorage.setItem('token',token);
   }
 

@@ -15,12 +15,11 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
 
-    constructor(private formBuilder:FormBuilder, private router:Router, private data : DataServiceService) {}
+    constructor(private formBuilder:FormBuilder, private service:AuthenticationService, private router:RouterService, private data : DataServiceService) {}
     //one space between methods
     ngOnInit() {
 
       this.form = this.formBuilder.group({
-
 
         "username": ['', [Validators.required,Validators.minLength(8)]],
         "password": ['', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/)]]
@@ -29,21 +28,36 @@ export class LoginComponent {
     }
 
     loginSubmit() {
-      if (this.form.valid == false ){
+      // this.router.routeToDashboard();
 
-        this.submitMessage = "Username or password invalid"
+      this.service.authenticateUser(this.form.value).subscribe((data:any) =>{
 
-      }else{
-        this.submitMessage = "Suceess";
+        if (this.form.valid == false ){
 
-      }
+          this.submitMessage = "Username or password invalid"
 
+        }else{
+          if (data!= null){
+            console.log("There is data");
+            this.service.setToken(data);
+            this.data.changeRole("guest");
+            this.data.changeUser_Name("Kyle");
+            this.router.routeToDashboard();
+          }
+
+        }
+      })
 
     }
 
-    goToDashboad() {
-      this.data.changeRole("guest");
-      this.data.changeUser_Name("Kyle");
-      this.router.navigate(['dashboard']);
-    }
+    //   if (this.form.valid == false ){
+
+    //     this.submitMessage = "Username or password invalid"
+
+    //   }else{
+    //     this.submitMessage = "Suceess";
+
+    //   }
+
+    // }
 }

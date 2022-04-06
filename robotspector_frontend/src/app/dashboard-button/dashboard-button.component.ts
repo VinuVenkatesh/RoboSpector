@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-dashboard-button',
@@ -15,7 +15,7 @@ export class DashboardButtonComponent implements OnInit {
   image?:String;
   
 
-  constructor(private dataSharing: DataServiceService) {
+  constructor(private dataSharing: DataService) {
     // this.dataSharing.SharingData.subscribe((res:any) =>{
     //   this.title = res;
     // })

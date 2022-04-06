@@ -10,3 +10,6 @@ html {
     -ms-user-select: none;
     user-select: none;
  }
+ html, body,div,span {
+  font-family: 'Montserrat';
+}

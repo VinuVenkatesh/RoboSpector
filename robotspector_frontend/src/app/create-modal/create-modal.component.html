@@ -1,4 +1,5 @@
-<div [@fade] = "createModalState ? 'show' : 'hide'"  (click) = "toggleCreateModalState()" *ngIf="createModalState"  style="position:absolute; 
+
+    <div [@fade] = "createModalState ? 'show' : 'hide'"  (click) = "toggleCreateModalState()" *ngIf="createModalState"  style="position:absolute; 
    width: 100vw; 
    height: 100vh; 
    background-color: rgba(0,0,0,0.2);
@@ -20,51 +21,56 @@
     margin-right: auto; 
     margin-top: auto;
     margin-bottom: auto;
-    width: 45vw; height: 90vh; 
-    background-color: #fff;
-    border-radius: 10px;">
-    <div class = "d-flex pt-2 flex-column" style="margin-left: 10vw;">
-       <span class = "mb-3" style="color: #19B2EA; font-size: x-large; font-weight:700;">Create Equipment</span>
+    width: 30vw; height: 90vh; 
+    background-color: #FFF;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+    ">
+    <div class = "d-flex pt-2 flex-column align-items-center" style="margin-left: 20px;" >
+       <span class = "mb-3 mr-auto" style="font-family: 'Montserrat'; color: #000; font-size: x-large;font-weight: 200; ">Create Equipment</span>
        <form [formGroup] = "equipmentForm" (ngSubmit)="onCreateEquipmentSubmit()" class = "d-flex flex-column">
            <div class = "d-flex flex-column mb-4">
-            <label for = "name-create" class = "pb-2" style="color:#19B2EA">Name</label>
-            <input type = "text" class="form-control"  
-            id ="name-create" style="max-width:70%; " formControlName = "name"/>
+            <label for = "name-create" class = "pb-2" style="color:#000; ">Name</label>
+            <input placeholder="Name" type = "text" class="form-control py-3"  
+            id ="name-create" style="max-width:90%; " formControlName = "name"/>
            </div>
            <div class = "d-flex flex-column mb-4">
             <label for = "locationUrl-create" 
-            class = "pb-2" style="color:#19B2EA;"
+            class = "pb-2" style="color:#000; "
             >Location URL</label>
-            <input formControlName = "locationurl" type = "text"
-              class="form-control"  id = "locationUrl-create"  
-              style="max-width:70%; "/>
+            <input placeholder="Location URL" formControlName = "locationurl" type = "text"
+              class="form-control py-3"  id = "locationUrl-create"  
+              style="max-width:90%; "/>
            </div>
            <div class = "d-flex flex-column mb-3">
            
-            <div class = "d-flex" style="gap:10px;">
+            <div class = "d-flex " style="gap:10px;">
                 <input type = "text"  class="form-control" 
-                id = "long-create" placeholder="longitutde" 
+                id = "long-create" placeholder="longitude" 
                 formControlName = "long" 
-                style="max-width:20%"/>
+                style="max-width:25%"/>
                 <input type = "text"  class="form-control"  
                 id = "lat-create" placeholder="latitude"
                 formControlName = "lat" 
-                style="max-width:20%"/>
+                style="max-width:25%"/>
             </div>
             
            </div>
-           <div class = "d-flex flex-column justify-content-center mb-2" style="  gap:10px;  width: 70%;" >
-            <label class = "ml-auto mr-auto"  style="color:#19B2EA">Age</label>
-                <input formControlName = "age" type = "number"  class = "form-control ml-auto mr-auto" placeholder="50" style="width: 50px; max-width:50px" max = "100"/>
-                <input  style = "width: 100%;" class = "  px-2  ml-auto mr-auto" id = "age-create" type="range" min="1" max="100" value="50">
+           <div class = "d-flex flex-column justify-content-center mb-2" style="   width: 90%;" >
+            <label class = "ml-auto mr-auto "  style="color:#000;">Age</label>
+                <input formControlName = "age" type = "number"  class = "mb-4 form-control ml-auto mr-auto" placeholder="50" style="width: 50px; max-width:50px" max = "100"/>
+                <input  style = "width: 100%; cursor:pointer;" class = "   ml-auto mr-auto" id = "age-create" type="range" min="1" max="100" value="50">
            </div>
-           <div class = "d-flex flex-column justify-content-center mb-3" style="max-width: 70%;">
-               <span style="color:#19B2EA ;" class="mr-auto mb-2">Comment</span>
+           <div class = "d-flex flex-column justify-content-center mb-2" style="max-width: 90%;">
+               <span style="color:#000 ;" class=" mb-2">Comment</span>
                <textarea  formControlName = "comment" class = "form-control" style="resize: none;"></textarea>
            </div>
            <input type="submit" 
            value = "Create" 
-           style="border: none; border-radius: 5px; max-width: 70%; background-color: #19B2EA; color:white; font-weight: 700;"
+           style="border: none; border-radius: 5px; max-width: 90%;
+            background-color: #357DED;
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); 
+            color:white; font-weight: 700;"
            class = "py-1 "/>
        </form>
     </div>

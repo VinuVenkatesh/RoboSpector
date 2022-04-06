@@ -14,19 +14,16 @@ export class LoginComponent {
     password = new FormControl();
     form: any;
     submitMessage: any;
-<<<<<<< HEAD
     
     constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService) {}
     //one space between methods
     ngOnInit() {
       
-=======
 
     constructor(private formBuilder:FormBuilder, private router:Router, private data : DataServiceService) {}
     //one space between methods
     ngOnInit() {
 
->>>>>>> EquipmentSinglePageFrontEndService
       this.form = this.formBuilder.group({
 
 
@@ -35,7 +32,6 @@ export class LoginComponent {
 
      })
     }
-<<<<<<< HEAD
     
     loginSubmit() {
       // this.router.routeToDashboard();
@@ -70,7 +66,6 @@ export class LoginComponent {
     //   }
      
     // }
-=======
 
     loginSubmit() {
       if (this.form.valid == false ){
@@ -90,5 +85,4 @@ export class LoginComponent {
       this.data.changeUser_Name("Kyle");
       this.router.navigate(['dashboard']);
     }
->>>>>>> EquipmentSinglePageFrontEndService
 }

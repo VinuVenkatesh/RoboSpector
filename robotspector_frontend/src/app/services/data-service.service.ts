@@ -7,7 +7,6 @@ import { Equipment } from '../equipment-single-view/equipment';
 })
 export class DataService {
   SharingData = new Subject();//subject
-<<<<<<< HEAD
   detailedEquipmentData = new Subject();
   currentSelectedRowData = new Subject();
   curentSelectedEquipment = new Subject();
@@ -17,7 +16,6 @@ export class DataService {
   currentEquipmentLength = new Subject<string>();
   currentEquipmentList = new Subject<[Equipment]>();
   currentAlertState = new Subject();
-=======
 
   private role = new BehaviorSubject('guest');
   currentRole = this.role.asObservable();
@@ -28,12 +26,10 @@ export class DataService {
   private engineerName = new BehaviorSubject('Kevin');
   currentEngineerName = this.engineerName.asObservable();
 
->>>>>>> EquipmentSinglePageFrontEndService
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
   }
-<<<<<<< HEAD
   changedetailedEquipmentData(data:any){
     this.detailedEquipmentData.next(data);
   }
@@ -60,7 +56,7 @@ export class DataService {
   }
   changeCurentSelectedEquipment(data:any){
     this.curentSelectedEquipment.next(data);
-=======
+  }
   changeRole(newRole : string){
     this.role.next(newRole);
   }
@@ -70,6 +66,5 @@ export class DataService {
 
   changeEngineerName(newEngineerName : string){
     this.engineerName.next(newEngineerName);
->>>>>>> EquipmentSinglePageFrontEndService
   }
 }

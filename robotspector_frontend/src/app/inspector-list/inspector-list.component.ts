@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import { DataService } from '../services/data-service.service';
-=======
 import { Subscription } from 'rxjs';
 import { Inspection } from '../model/Inspection.model';
 import { VerificationDetails } from '../model/VerificationDetails.model';
-import { DataServiceService } from '../services/data-service.service';
 import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
->>>>>>> EquipmentSinglePageFrontEndService
 
 @Component({
   selector: 'app-inspector-list',
@@ -24,12 +20,10 @@ export class InspectorListComponent implements OnInit {
   comment:String = `Sturdy , albeit needs further inspection potential mechanical issues Sturdy , 
   albeit needs further needs further inspection Sturdy , albeit needs further inspection 
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
-<<<<<<< HEAD
-  constructor(private dataSharing: DataService) { 
-=======
   inspectionList : Inspection[] = [];
-  constructor(private dataSharing: DataServiceService, private equipmentSingleViewService: EquipmentSingleViewService) { 
->>>>>>> EquipmentSinglePageFrontEndService
+  
+  constructor(private dataSharing: DataService, private equipmentSingleViewService: EquipmentSingleViewService) { 
+    
     dataSharing.SharingData.subscribe((res:any) =>{
       
     })

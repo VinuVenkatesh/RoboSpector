@@ -7,12 +7,17 @@ import { Equipment } from '../equipment-single-view/equipment';
 })
 export class EquipmentService {
 
-  url = "http://localhost:8002/all/";
-  constructor(private httpClient:HttpClient) {
-
-  }
-
+  getAllEquipmentUrl = "http://localhost:8002/all/";
+  createEquipmentUrl = "http://localhost:8002/create/";
+  deleteEquipmentUrl = "http://localhost:8002/delete/";
+  constructor(private httpClient:HttpClient) {}
   getAllEquipment() {
-    return this.httpClient.get<Equipment[]>(this.url);
+    return this.httpClient.get<Equipment[]>(this.getAllEquipmentUrl);
+  }
+  createEquipment(data:Equipment){
+    return this.httpClient.post<Equipment>(this.createEquipmentUrl,data);
+  }
+  deleteEquipment(id:any){
+    return this.httpClient.put<Equipment>(this.deleteEquipmentUrl + id,{});
   }
 }

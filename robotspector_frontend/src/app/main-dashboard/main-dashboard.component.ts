@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
+import { EquipmentService } from '../services/EquipmentService';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -21,7 +22,10 @@ export class MainDashboardComponent implements OnInit {
   @Input()
   createModalState:Boolean = false;
 
-  constructor(private dataSharing: DataService) { }
+  @Input()
+  currentRowId:any;
+
+  constructor(private dataSharing: DataService, private equipmentService:EquipmentService) { }
 
   ngOnInit(): void {
     this.dataSharing.detailedEquipmentData.subscribe((res:any) =>{
@@ -29,6 +33,9 @@ export class MainDashboardComponent implements OnInit {
     })
     this.dataSharing.currentCreateModalState.subscribe((res:any) =>{
       this.createModalState = res;
+    })
+    this.dataSharing.currentSelectedRowData.subscribe((res:any) =>{
+      this.currentRowId = res;
     })
   }
   
@@ -38,5 +45,12 @@ export class MainDashboardComponent implements OnInit {
   }
   onClickAddButton(){
     this.dataSharing.changeCurrentCreateModalState(true);
+  }
+  onClickDeleteButton(){
+    this.equipmentService.deleteEquipment(this.currentRowId).subscribe((data:any) =>{
+      console.log("=============");
+      console.log("delete request sent", data);
+      console.log("=============");
+    });
   }
 }

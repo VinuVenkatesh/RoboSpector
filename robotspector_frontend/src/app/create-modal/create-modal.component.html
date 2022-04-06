@@ -20,36 +20,47 @@
     margin-right: auto; 
     margin-top: auto;
     margin-bottom: auto;
-    width: 50vw; height: 90vh; 
+    width: 45vw; height: 90vh; 
     background-color: #fff;
-    border-radius: 5px;">
+    border-radius: 10px;">
     <div class = "d-flex pt-2 flex-column" style="margin-left: 10vw;">
        <span class = "mb-3" style="color: #19B2EA; font-size: x-large; font-weight:700;">Create Equipment</span>
-       <form class = "d-flex flex-column">
+       <form [formGroup] = "equipmentForm" (ngSubmit)="onCreateEquipmentSubmit()" class = "d-flex flex-column">
            <div class = "d-flex flex-column mb-4">
             <label for = "name-create" class = "pb-2" style="color:#19B2EA">Name</label>
-            <input type = "text" class="form-control"  id ="name-create" style="max-width:70%; "/>
+            <input type = "text" class="form-control"  
+            id ="name-create" style="max-width:70%; " formControlName = "name"/>
            </div>
            <div class = "d-flex flex-column mb-4">
-            <label for = "locationUrl-create" class = "pb-2" style="color:#19B2EA; ">Location URL</label>
-            <input type = "text"  class="form-control"  id = "locationUrl-create"  style="max-width:70%; font-weight: 600;"/>
+            <label for = "locationUrl-create" 
+            class = "pb-2" style="color:#19B2EA;"
+            >Location URL</label>
+            <input formControlName = "locationurl" type = "text"
+              class="form-control"  id = "locationUrl-create"  
+              style="max-width:70%; "/>
            </div>
            <div class = "d-flex flex-column mb-3">
            
             <div class = "d-flex" style="gap:10px;">
-                <input type = "text"  class="form-control" id = "long-create" placeholder="longitutde" style="max-width:20%"/>
-                <input type = "text"  class="form-control"  id = "lat-create" placeholder="latitude" style="max-width:20%"/>
+                <input type = "text"  class="form-control" 
+                id = "long-create" placeholder="longitutde" 
+                formControlName = "long" 
+                style="max-width:20%"/>
+                <input type = "text"  class="form-control"  
+                id = "lat-create" placeholder="latitude"
+                formControlName = "lat" 
+                style="max-width:20%"/>
             </div>
             
            </div>
            <div class = "d-flex flex-column justify-content-center mb-2" style="  gap:10px;  width: 70%;" >
-            <label class = "ml-auto mr-auto"  for = "locationUrl-create"  style="color:#19B2EA">Age</label>
-                <input type = "number"  class = "form-control ml-auto mr-auto" placeholder="50" style="width: 50px; max-width:50px"/>
-                <input style = "width: 100%;" class = "  px-2  ml-auto mr-auto" id = "age-create" type="range" min="1" max="100" value="50">
+            <label class = "ml-auto mr-auto"  style="color:#19B2EA">Age</label>
+                <input formControlName = "age" type = "number"  class = "form-control ml-auto mr-auto" placeholder="50" style="width: 50px; max-width:50px" max = "100"/>
+                <input  style = "width: 100%;" class = "  px-2  ml-auto mr-auto" id = "age-create" type="range" min="1" max="100" value="50">
            </div>
            <div class = "d-flex flex-column justify-content-center mb-3" style="max-width: 70%;">
                <span style="color:#19B2EA ;" class="mr-auto mb-2">Comment</span>
-               <textarea class = "form-control" style="resize: none;"></textarea>
+               <textarea  formControlName = "comment" class = "form-control" style="resize: none;"></textarea>
            </div>
            <input type="submit" 
            value = "Create" 

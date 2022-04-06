@@ -10,7 +10,7 @@
         rel="stylesheet">
     
 </head>
-<body class = "container d-flex " style="gap:50px; font-family: 'Montserrat'; max-height: 100vh;" >
+<body class = "container d-flex " style="gap:40px; font-family: 'Montserrat'; max-height: 100vh;" >
     <app-create-modal></app-create-modal>
     <div>
         <div>
@@ -33,7 +33,10 @@
                 class = "d-flex py-2 px-4 justify-content-center align-items-center" >
                     Add
                 </div>
-                <div style="cursor: pointer; font-size: small; max-height: 25px; font-weight: 600; box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); color:white; background-color: #E05C5C; border-radius: 5px;" class = "d-flex py-2 px-4 justify-content-center align-items-center" >
+                <div (click) = "onClickDeleteButton()" style="cursor: pointer; font-size: small; max-height: 25px; font-weight: 600;
+                 box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); color:white;
+                  background-color: #E05C5C; border-radius: 5px;" 
+                  class = "d-flex py-2 px-4 justify-content-center align-items-center" >
                     Delete
                 </div>
             </div>

@@ -17,6 +17,8 @@ export class TableComponent implements OnInit {
   searchText:string = "";
   @Input()
   sortColumnOrder = {column:"name",order:"dsc"};
+  @Input()
+  equipmentLength?:Number;
   constructor(private service:EquipmentService,private dataSharing: DataService) {}
 
   ngOnInit(): void {
@@ -24,6 +26,8 @@ export class TableComponent implements OnInit {
     this.service.getAllEquipment().subscribe((data:any) =>{
       if (data != null){
        this.equipment = data;
+       this.equipmentLength = data.length;
+       this.dataSharing.changeCurrentEquipmentLength(data.length);
       }
     })
     this.dataSharing.currentDashboardInputData.subscribe((res:any) =>{
@@ -32,6 +36,10 @@ export class TableComponent implements OnInit {
     this.dataSharing.currentSortOrder.subscribe((res:any) =>{
       this.sortColumnOrder = res;
     })
+    this.dataSharing.currentEquipmentList.subscribe((res:[Equipment]) =>{
+      this.equipment = res;
+    })
+    
   }
   onMouseDown(e:MouseEvent){
     this.isDown = true;

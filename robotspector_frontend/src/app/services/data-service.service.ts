@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Equipment } from '../equipment-single-view/equipment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class DataService {
   currentDashboardInputData = new Subject();
   currentSortOrder = new Subject();
   currentCreateModalState = new Subject();
+  currentEquipmentLength = new Subject<string>();
+  currentEquipmentList = new Subject<[Equipment]>();
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
@@ -29,5 +32,11 @@ export class DataService {
   }
   changeCurrentCreateModalState(data:boolean){
     this.currentCreateModalState.next(data);
+  }
+  changeCurrentEquipmentLength(data:string){
+    this.currentEquipmentLength.next(data);
+  }
+  changeCurrentEquipmentList(data:[Equipment]){
+    this.currentEquipmentList.next(data);
   }
 }

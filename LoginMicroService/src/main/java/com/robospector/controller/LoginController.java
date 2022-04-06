@@ -45,14 +45,17 @@ public class LoginController {
 
 		try {
 			credentialsValidatorForController.validate(user);
-			service.authenticateUser(user);
+			User authenticatedUser = service.authenticateUser(user);
+			
 			String jwtToken = service.generateJwtToken(user.getUsername());
 			tokenMap.put("token", jwtToken);
+			tokenMap.put("userRole", authenticatedUser.getRole());
 			return new ResponseEntity<>(tokenMap, HttpStatus.OK);
 		} catch (SpacesPresentInUserNameOrPasswordException |
 				UsernameAndPasswordDoNotMatchException |
 				InvalidUserNameOrPasswordServiceException e) {
 			tokenMap.put("message", e.getMessage());
+			
 			return new ResponseEntity<>(tokenMap,HttpStatus.NOT_FOUND);
 		}
 	}

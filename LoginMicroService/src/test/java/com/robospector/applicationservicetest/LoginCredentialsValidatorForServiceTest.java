@@ -74,7 +74,7 @@ public class LoginCredentialsValidatorForServiceTest {
 	@Test
 	public void givenEmptyOptionalObject_whenIsEmpty_thenThrowUsernameAndPasswordDoNotMatchException() {
 		try {
-			credentialsValidatorForService.isEmpty(EMPTY_OPTIONAL_OBJECT);
+			credentialsValidatorForService.validateIfUserExists(EMPTY_OPTIONAL_OBJECT);
 			fail();
 		} catch (UsernameAndPasswordDoNotMatchException e) {
 			assertEquals(INVALID_CREDENTIALS_ERROR, e.getMessage());
@@ -84,7 +84,7 @@ public class LoginCredentialsValidatorForServiceTest {
 	@Test
 	public void givenValidOptionalObject_whenIsEmpty_thenNoExceptionsThrown() {
 		try {
-			credentialsValidatorForService.isEmpty(VALID_OPTIONAL_OBJECT);
+			credentialsValidatorForService.validateIfUserExists(VALID_OPTIONAL_OBJECT);
 		} catch (UsernameAndPasswordDoNotMatchException e) {
 			fail();
 		}

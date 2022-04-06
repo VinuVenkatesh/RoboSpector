@@ -96,7 +96,7 @@ public class LoginServiceImplTest {
 
 		loginService.authenticateUser(user);
 
-		verify(credentialsValidatorForService, times(1)).isEmpty(Optional.ofNullable(user));
+		verify(credentialsValidatorForService, times(1)).validateIfUserExists(Optional.ofNullable(user));
 	}
 	
 	// TODO: Test need tobe modified

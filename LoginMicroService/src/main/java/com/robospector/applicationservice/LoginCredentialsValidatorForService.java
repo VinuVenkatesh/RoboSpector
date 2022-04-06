@@ -33,7 +33,7 @@ public class LoginCredentialsValidatorForService {
 		
 	}
 	
-	public void isEmpty(Optional<User> savedUser) throws UsernameAndPasswordDoNotMatchException {
+	public void validateIfUserExists(Optional<User> savedUser) throws UsernameAndPasswordDoNotMatchException {
 		if (savedUser.isEmpty()) {
 			throw new UsernameAndPasswordDoNotMatchException("Invalid Username or Password");
 		}

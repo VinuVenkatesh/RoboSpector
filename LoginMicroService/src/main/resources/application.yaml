@@ -6,9 +6,9 @@ spring:
   application:
     name: login-microservice
   datasource:
-    url: jdbc:mysql://login-service-mysql:3306/login?autoReconnect=true
+    url: jdbc:mysql://localhost:3306/login?autoReconnect=true
     username: root
-    password: root
+    password: root123
   jpa:
     hibernate:
       ddl-auto: update

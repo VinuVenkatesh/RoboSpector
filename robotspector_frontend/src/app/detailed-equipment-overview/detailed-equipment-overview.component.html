@@ -1,11 +1,13 @@
-<div class = "d-flex flex-column align-items-center just-content-center"  style="text-align: left; max-width: 30 vw; height: 100vh;" >
+<div class = "d-flex flex-column align-items-center just-content-center"  style="text-align: left; min-width:23vw; max-width: 20vw; height: 100vh;" >
     <img class = "pt-3 mb-4" style = "text-align: left; font-weight: 600; object-fit:cover; border-radius: 50%; height: 200px; width: 200px;" src = "../../assets//images/engine_1.jpg"/>
     <h4 class = "pb-2 font-bold mr-auto" style="text-align: left;">{{detailedEquipmentOverview?.name}}</h4>
     <div  class = "mb-2 pb-2 d-flex flex-column mr-auto" style="gap:10px;">
-        <span style="color:#8F8F8F; font-weight: 600; font-size:x-small;" >Inspection date - 10/11/2021</span>
-        <span style="color:#8F8F8F; font-weight: 600; font-size: x-small; " > Verified date - 10/13/2022</span>
+        <span style="color:#8F8F8F; font-weight: 600; font-size:x-small;" >Inspection date - {{currentEquipment?.inspection?.dateTime?.date}}</span>
+        <span *ngIf="currentEquipment?.inspection?.verificationDetails?.verifiedDate?.date != undefined" style="color:#8F8F8F; font-weight: 600; font-size: x-small; " >
+             Verified date - {{currentEquipment?.inspection?.verificationDetails?.verifiedDate?.date}}
+        </span>
     </div>
-    <div>
+    <div style="min-width:100%; max-width:23vw;">
         <div class = "d-flex justify-content-center mb-4 pr-4" >
             <div class = "d-flex align-items-center justify-content-center" [ngStyle]="{'border-color': '#' + getAgeColor()}" style=" color:black; border-radius: 50%; width: 55px; height: 55px; border: 2px solid #EA526F;">
                 <div class = "d-flex flex-column align-items-center justify-cotent-center">
@@ -14,8 +16,9 @@
                 </div>
             </div>
         </div>
-        <div class = "d-flex mb-3 justify-content-between">
-            <div class="px-3 mb-auto mt-auto align-self-end p-2  d-flex align-items-center justify-content-center"  [ngStyle]="{'background-color': getColor()}" style=" max-height: 1.2rem; max-width:80%; text-align: center;  border-top-left-radius: 15px; border-bottom-right-radius: 15px; color:white" >
+        <div class = "d-flex mb-3 justify-content-between" style="width: 100%;">
+            <div class="px-3 mb-auto mt-auto align-self-end p-2  d-flex align-items-center justify-content-between"
+              [ngStyle]="{'background-color': getColor()}" style=" max-height: 1.2rem; max-width:80%; text-align: center;  border-top-left-radius: 15px; border-bottom-right-radius: 15px; color:white" >
                 <span class="mr-2" style="font-size:xx-small;  font-weight: bold;">
                    {{currentEquipment?.inspection?.verificationDetails?.severity != undefined ? 'Severity': 'Inspection TBA'}}
                 </span>

@@ -14,5 +14,11 @@ spring:
       ddl-auto: update
     show-sql: true
 
+springdoc:
+ api-docs:
+   path: /login-docs
+ swagger-ui:
+   path: /swagger-ui.html
+   
 jwt:  
   secret: robotSpectorSecret

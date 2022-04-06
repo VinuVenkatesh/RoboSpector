@@ -64,6 +64,15 @@ public class InspectionServiceImpl implements InspectionService {
 		return inspectionRepository.save(inspection);
 	}
 
+	@Override
+	public Inspection getMostRecentVerifiedInspection(int equipmentId) {
+		Optional<Inspection> optional = this.inspectionRepository.findFirstByEquipmentIdAndVerificationDetailsNotNullOrderByDateTimeDateDescDateTimeTimeDesc(equipmentId);
+		if(optional.isEmpty())
+			return null;
+		else
+			return optional.get();
+	}
+
 //	@Override
 //	public void deleteInspections(String name) throws NoSuchInspectionException {
 //		List<Inspection> list = inspectionRepository.findByEquipmentIdOrderByVerificationDetailsInspectionResultSeverityDesc(name);

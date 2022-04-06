@@ -12,7 +12,5 @@ public interface EquipmentRepository extends MongoRepository <PieceOfEquipment, 
 
 	List<PieceOfEquipment> findByIsArchived(Boolean isArchived);
 	
-	//List<PieceOfEquipment> findByNameLikeOrderByAgeAsc();
-	//@Query("{$and: [{'name':?0}, {'isArchived':?1}]}")
-	List<PieceOfEquipment> findByNameLike(String name, Boolean isArchived);
+	List<PieceOfEquipment> findByNameLikeAndIsArchivedFalse(String name, Boolean isArchived);
 }

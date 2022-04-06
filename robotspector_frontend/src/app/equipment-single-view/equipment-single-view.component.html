@@ -12,10 +12,10 @@
         <link rel="stylesheet" href="./equipment-single-view.component.css">
         
 </head>
-
+<app-person-profile></app-person-profile>
 <div class = "d-flex justify-content-between container" style="font-family: 'Montserrat', sans-serif;  width: 100vw; height: 100vh; ">
     <app-dashboard-sidebar  ></app-dashboard-sidebar>
-
+    
     <div *ngIf = "currentView.toLocaleLowerCase().includes(viewTitles['Location'].toLowerCase())"  class  = "pt-4"  style="flex: auto; margin-left: 3rem; max-width: 50%; margin-right: 3rem; padding-left: 1rem; background-color: rgba(25, 178, 234, 0.018); ">
         <span style="font-size: 1.5rem;" > Equipment | <span style = " font-weight: 500; z-index: 10; color:black"> Screwdriver </span></span>
         <div class="d-flex flex-column  mt-4 " style="width:fit-content;">
@@ -24,11 +24,8 @@
             <img style = "object-fit:contain; width: 15px; height: 15px;" class = "pb-1" src = "../../assets/images/location_icon.png">
             </div>
             
-            <iframe  class = "mb-4" width='100%' height='280px' src="https://api.mapbox.com/styles/v1/leigham/cl16y4cq6002s15qrih661fck.html?title=false&access_token=pk.eyJ1IjoibGVpZ2hhbSIsImEiOiJjbDE2eTB4enUwMDltM2lxcWVoMmIwZGczIn0.MYUBLCAOT7rs9oyGqhXeWA&zoomwheel=false#8.34/44.43/-114.692" title="Basic" style="border:none; border-radius: 8px;"></iframe>
-            <h3>Quick Facts</h3>
-            <p style="line-height: 1.2;" >Idaho is a northwestern U.S. state known for mountainous landscapes, and vast swaths of protected wilderness and outdoor recreation areas. The capital, Boise, is set in the Rocky Mountain foothills and is bisected by the Boise River, which is popular for rafting and fishing. 
-                
-            </p>
+            
+            <app-location-view></app-location-view>
         </div>
     </div>
     <!-- <app-comment-view></app-comment-view> -->
@@ -41,7 +38,7 @@
         <span class = "pb-4" style="letter-spacing:2px;">Inspections</span>
         </div>
         
-        <app-person-profile></app-person-profile>
+        <!-- <app-person-profile></app-person-profile> -->
     </div>
     <!-- <app-inspector-card></app-inspector-card> -->
     <app-inspector-list></app-inspector-list>
@@ -54,8 +51,11 @@
     <div  *ngIf = "currentView.toLocaleLowerCase().includes(viewTitles['Comments'].toLowerCase())" style="width: 50%; margin-right: auto; margin-left: 1rem">
 
     <div class = "d-flex ml-2 flex-column pt-4">
-        <span class = "pb-4" style="font-size: 1.5rem;" > Equipment | <span style = " font-weight: 500; z-index: 10; color:black"> Screwdriver </span></span>
+        <!-- <app-person-profile></app-person-profile> -->
+        <span class = "pb-4" style="font-size: 1.5rem;" > Equipment | <span style = " font-weight: 500; z-index: 10; color:black"> Screwdriver </span> </span>
+        
     </div>
+    
    <div style="display:grid;  grid-template-columns: 1fr; grid-template-rows: min-content; row-gap: 0px; height: 80vh; width: 70%;  ">
    
     
@@ -85,6 +85,7 @@
     <app-comment-list></app-comment-list>
     
    </div>
+   
 </div> 
     <app-inspector-profile></app-inspector-profile>
 </div>

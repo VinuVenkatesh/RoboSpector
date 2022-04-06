@@ -56,7 +56,8 @@ public class EquipmentController {
 		
 		pieceOfEquipmentDtoValidator.validate(pieceOfEquipmentDto);
 		
-		int amountOfInspectionsToBeCreated = randomNumberGenerator.getRandomNumberBetween(MIN_NUMBER_OF_INSPECTIONS, MAX_NUMBER_OF_INSPECTIONS);
+		int amountOfInspectionsToBeCreated =
+				randomNumberGenerator.getRandomNumberBetween(MIN_NUMBER_OF_INSPECTIONS, MAX_NUMBER_OF_INSPECTIONS);
 		PieceOfEquipment pieceOfEquipement = mapper.map(pieceOfEquipmentDto, PieceOfEquipment.class);
 		PieceOfEquipment pieceOfEquipmentCreated = equipmentService.createPieceOfEquipment(pieceOfEquipement);
 		
@@ -124,5 +125,10 @@ public class EquipmentController {
 	@GetMapping("/equipment/{equipmentId}")
 	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable ("equipmentId") int equipmentId ){
 		return new ResponseEntity<>(inspectionService.getAllInspectionsForEquipment(equipmentId).getBody(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/singleequipment/{equipmentId}")
+	public ResponseEntity<?> getSinglePieceOfEquipment(@PathVariable ("equipmentId") int equipmentId){
+		return new ResponseEntity<>(equipmentService.getSingleEquipment(equipmentId),HttpStatus.OK);
 	}
 }

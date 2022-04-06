@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl,FormBuilder,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { DataServiceService } from '../services/data-service.service';
 import { RouterService } from '../services/router.service';
 @Component({
   selector: 'app-login',
@@ -12,19 +14,28 @@ export class LoginComponent {
     password = new FormControl();
     form: any;
     submitMessage: any;
+<<<<<<< HEAD
     
     constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService) {}
     //one space between methods
     ngOnInit() {
       
+=======
+
+    constructor(private formBuilder:FormBuilder, private router:Router, private data : DataServiceService) {}
+    //one space between methods
+    ngOnInit() {
+
+>>>>>>> EquipmentSinglePageFrontEndService
       this.form = this.formBuilder.group({
-     
-       
+
+
         "username": ['', [Validators.required,Validators.minLength(8)]],
         "password": ['', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/)]]
-        
+
      })
     }
+<<<<<<< HEAD
     
     loginSubmit() {
       // this.router.routeToDashboard();
@@ -59,4 +70,25 @@ export class LoginComponent {
     //   }
      
     // }
+=======
+
+    loginSubmit() {
+      if (this.form.valid == false ){
+
+        this.submitMessage = "Username or password invalid"
+
+      }else{
+        this.submitMessage = "Suceess";
+
+      }
+
+
+    }
+
+    goToDashboad() {
+      this.data.changeRole("guest");
+      this.data.changeUser_Name("Kyle");
+      this.router.navigate(['dashboard']);
+    }
+>>>>>>> EquipmentSinglePageFrontEndService
 }

@@ -82,4 +82,13 @@ public class InspectionController {
 	public ResponseEntity<?> getAllInspectionResults(){
 		return new ResponseEntity<>(inspectionResultControllerService.getListOfInspectionResults().getBody(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/recent/verified/{equipmentId}")
+	public ResponseEntity<?> getMostRecentVerifiedInspection(@PathVariable("equipmentId") int equipmentId){
+		Inspection inspection = inspectionService.getMostRecentVerifiedInspection(equipmentId);
+		if(inspection == null)
+			return new ResponseEntity<>("No verification found", HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>(inspection, HttpStatus.OK);
+	}
 }

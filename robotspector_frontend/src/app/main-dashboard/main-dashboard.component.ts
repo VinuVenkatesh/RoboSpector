@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { EquipmentService } from '../services/EquipmentService';
+=======
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataServiceService } from '../services/data-service.service';
+>>>>>>> EquipmentSinglePageFrontEndService
 
 @Component({
   selector: 'app-main-dashboard',
@@ -12,6 +18,7 @@ import { EquipmentService } from '../services/EquipmentService';
 })
 export class MainDashboardComponent implements OnInit {
 
+<<<<<<< HEAD
 
   @Input()
   title?:String;
@@ -55,5 +62,20 @@ export class MainDashboardComponent implements OnInit {
     //       })
     //     }
     // });
+=======
+  currentRole?:string;
+  subscription?: Subscription;
+
+  constructor(private data : DataServiceService) { }
+
+  ngOnInit(): void {
+    this.subscription = this.data.currentRole.subscribe(data => {
+      this.currentRole = data;
+      console.log(this.currentRole);
+    })
+  }
+  ngOnDestroy(){
+    this.subscription?.unsubscribe();
+>>>>>>> EquipmentSinglePageFrontEndService
   }
 }

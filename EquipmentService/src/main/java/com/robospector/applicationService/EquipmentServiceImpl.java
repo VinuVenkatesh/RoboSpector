@@ -26,7 +26,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 	@Override
 	public List<PieceOfEquipment> findEquipmentWithNamePattern(String namePattern) {
-		return equipmentRepository.findByNameLike(namePattern, INITIAL_ARCHIVED_STATE);
+		return equipmentRepository.findByNameLikeAndIsArchivedFalse(namePattern, INITIAL_ARCHIVED_STATE);
 	}
 	
 	@Override
@@ -58,5 +58,10 @@ public class EquipmentServiceImpl implements EquipmentService {
 	@Override
 	public List<PieceOfEquipment> getAllEquipemt() {
 		return equipmentRepository.findByIsArchived(false);
+	}
+
+	@Override
+	public PieceOfEquipment getSingleEquipment(int equipmentId) {
+		return equipmentRepository.findById(equipmentId).get();
 	}
 }

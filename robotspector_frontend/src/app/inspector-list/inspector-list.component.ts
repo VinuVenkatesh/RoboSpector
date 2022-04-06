@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { DataService } from '../services/data-service.service';
+=======
+import { Subscription } from 'rxjs';
+import { Inspection } from '../model/Inspection.model';
+import { VerificationDetails } from '../model/VerificationDetails.model';
+import { DataServiceService } from '../services/data-service.service';
+import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
+>>>>>>> EquipmentSinglePageFrontEndService
 
 @Component({
   selector: 'app-inspector-list',
@@ -11,17 +19,51 @@ export class InspectorListComponent implements OnInit {
   isDown:any = false;
   startY:any;
   scrollTop:any;
+  subscription?:Subscription;
+  currentRole?:string;
   comment:String = `Sturdy , albeit needs further inspection potential mechanical issues Sturdy , 
   albeit needs further needs further inspection Sturdy , albeit needs further inspection 
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
+<<<<<<< HEAD
   constructor(private dataSharing: DataService) { 
+=======
+  inspectionList : Inspection[] = [];
+  constructor(private dataSharing: DataServiceService, private equipmentSingleViewService: EquipmentSingleViewService) { 
+>>>>>>> EquipmentSinglePageFrontEndService
     dataSharing.SharingData.subscribe((res:any) =>{
       
     })
   }
 
+  getSeverityLevel(inspection:any){
+    return inspection.verificationDetails?.inspectionResult.severity == undefined ? -1000 : inspection.verificationDetails?.inspectionResult.severity;
+  }
+
+  getVerificationDate(inspection : any){
+    return inspection.verificationDetails?.verifiedDate.date == undefined ? '' : inspection.verificationDetails?.verifiedDate.date;
+  }
+
+  getVerificationComment(inspection : any){
+    return inspection.verificationDetails?.engineerComment == undefined ? '' : inspection.verificationDetails?.engineerComment;
+
+  }
+
+
   ngOnInit(): void {
     this.slider = document.querySelector('#comments_inspection');
+    this.equipmentSingleViewService.getAllInspections(3).subscribe(data =>{
+      this.inspectionList = data;
+      console.log(this.inspectionList);
+    })
+    this.dataSharing.currentRole.subscribe(data =>{
+      this.currentRole = data;
+      console.log(data);
+    })
+    
+  }
+
+  ngOnDestroy(){
+    this.subscription?.unsubscribe();
   }
   onMouseDown(e:MouseEvent){
     this.isDown = true;

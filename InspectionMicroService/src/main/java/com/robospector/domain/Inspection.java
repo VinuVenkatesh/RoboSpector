@@ -64,5 +64,4 @@ public class Inspection {
 	public void setVerificationDetails(VerificationDetails verificationDetails) {
 		this.verificationDetails = verificationDetails;
 	}
-
 }

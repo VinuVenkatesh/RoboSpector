@@ -40,8 +40,8 @@
                 <p style="font-size: small;">{{currentEquipment?.comment}}
                 </p>
                 <div class="d-flex" style="cursor:pointer;">
-                    <span style="font-size: small; font-weight: 600; color:#19B2EA;">Read More </span>
-                    <img class = "pt-1 pr-4"  src = "../../assets/images/arrow-blue.png" style="height: 15px; width: 75px; object-fit: contain;"/>
+                    <span (click) = "goToEquipmentSingleView()" style="font-size: small; font-weight: 600; color:#19B2EA;">Read More </span>
+                    <img (click) = "goToEquipmentSingleView()" class = "pt-1 pr-4"  src = "../../assets/images/arrow-blue.png" style="height: 15px; width: 75px; object-fit: contain;"/>
                 </div>
             </div>
             

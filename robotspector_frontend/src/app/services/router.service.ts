@@ -15,4 +15,8 @@ export class RouterService {
   routeToLogin() {
   	this.router.navigate(['login']);
   }
+  routeToEquipmentSingleView() {
+    this.router.navigate(['EquipmentSingleViewComponent']);
+  }
+
 }

@@ -49,6 +49,7 @@ public class LoginControllerTest {
 		user = new User();
 	}
 	
+	/*
 	@Test
 	public void givenValidAdminCredentials_whenLogin_thenShouldCheckForUserCredentialsEmptySpaces()
 			throws SpacesPresentInUserNameOrPasswordException {
@@ -60,6 +61,7 @@ public class LoginControllerTest {
 
 		verify(credentialsValidatorForController, times(1)).validate(user);
 	}
+	*/
 	
 	@Test
 	public void givenAdminCredentialsWithSpaces_whenLogin_thenShouldReturnNotFoundStatus() throws Exception {

@@ -16,3 +16,9 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://eureka-server:8005/eureka/
+      
+springdoc:
+ api-docs:
+   path: /equipment-docs
+ swagger-ui:
+   path: /swagger-ui.html

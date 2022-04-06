@@ -1,6 +1,8 @@
 package com.robospector.controllertest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +32,8 @@ import com.robospector.applicationservice.InspectionService;
 import com.robospector.applicationservice.RandomInspectionDetailsGenerator;
 import com.robospector.applicationservice.exception.NoSuchInspectionException;
 import com.robospector.controller.InspectionController;
+import com.robospector.controller.InspectionResultService;
+import com.robospector.controller.dto.InspectionDto;
 import com.robospector.domain.Inspection;
 import com.robospector.domain.InspectionResult;
 import com.robospector.domain.VerificationDetails;
@@ -52,13 +57,22 @@ public class InspectionControllerTest {
 	private MockMvc mockMvc;
 	
 	@Mock
+	private InspectionDto inspectionDto;
+	
+	@Mock
 	private RandomInspectionDetailsGenerator detailsGenerator;
 	
 	@Mock
 	private InspectionService inspectionService;
 	
+	@Mock
+	private ModelMapper mapper;
+	
 	@InjectMocks
 	private InspectionController inspectionController;
+	
+	@Mock
+	private InspectionResultService inspectionResultService;
 	
 	@BeforeEach
 	public void setUp() throws Exception{
@@ -87,33 +101,36 @@ public class InspectionControllerTest {
 		INSPECTION_RESULT.setSeverity(SEVERITY);
 		verificationDetails.setInspectionResult(INSPECTION_RESULT);
 		inspection.setVerificationDetails(verificationDetails);
+		inspectionDto.setCollectingTime(inspection.getCollectingTime());
+		inspectionDto.setDateTime(inspection.getDateTime());
+		inspectionDto.setEquipmentId(inspection.getEquipmentId());
+		inspectionDto.setId(inspection.getId());
+		inspectionDto.setVerificationDetails(inspection.getVerificationDetails());
 	}
 	
-	/*
+	
 	@Test
 	public void givenValidEquipmentName_whenMostRecentInspection_thenShouldReturnMostRecentInspectionWithStatusOk()
 			throws Exception {
 		when(inspectionService.getRecentInspection(VALID_EQUIPMENT_ID)).thenReturn(inspection);
+		when(mapper.map(inspection, InspectionDto.class)).thenReturn(inspectionDto);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/recent/" + VALID_EQUIPMENT_ID)
-				.contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-	}
-	*/
+		InspectionDto recentInspection = inspectionController.mostRecentInspection(VALID_EQUIPMENT_ID);
 	
-	/*
+		assertEquals(inspectionDto, recentInspection);
+	}
+	
+	
 	@Test
 	public void givenInvalidEquipmentName_whenMostRecentInspection_thenShouldErrorMessageWithStatusNotFound()
 			throws Exception {
-		doThrow(NoSuchInspectionException.class).when(inspectionService).getRecentInspection(INVALID_EQUIPMENT_ID);
+		when(inspectionService.getRecentInspection(INVALID_EQUIPMENT_ID)).thenThrow(new NoSuchInspectionException(""));
+		when(mapper.map(inspection, InspectionDto.class)).thenReturn(null);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/recent/" + INVALID_EQUIPMENT_ID)
-				.contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andDo(MockMvcResultHandlers.print());
+		InspectionDto recentInspection = inspectionController.mostRecentInspection(INVALID_EQUIPMENT_ID);
+	
+		assertEquals(null, recentInspection);
 	}
-	*/
 	
 	@Test
 	public void givenValidInspectionIdAndVerificationDetails_whenAddVerificationDetails_thenShouldReturnInspectionWithStatusOk()
@@ -150,7 +167,7 @@ public class InspectionControllerTest {
                 .andDo(MockMvcResultHandlers.print());
 	}
 	
-	/*
+
 	@Test
 	public void givenValidEquipmentName_whenGetAllInspectionsForEquipment_thenShouldReturnListOfInspections()
 			throws Exception {
@@ -161,20 +178,21 @@ public class InspectionControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
 	}
-	*/
+
 	
-	/*
+	
 	@Test
 	public void givenInvalidEquipmentName_whenGetAllInspectionsForEquipment_thenShouldReturnErrorMessageWithStatusNotFound()
 			throws Exception {
-		doThrow(NoSuchInspectionException.class).when(inspectionService).getAllInspections(any());
+		doThrow(NoSuchInspectionException.class).when(inspectionService).getAllInspections(anyInt());
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/getall/" + INVALID_EQUIPMENT_ID)
 				.contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
 	}
-	*/
+	
+
 	
 //	@Test
 //	public void givenValidEquipmentName_whenDeleteAllInspectionsForEquipment_thenShouldReturnStatusOk()

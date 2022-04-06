@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.robospector.applicationservice.RandomInspectionDetailsGenerator;
+import com.robospector.applicationservice.RandomNumberGenerator;
 import com.robospector.converters.DateToStringConverter;
 import com.robospector.converters.StringToTimeConverter;
 import com.robospector.converters.TimeToStringConverter;
@@ -33,7 +34,7 @@ public class InspectionConfig{
 	
 	@Bean
 	public RandomInspectionDetailsGenerator detailsGenerator () {
-		return new RandomInspectionDetailsGenerator();
+		return new RandomInspectionDetailsGenerator(getRandomNumberGenerator());
 	}
 	
 	@Bean
@@ -53,5 +54,9 @@ public class InspectionConfig{
 						.allowCredentials(false).maxAge(3600);
 			}
 		};
+	}
+	@Bean
+	public RandomNumberGenerator getRandomNumberGenerator() {
+		return new RandomNumberGenerator();
 	}
 }

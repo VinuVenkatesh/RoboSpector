@@ -28,6 +28,7 @@ export class TableComponent implements OnInit {
        this.equipment = data;
        this.equipmentLength = data.length;
        this.dataSharing.changeCurrentEquipmentLength(data.length);
+       console.log("data from table", this.equipment);
       }
     })
     this.dataSharing.currentDashboardInputData.subscribe((res:any) =>{

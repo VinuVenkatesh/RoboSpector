@@ -86,11 +86,9 @@ export class CreateModalComponent implements OnInit {
     equipmentToSend.comment = formValues.comment;
     equipmentToSend.aging = formValues.age;
     
-    this.equipmentService.createEquipment(equipmentToSend).subscribe((data:any) =>{
-      if (data != null){
-        this.equipmentService.getAllEquipment().subscribe((data:any) =>{
-          this.dataSharing.changeCurrentEquipmentList(data);
-        })
+    this.equipmentService.createEquipment(equipmentToSend).subscribe((createData:any) =>{
+      if (createData != null){
+        this.equipmentService.getAllEquipment();
       }
     });
     
@@ -115,6 +113,5 @@ export class CreateModalComponent implements OnInit {
   }
   setSliderValue(event:any){
     this.ageSliderValue = parseInt(event.target.value);
-    console.log(event.target.value);
   }
 }

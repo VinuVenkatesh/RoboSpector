@@ -34,6 +34,8 @@ export class TableRowComponent implements OnInit {
 
   getColor(){
     switch(this.level){
+      case null:
+        return "F05365";
       case 1:
         return "86E05C";
       case 2:

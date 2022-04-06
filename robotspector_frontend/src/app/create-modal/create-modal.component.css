@@ -27,8 +27,8 @@ input[type=text]{
   
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     border-radius: 50%;
     background-image: radial-gradient( circle farthest-corner at 7.2% 13.6%,  rgba(37,249,245,1) 0%, rgb(22,161,231) 90% );
     transition: background .3s ease-in-out;

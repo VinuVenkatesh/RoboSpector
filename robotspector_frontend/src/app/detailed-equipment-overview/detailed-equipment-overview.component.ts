@@ -27,8 +27,28 @@ export class DetailedEquipmentOverviewComponent implements OnInit {
       this.currentEquipment = res;
     })
   }
+  getColor(){
+    switch(this.currentEquipment?.inspection?.verificationDetails?.severity){
+      case undefined:
+        return "#F05365";
+      case 1:
+        return "86E05C";
+      case 2:
+        return "DDE05C";
+      case 3:
+        return "E99363";
+      case 4:
+        return "E05C5C";
+      case 5:
+        return "A91212";
+      default:
+        return "86E05C";
+    }
+  }
   getAgeColor(){
     switch(this.detailedEquipmentOverview?.age){
+      case 0:
+        return "#f05365";
       case 1:
       case 20:
         return "3BF0CF";

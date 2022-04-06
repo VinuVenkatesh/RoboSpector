@@ -50,8 +50,8 @@ export class AlertComponent implements OnInit {
     this.toggleAlertState();
   }
   onClickYes(){
-    this.equipmentService.deleteEquipment(this.currentRowId).subscribe((data:any) =>{
-      if (data != null){
+    this.equipmentService.deleteEquipment(this.currentRowId).subscribe((deleteData:any) =>{
+      if (deleteData != null){
         this.equipmentService.getAllEquipment().subscribe((data:any) =>{
           this.dataSharing.changeCurrentEquipmentList(data);
           this.toggleAlertState();

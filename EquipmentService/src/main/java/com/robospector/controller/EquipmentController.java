@@ -126,4 +126,9 @@ public class EquipmentController {
 	public ResponseEntity<?> getAllInspectionsForEquipment(@PathVariable ("equipmentId") int equipmentId ){
 		return new ResponseEntity<>(inspectionService.getAllInspectionsForEquipment(equipmentId).getBody(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/singleequipment/{equipmentId}")
+	public ResponseEntity<?> getSinglePieceOfEquipment(@PathVariable ("equipmentId") int equipmentId){
+		return new ResponseEntity<>(equipmentService.getSingleEquipment(equipmentId),HttpStatus.OK);
+	}
 }

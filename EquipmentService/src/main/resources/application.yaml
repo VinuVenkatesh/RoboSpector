@@ -22,3 +22,10 @@ springdoc:
    path: /equipment-docs
  swagger-ui:
    path: /swagger-ui.html
+
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8005/eureka/

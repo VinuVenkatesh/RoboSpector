@@ -6,3 +6,5 @@ eureka:
 spring:
   application:
     name: eureka-server
+
+#uncomment all this

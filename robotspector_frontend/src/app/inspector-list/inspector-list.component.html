@@ -9,10 +9,14 @@
 
 
 <div id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="gap:10px; max-height:80vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
-  <app-inspector-card severityLevel="1"></app-inspector-card>
-  <app-inspector-card severityLevel="2"></app-inspector-card>
-  <app-inspector-card severityLevel="3"></app-inspector-card>
-  <app-inspector-card severityLevel="4"></app-inspector-card>
+  <ul *ngFor="let inspection of inspectionList">
+    <app-inspector-card  
+    [date]=inspection.dateTime!.date 
+    [severityLevel] = getSeverityLevel(inspection)
+    [collectingTime]= inspection.collectingTime
+    [verificationDate]= getVerificationDate(inspection)
+    [verificationComment] = getVerificationComment(inspection) ></app-inspector-card>
+  </ul>
 </div>
 
 </html>

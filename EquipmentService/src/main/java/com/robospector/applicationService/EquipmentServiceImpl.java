@@ -59,4 +59,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public List<PieceOfEquipment> getAllEquipemt() {
 		return equipmentRepository.findByIsArchived(false);
 	}
+
+	@Override
+	public PieceOfEquipment getSingleEquipment(int equipmentId) {
+		return equipmentRepository.findById(equipmentId).get();
+	}
 }

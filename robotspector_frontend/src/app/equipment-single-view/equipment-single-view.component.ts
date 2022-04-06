@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataServiceService } from '../services/data-service.service';
+import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 @Component({
   selector: 'app-equipment-single-view',
   templateUrl: './equipment-single-view.component.html',
@@ -17,6 +18,7 @@ export class EquipmentSingleViewComponent implements OnInit {
 
   @Input()
   title?:String;
+
 
   ngOnInit(): void {
    

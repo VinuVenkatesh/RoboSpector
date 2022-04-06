@@ -15,4 +15,8 @@ eureka:
     serviceUrl:
       defaultZone: http://eureka-server:8005/eureka/
 
-# defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      
+      
+      
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ uncomment this and comment below
+      

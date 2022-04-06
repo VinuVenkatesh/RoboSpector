@@ -24,6 +24,7 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { TableRowComponent } from './table-row/table-row.component';
 import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { TableComponent } from './table/table.component';
+import { SafePipe } from './pipe/safe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { TableComponent } from './table/table.component';
     TableRowComponent,
     SortHeaderComponent,
     TableComponent,
+    SafePipe,
    
   ],
   imports: [

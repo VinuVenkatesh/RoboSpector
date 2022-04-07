@@ -1,4 +1,4 @@
-package com.robospector.controllertest;
+package com.robospector.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

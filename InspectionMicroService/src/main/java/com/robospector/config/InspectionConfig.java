@@ -18,7 +18,6 @@ import com.robospector.converters.DateToStringConverter;
 import com.robospector.converters.StringToTimeConverter;
 import com.robospector.converters.TimeToStringConverter;
 
-
 @Configuration
 public class InspectionConfig{
 

@@ -20,6 +20,7 @@ import com.robospector.controller.dto.PieceOfEquipmentDto;
 import com.robospector.controller.exception.EquipmentNotFoundException;
 import com.robospector.controller.exception.InvalidInputException;
 import com.robospector.domain.PieceOfEquipment;
+import com.thoughtworks.xstream.mapper.Mapper;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -28,20 +29,27 @@ public class EquipmentController {
 	private static final int MIN_NUMBER_OF_INSPECTIONS = 5;
 	private static final int MAX_NUMBER_OF_INSPECTIONS = 10;
 	
-	@Autowired
 	private PieceOfEquipmentDtoValidator pieceOfEquipmentDtoValidator;
 
-	@Autowired
+	
 	private EquipmentService equipmentService;
 	
-	@Autowired
+	
 	private InspectionService inspectionService;
 	
-	@Autowired
+	
 	private ModelMapper mapper;
 	
-	@Autowired
+	
 	private RandomNumberGenerator randomNumberGenerator;
+	
+	public EquipmentController(PieceOfEquipmentDtoValidator pieceOfEquipmentDtoValidator, EquipmentService equipmentService, RandomNumberGenerator randomNumberGenerator, InspectionService inspectionService, ModelMapper mapper) {
+		this.pieceOfEquipmentDtoValidator  = pieceOfEquipmentDtoValidator;
+		this.equipmentService = equipmentService;
+		this.inspectionService = inspectionService;
+		this.randomNumberGenerator = randomNumberGenerator;
+		this.mapper = mapper;
+	}
 	
 	@PostMapping("/")
 	public ResponseEntity<?> heartbeatTest() {
@@ -72,26 +80,26 @@ public class EquipmentController {
 		return new ResponseEntity<>(pieceOfEquipmentCreated, HttpStatus.OK);
 	}
 
-	@GetMapping("/find/{name_pattern}") // should be done on front end
-	public ResponseEntity<?>getEquipmentWithNamePattern(@PathVariable("name_pattern") String namePattern) {
-		List<PieceOfEquipment> equipmentRetrieved = equipmentService.findEquipmentWithNamePattern(namePattern);
-		
-		if(equipmentRetrieved.isEmpty()) {
-			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
-	}
-	
-	@PutMapping("/update/{equipment_id}")
-	public ResponseEntity<?>updatePieceOfEquipment(@PathVariable("equipment_id")  int equipmentId,
-			@RequestBody PieceOfEquipmentDto pieceOfEquipmentDto) throws EquipmentNotFoundException {
-		PieceOfEquipment pieceOfEquipmentToUpdate = mapper.map(pieceOfEquipmentDto, PieceOfEquipment.class);
-		
-		PieceOfEquipment pieceOfEquipmentUpdated =
-				equipmentService.updatePieceOfEquipment(equipmentId, pieceOfEquipmentToUpdate);
-		return new ResponseEntity<>(pieceOfEquipmentUpdated, HttpStatus.OK);
-	}
+//	@GetMapping("/find/{name_pattern}") // should be done on front end
+//	public ResponseEntity<?>getEquipmentWithNamePattern(@PathVariable("name_pattern") String namePattern) {
+//		List<PieceOfEquipment> equipmentRetrieved = equipmentService.findEquipmentWithNamePattern(namePattern);
+//		
+//		if(equipmentRetrieved.isEmpty()) {
+//			return new ResponseEntity<>("No equipment found", HttpStatus.NOT_FOUND);
+//		}
+//		
+//		return new ResponseEntity<>(equipmentRetrieved, HttpStatus.OK);
+//	}
+//	
+//	@PutMapping("/update/{equipment_id}")
+//	public ResponseEntity<?>updatePieceOfEquipment(@PathVariable("equipment_id")  int equipmentId,
+//			@RequestBody PieceOfEquipmentDto pieceOfEquipmentDto) throws EquipmentNotFoundException {
+//		PieceOfEquipment pieceOfEquipmentToUpdate = mapper.map(pieceOfEquipmentDto, PieceOfEquipment.class);
+//		
+//		PieceOfEquipment pieceOfEquipmentUpdated =
+//				equipmentService.updatePieceOfEquipment(equipmentId, pieceOfEquipmentToUpdate);
+//		return new ResponseEntity<>(pieceOfEquipmentUpdated, HttpStatus.OK);
+//	}
 	
 	@PutMapping("/delete/{equipment_id}")
 	public ResponseEntity<?>softDeletePieceOfEquipment(@PathVariable("equipment_id")  int equipmentId) throws EquipmentNotFoundException {

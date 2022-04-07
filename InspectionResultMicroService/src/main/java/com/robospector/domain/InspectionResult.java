@@ -15,8 +15,7 @@ public class InspectionResult {
 	private int id;
 	private String name;
 	private int severity;
-	
-	
+
 	public InspectionResult(int id, String name, int severity) {
 		super();
 		this.id = id;
@@ -24,35 +23,16 @@ public class InspectionResult {
 		this.severity = severity;
 	}
 
-
-	public InspectionResult() {
-		super();
-	}
-
-
 	public int getId() {
 		return id;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
 	public int getSeverity() {
 		return severity;
 	}
 
-
-	public void setSeverity(int severity) {
-		this.severity = severity;
-	}
-	
-	
 }

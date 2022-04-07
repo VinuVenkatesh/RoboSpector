@@ -24,23 +24,23 @@ public class EquipmentServiceImpl implements EquipmentService {
 		return equipmentRepository.save(pieceOfEquipement);
 	}
 
-	@Override
-	public List<PieceOfEquipment> findEquipmentWithNamePattern(String namePattern) {
-		return equipmentRepository.findByNameLikeAndIsArchivedFalse(namePattern, INITIAL_ARCHIVED_STATE);
-	}
-	
-	@Override
-	public PieceOfEquipment updatePieceOfEquipment(int equipmentId, PieceOfEquipment pieceOfEquipment)
-			throws EquipmentNotFoundException {
-		Optional<PieceOfEquipment> pieceOfEquipmentRetrieved =  equipmentRepository.findById(equipmentId);
-		
-		if(pieceOfEquipmentRetrieved.isEmpty()) {
-			throw new EquipmentNotFoundException("Equipment with id " + equipmentId + "not found");
-		}
-		
-		pieceOfEquipment.setId(equipmentId);
-		return equipmentRepository.save(pieceOfEquipment);
-	}
+//	@Override
+//	public List<PieceOfEquipment> findEquipmentWithNamePattern(String namePattern) {
+//		return equipmentRepository.findByNameLikeAndIsArchivedFalse(namePattern, INITIAL_ARCHIVED_STATE);
+//	}
+//	
+//	@Override
+//	public PieceOfEquipment updatePieceOfEquipment(int equipmentId, PieceOfEquipment pieceOfEquipment)
+//			throws EquipmentNotFoundException {
+//		Optional<PieceOfEquipment> pieceOfEquipmentRetrieved =  equipmentRepository.findById(equipmentId);
+//		
+//		if(pieceOfEquipmentRetrieved.isEmpty()) {
+//			throw new EquipmentNotFoundException("Equipment with id " + equipmentId + "not found");
+//		}
+//		
+//		pieceOfEquipment.setId(equipmentId);
+//		return equipmentRepository.save(pieceOfEquipment);
+//	}
 
 	@Override
 	public PieceOfEquipment makeArchived(int equipmentId) throws EquipmentNotFoundException {

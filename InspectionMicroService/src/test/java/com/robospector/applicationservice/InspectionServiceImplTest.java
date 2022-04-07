@@ -1,4 +1,4 @@
-package com.robospector.applicationservicetest;
+package com.robospector.applicationservice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

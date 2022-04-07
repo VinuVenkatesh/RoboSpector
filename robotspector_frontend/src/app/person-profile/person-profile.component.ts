@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-person-profile',
@@ -15,7 +15,7 @@ export class PersonProfileComponent implements OnInit {
   backgroundColor:String = "transparent"
   showShadow:Boolean = false;
   userName?: string;
-  constructor(private router:Router, private dataServiceService : DataServiceService) {}
+  constructor(private router:Router, private dataServiceService : DataService) {}
 
   ngOnInit(): void {
     this.logoutButton = document.querySelector("#logout-button");

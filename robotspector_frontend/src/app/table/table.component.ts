@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Equipment } from '../equipment-single-view/equipment';
+import { Equipment } from '../equipment-single-view/Equipment';
 import { DataService } from '../services/data-service.service';
 import {EquipmentService} from '../services/EquipmentService'
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -23,7 +24,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.slider = document.querySelector('#table');
-    this.service.getAllEquipment().subscribe((data:any) =>{
+    this.service.getAllEquipment().subscribe((data:any) => {
       if (data != null){
        this.equipment = data;
        this.equipmentLength = data.length;

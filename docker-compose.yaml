@@ -157,6 +157,12 @@ services:
       -  SPRING_DATASOURCE_PASSWORD=$LOGIN_MY_SQL_ROOT_PASSWORD
     networks:
       -  main-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/actuator/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
   equipment-service:
     build:
@@ -185,6 +191,12 @@ services:
       - SPRING_DATA_MONGODB_DATABASE=$MONGO_DB
     networks:
       - main-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/actuator/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
   inspectionresult-microservice:
     build:
@@ -209,6 +221,12 @@ services:
       -  SPRING_DATASOURCE_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
     networks:
       -  main-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/actuator/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
   inspection-service:
     build:
@@ -237,3 +255,9 @@ services:
       - SPRING_DATA_MONGODB_DATABASE=$INSPECTION_MONGO_DB
     networks:
       - main-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/actuator/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s

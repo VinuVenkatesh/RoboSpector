@@ -21,7 +21,7 @@ export class InspectorListComponent implements OnInit {
   albeit needs further needs further inspection Sturdy , albeit needs further inspection
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
   inspectionList : Inspection[] = [];
-  constructor(private dataSharing: DataService, , private equipmentSingleViewService: EquipmentSingleViewService) {
+  constructor(private dataSharing: DataService, private equipmentSingleViewService: EquipmentSingleViewService) {
     dataSharing.SharingData.subscribe((res:any) =>{
 
     })

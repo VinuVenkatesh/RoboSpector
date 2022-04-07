@@ -1,0 +1,26 @@
+server:
+  port: 8000
+  error:
+    include-stacktrace: on-param
+    
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      routes:
+      - id: inspectionresult-microservice
+        uri: lb://INSPECTIONRESULT-MICROSERVICE/
+        predicates:
+        - Path=/inspectionresult/**
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8005/eureka/

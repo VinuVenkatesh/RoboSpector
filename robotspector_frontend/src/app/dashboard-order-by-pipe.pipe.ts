@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Equipment } from './equipment-single-view/equipment';
+import { Equipment } from './equipment-single-view/Equipment';
+
 import { sortByAgeAsc, sortByAgeDsc, sortLocationAsc, sortLocationDsc, sortNamesAsc, sortNamesDsc, sortSevrityAsc, sortSevrityDsc } from './sortingFunctions/DashboardSorting';
 
 @Pipe({

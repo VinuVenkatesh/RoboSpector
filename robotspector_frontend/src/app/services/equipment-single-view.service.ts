@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Equipment } from '../model/Equipment.model';
+import { Equipment } from '../equipment-single-view/Equipment';
+
 import { Inspection } from '../model/Inspection.model';
 import { VerificationDetails } from '../model/VerificationDetails.model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class EquipmentSingleViewService {
 
   equipmentServiceUrl = "http://localhost:8002"

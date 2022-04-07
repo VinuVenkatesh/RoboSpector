@@ -5,4 +5,4 @@ eureka:
       
 spring:
   application:
-    name: inspection-service
+    name: login-microservice

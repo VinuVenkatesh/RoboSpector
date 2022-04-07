@@ -50,6 +50,7 @@ public class LoginController {
 			String jwtToken = service.generateJwtToken(user.getUsername());
 			tokenMap.put("token", jwtToken);
 			tokenMap.put("userRole", authenticatedUser.getRole());
+			tokenMap.put("userName", authenticatedUser.getName());
 			return new ResponseEntity<>(tokenMap, HttpStatus.OK);
 		} catch (SpacesPresentInUserNameOrPasswordException |
 				UsernameAndPasswordDoNotMatchException |

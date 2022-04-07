@@ -13,8 +13,6 @@ export class MainDashboardComponent implements OnInit {
   currentRole?:string;
   subscription?: Subscription;
 
-  constructor(private data : DataServiceService) { }
-
   @Input()
   title?:String;
 
@@ -30,7 +28,7 @@ export class MainDashboardComponent implements OnInit {
   constructor(private dataSharing: DataService, private equipmentService:EquipmentService) { }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentRole.subscribe(data => {
+    this.subscription = this.dataSharing.currentRole.subscribe(data => {
       this.currentRole = data;
       console.log(this.currentRole);
     })

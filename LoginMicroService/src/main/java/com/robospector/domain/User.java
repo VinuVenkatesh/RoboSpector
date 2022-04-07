@@ -14,10 +14,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	@Column(unique = true)
 	private String username;
+	
 	private String password;
 	private String role;
+	
+	private String name;
 
 	public User() {
 		super();
@@ -53,5 +57,12 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public String getName() {
+		String[]  firstAndLastName= username.split("\\.", 0);
+		String firstName = firstAndLastName[0].substring(0, 1).toUpperCase() + firstAndLastName[0].substring(1).toLowerCase();
+		String lastName = firstAndLastName[1].substring(0, 1).toUpperCase() + firstAndLastName[1].substring(1).toLowerCase();
+		return firstName + " " + lastName;
 	}
 }

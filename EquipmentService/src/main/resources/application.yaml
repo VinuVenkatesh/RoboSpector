@@ -15,17 +15,10 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://eureka-server:8005/eureka/
+      defaultZone: http://localhost:8005/eureka/
       
 springdoc:
  api-docs:
    path: /equipment-docs
  swagger-ui:
    path: /swagger-ui.html
-
-#eureka:
-#  client:
-#    fetch-registry: true
-#    register-with-eureka: true
-#    service-url:
-#      defaultZone: http://localhost:8005/eureka/

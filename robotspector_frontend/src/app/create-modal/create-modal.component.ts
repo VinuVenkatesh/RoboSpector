@@ -10,8 +10,10 @@ import {
 } from '@angular/animations';
 import { EquipmentService } from '../services/EquipmentService';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Equipment } from '../equipment-single-view/equipment';
+
 import { Location } from '../equipment-single-view/location';
+import { Equipment } from '../equipment-single-view/Equipment';
+
 @Component({
   selector: 'app-create-modal',
   templateUrl: './create-modal.component.html',

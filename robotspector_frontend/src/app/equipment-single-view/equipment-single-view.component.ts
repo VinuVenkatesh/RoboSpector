@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 import { DataService } from '../services/data-service.service';
+
 @Component({
   selector: 'app-equipment-single-view',
   templateUrl: './equipment-single-view.component.html',

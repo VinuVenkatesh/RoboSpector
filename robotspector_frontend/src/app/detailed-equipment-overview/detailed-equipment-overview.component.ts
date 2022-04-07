@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
-import { DetailedEquipmentOverview } from './detailedEquipmentOverview';
+import { DetailedEquipmentOverview } from './DetailedEquipmentOverview';
 @Component({
   selector: 'app-detailed-equipment-overview',
   templateUrl: './detailed-equipment-overview.component.html',

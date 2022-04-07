@@ -1,4 +1,5 @@
-import { Equipment } from "../equipment-single-view/equipment";
+import { Equipment } from "../equipment-single-view/Equipment";
+
 
 export function sortNamesDsc( a:Equipment, b:Equipment ) {
     if (a.name == undefined || b.name == undefined) return -1;

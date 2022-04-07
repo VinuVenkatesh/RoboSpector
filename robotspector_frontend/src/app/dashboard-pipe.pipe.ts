@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Equipment } from './equipment-single-view/equipment';
+import { Equipment } from './equipment-single-view/Equipment';
 
 @Pipe({
   name: 'dashboardPipe'

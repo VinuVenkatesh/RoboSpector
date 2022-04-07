@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Equipment } from '../equipment-single-view/equipment';
+import { Equipment } from '../equipment-single-view/Equipment';
 
 @Injectable({
   providedIn:'root'
@@ -10,8 +10,10 @@ export class EquipmentService {
   getAllEquipmentUrl = "http://localhost:8002/all/";
   createEquipmentUrl = "http://localhost:8002/create/";
   deleteEquipmentUrl = "http://localhost:8002/delete/";
+  
   constructor(private httpClient:HttpClient) {}
   getAllEquipment() {
+    console.log("Got here ----------------------------------------------------");
     return this.httpClient.get<Equipment[]>(this.getAllEquipmentUrl);
   }
   createEquipment(data:Equipment){

@@ -14,6 +14,13 @@ spring:
       ddl-auto: update
     show-sql: true
 
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8005/eureka/
+
 springdoc:
  api-docs:
    path: /login-docs

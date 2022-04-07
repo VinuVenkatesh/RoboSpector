@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Equipment } from '../equipment-single-view/equipment';
-
+import { Equipment } from '../equipment-single-view/Equipment';
 import { DataService } from '../services/data-service.service';
 
 @Component({

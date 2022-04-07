@@ -1,4 +1,10 @@
-<div class = "p-2" style="font-size: x-small;  border-radius: 4px;
- background-color: #fff; box-shadow: 4px 5px 0px 0px rgba(0,0,0,0.1); max-width: max-content;">
+<div (click) = "onClickSeverity()"  
+[ngStyle]="{'background-color': getButtonColor() ,
+ 'color':  getFontColor() , 'font-weight': getFontWeight()}"
+class = "p-2" style="font-size: x-small;  border-radius: 4px; cursor: pointer;
+  box-shadow: 4px 5px 0px 0px rgba(0,0,0,0.1); 
+ max-width: max-content;
+ 
+ ">
     {{title}}
 </div>

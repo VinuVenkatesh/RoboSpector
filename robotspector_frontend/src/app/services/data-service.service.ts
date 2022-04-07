@@ -18,6 +18,8 @@ export class DataService {
   currentAlertState = new Subject();
   currentVerifyModalState = new Subject<boolean>();
   showVerified =  new Subject<boolean>();
+  selectedSeverity = new Subject<string>();
+
   private role = new BehaviorSubject('guest');
   currentRole = this.role.asObservable();
 
@@ -73,5 +75,8 @@ export class DataService {
   }
   changeCurrentVerifyModalState(data:boolean){
     this.currentVerifyModalState.next(data);
+  }
+  changeSelectedSeverity(data:string){
+    this.selectedSeverity.next(data);
   }
 }

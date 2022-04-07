@@ -1,5 +1,5 @@
-<div [@fade] = "!showVerified ? 'show' : 'hide'"  
-*ngIf = "showVerified " id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="gap:10px; max-height:70vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
+<div [@fade] = "showVerified ? 'show' : 'hide'"
+*ngIf = "showVerified == false" id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="gap:10px; max-height:70vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
   <ul *ngFor="let inspection of inspectionList">
     <app-inspector-card  
     [date]=inspection.dateTime!.date 
@@ -10,8 +10,8 @@
   </ul>
 </div>
 <div
-[@fade] = "showVerified ? 'show' : 'hide'"  
-*ngIf = "showVerified == false"
+[@fade] =   "!showVerified ? 'show' : 'hide'"
+*ngIf = "showVerified "
 class="mr-auto ml-auto"
   style="display: grid;gap:20px; 
   grid-template-columns: 1fr 1fr 1fr; justify-content: 

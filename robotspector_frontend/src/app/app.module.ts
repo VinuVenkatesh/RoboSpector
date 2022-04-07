@@ -32,6 +32,11 @@ import { DashboardOrderByPipePipe } from './dashboard-order-by-pipe.pipe';
 import { CreateModalComponent } from './create-modal/create-modal.component';
 import { AlertComponent } from './alert/alert.component';
 import { SafePipe } from './pipe/safe.pipe';
+import { MainHeaderComponent } from './main-header/main-header.component';
+import { InspectorCardNotVerifiedComponent } from './inspector-card-not-verified/inspector-card-not-verified.component';
+import { SwitchComponent } from './switch/switch.component';
+import { VerifyModalComponent } from './verify-modal/verify-modal.component';
+import { SeverityButtonComponent } from './severity-button/severity-button.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +66,11 @@ import { SafePipe } from './pipe/safe.pipe';
     CreateModalComponent,
     AlertComponent,
     SafePipe,
+    MainHeaderComponent,
+    InspectorCardNotVerifiedComponent,
+    SwitchComponent,
+    VerifyModalComponent,
+    SeverityButtonComponent,
    
   ],
   imports: [

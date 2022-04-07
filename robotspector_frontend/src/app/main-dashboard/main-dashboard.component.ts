@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from '../services/data-service.service';
 import { EquipmentService } from '../services/EquipmentService';
-import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -28,6 +26,9 @@ export class MainDashboardComponent implements OnInit {
   @Input()
   currentRowId:any;
 
+  currentRole?:string;
+  subscription?: Subscription;
+
   constructor(private dataSharing: DataService, private equipmentService:EquipmentService) { }
 
   ngOnInit(): void {
@@ -39,6 +40,10 @@ export class MainDashboardComponent implements OnInit {
     })
     this.dataSharing.currentSelectedRowData.subscribe((res:any) =>{
       this.currentRowId = res;
+    })
+    this.subscription = this.dataSharing.currentRole.subscribe(data => {
+      this.currentRole = data;
+      console.log(this.currentRole);
     })
   }
   
@@ -58,16 +63,7 @@ export class MainDashboardComponent implements OnInit {
     //       })
     //     }
     // });
-  currentRole?:string;
-  subscription?: Subscription;
-
-  constructor(private data : DataServiceService) { }
-
-  ngOnInit(): void {
-    this.subscription = this.data.currentRole.subscribe(data => {
-      this.currentRole = data;
-      console.log(this.currentRole);
-    })
+  
   }
   ngOnDestroy(){
     this.subscription?.unsubscribe();

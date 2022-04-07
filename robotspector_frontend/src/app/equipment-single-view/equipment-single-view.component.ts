@@ -18,12 +18,16 @@ export class EquipmentSingleViewComponent implements OnInit {
 
   @Input()
   title?:String;
-
+  @Input()
+  currentVerifyModalState:boolean = false;
 
   ngOnInit(): void {
    
     this.dataSharing.SharingData.subscribe((res:any) =>{
       this.currentView = res;
+    })
+    this.dataSharing.currentVerifyModalState.subscribe((res:any)=>{
+      this.currentVerifyModalState = res;
     })
   }
   onMouseDown(e:MouseEvent){

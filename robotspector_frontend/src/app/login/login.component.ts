@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl,FormBuilder,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data-service.service';
 import { RouterService } from '../services/router.service';
 @Component({
   selector: 'app-login',
@@ -15,13 +15,7 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
     
-    constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService) {}
-    //one space between methods
-    ngOnInit() {
-      
-
-    constructor(private formBuilder:FormBuilder, private router:Router, private data : DataServiceService) {}
-    //one space between methods
+    constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService,private data : DataService) {}
     ngOnInit() {
 
       this.form = this.formBuilder.group({
@@ -47,42 +41,19 @@ export class LoginComponent {
             console.log("There is data");
             this.service.setToken(data);
             this.router.routeToDashboard();
+            this.data.changeRole("guest");
+            this.data.changeUser_Name("Kyle");
           }
           
         }
       })
      
     }
-    
 
-
-    //   if (this.form.valid == false ){
-        
-    //     this.submitMessage = "Username or password invalid"
-        
-    //   }else{
-    //     this.submitMessage = "Suceess";
-        
-    //   }
-     
-    // }
-
-    loginSubmit() {
-      if (this.form.valid == false ){
-
-        this.submitMessage = "Username or password invalid"
-
-      }else{
-        this.submitMessage = "Suceess";
-
-      }
-
-
-    }
-
-    goToDashboad() {
+    goToDashboard(){
+      this.router.routeToDashboard();
       this.data.changeRole("guest");
       this.data.changeUser_Name("Kyle");
-      this.router.navigate(['dashboard']);
     }
+   
 }

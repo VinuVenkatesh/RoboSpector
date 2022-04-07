@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataServiceService } from '../services/data-service.service';
+import { DataService } from '../services/data-service.service';
 import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class InspectorProfileComponent implements OnInit {
 
   engineerName?: string;
   engineerId?:number;
-  constructor(private dataServiceService : DataServiceService, private equipmentSingleViewService: EquipmentSingleViewService) { }
+  constructor(private dataServiceService : DataService, private equipmentSingleViewService: EquipmentSingleViewService) { }
 
   ngOnInit(): void {
     this.equipmentSingleViewService.getMostRecentVerification(3).subscribe(data =>{

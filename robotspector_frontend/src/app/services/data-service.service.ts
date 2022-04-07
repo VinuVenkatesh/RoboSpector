@@ -16,7 +16,8 @@ export class DataService {
   currentEquipmentLength = new Subject<string>();
   currentEquipmentList = new Subject<[Equipment]>();
   currentAlertState = new Subject();
-
+  currentVerifyModalState = new Subject<boolean>();
+  showVerified =  new Subject<boolean>();
   private role = new BehaviorSubject('guest');
   currentRole = this.role.asObservable();
 
@@ -66,5 +67,11 @@ export class DataService {
 
   changeEngineerName(newEngineerName : string){
     this.engineerName.next(newEngineerName);
+  }
+  changeShowVerifiedStatus(data:boolean){
+    this.showVerified.next(data);
+  }
+  changeCurrentVerifyModalState(data:boolean){
+    this.currentVerifyModalState.next(data);
   }
 }

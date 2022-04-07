@@ -136,6 +136,24 @@ services:
       start_period: 40s
   
 
+  apigateway:
+    build:
+      context: "./gatewayrobospector"
+      dockerfile: "Dockerfile"
+    image: apigateway
+    container_name: apigateway
+    restart: on-failure
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    ports:
+      -  8000:8000
+    environment:
+      -  SERVER_PORT=8000
+      -  SPRING_PROFILES_ACTIVE=prod
+      -  SPRING_APPLICATION_NAME=apigateway
+  
+
   login-service:
     build:
       context: "./LoginMicroService"
@@ -147,7 +165,7 @@ services:
       login-service-mysql:
         condition: service_healthy
     ports:
-      -  $LOGIN_SERVER_HOST_PORT:8001
+      -  8001:8001
     environment:
       -  SERVER_PORT=8001
       -  SPRING_PROFILES_ACTIVE=prod
@@ -157,12 +175,6 @@ services:
       -  SPRING_DATASOURCE_PASSWORD=$LOGIN_MY_SQL_ROOT_PASSWORD
     networks:
       -  main-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8001/actuator/health"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
 
   equipment-service:
     build:
@@ -177,7 +189,7 @@ services:
       eureka-server:
        condition: service_healthy
     ports:
-      - $SERVER_HOST_PORT:8002
+      - 8002:8002
     environment:
       - SERVER_PORT=8002
       - SPRING_PROFILES_ACTIVE=prod
@@ -191,12 +203,6 @@ services:
       - SPRING_DATA_MONGODB_DATABASE=$MONGO_DB
     networks:
       - main-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8002/actuator/health"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
 
   inspectionresult-microservice:
     build:
@@ -211,7 +217,7 @@ services:
       eureka-server:
        condition: service_healthy
     ports:
-      -  $INSPECTION_RESULT_SERVER_HOST_PORT:8003
+      -  8003:8003
     environment:
       -  SERVER_PORT=8003
       -  SPRING_PROFILES_ACTIVE=prod
@@ -221,12 +227,6 @@ services:
       -  SPRING_DATASOURCE_PASSWORD=$INSPECTION_RESULT_MY_SQL_ROOT_PASSWORD
     networks:
       -  main-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8003/actuator/health"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
 
   inspection-service:
     build:
@@ -241,7 +241,7 @@ services:
       eureka-server:
        condition: service_healthy
     ports:
-      - $INSPECTION_SERVER_HOST_PORT:8004
+      - 8004:8004
     environment:
       - SERVER_PORT=8004
       - SPRING_PROFILES_ACTIVE=prod
@@ -255,9 +255,3 @@ services:
       - SPRING_DATA_MONGODB_DATABASE=$INSPECTION_MONGO_DB
     networks:
       - main-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8004/actuator/health"]
-      interval: 20s
-      timeout: 5s
-      retries: 5
-      start_period: 40s

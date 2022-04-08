@@ -47,7 +47,7 @@ export class TableRowComponent implements OnInit {
         let withNames = this.inspectionList.filter((a:Inspection) => a.verificationDetails?.inspectionResult?.name != undefined || a.verificationDetails?.inspectionResult?.name != null );
         let inspectionNames = withNames.map((a:Inspection) => a.verificationDetails?.inspectionResult?.severity);
         console.log("das dasd asdadad asd",inspectionNames[this.getRandomInt(inspectionNames.length - 1)]);
-        this.level = inspectionNames[this.getRandomInt(inspectionNames.length - 1)];
+        // this.level = inspectionNames[this.getRandomInt(inspectionNames.length - 1)];
         console.log("the number is ",this.getRandomInt(inspectionNames.length - 1));
         
       })
@@ -60,7 +60,7 @@ export class TableRowComponent implements OnInit {
   getColor(){
   
     switch(this.level){
-      case null:
+      case undefined:
         return "F05365";
       case 1:
         return "86E05C";

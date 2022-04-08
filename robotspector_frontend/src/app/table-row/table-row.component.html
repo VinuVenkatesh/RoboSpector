@@ -8,11 +8,13 @@
      [ngStyle]="{'background-color': '#' + getColor()}"
       style=" max-height: 1.2rem; max-width:80%; text-align: center;  border-top-left-radius: 15px; border-bottom-right-radius: 15px; color:white" >
         <span class="mr-2" style="font-size:x-small;  font-weight: bold;">
-           Inspection {{level == undefined || level == null ? "TBA": ""}} {{level}}
+           Severity
         </span>
-        <div *ngIf = 'level != undefined'  class="mr-2" style="border-radius: 50%; background-color: white; width: 5px; height: 5px;"></div>
-        <span *ngIf = 'level != undefined' style="font-size:x-small;">
-            Level {{level}}
+        <div   class="mr-2" style="border-radius: 50%; background-color: white; width: 5px; height: 5px;"></div>
+        <span style="font-size:x-small;">
+             {{level}}
+            <span *ngIf = 'level == undefined' >TBA</span>
+             
         </span>
     </div>
 </div>

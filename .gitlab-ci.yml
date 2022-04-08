@@ -1,0 +1,22 @@
+images: maven:3.8.4-jdk-11-slim
+
+stages:
+    - build
+    - test
+    - package
+    - deploy
+
+build_job1:
+    stage: build
+    tags:
+        - docker
+    script:
+        - echo "Maven build project"
+        - "mvn clean install"
+build_job2:
+    stage: test
+    tags:
+        - docker
+    script:
+        - echo "Maven test project"
+        - "mvn test"

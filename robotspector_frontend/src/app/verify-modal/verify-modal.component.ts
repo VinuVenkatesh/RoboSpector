@@ -31,8 +31,13 @@ export class VerifyModalComponent implements OnInit {
   "Minor wear","Major wear","On-site","911"];
 
   verifyForm:any;
+  @Input()
   comment = new FormControl();
+  @Input()
   severity = new FormControl();
+
+  @Input()
+  dynamiComment:string = "";
 
   @Input()
   severityValue?:string;
@@ -74,13 +79,19 @@ export class VerifyModalComponent implements OnInit {
     this.showModal = !this.showModal;
     this.dataSharing.changeCurrentVerifyModalState(this.showModal);
   }
-
+  onCommentChange(e:any){
+    console.log("comment change");
+    this.dynamiComment = e.target.value;
+  }
   onVerifySubmit(){
 
     let inspectionResult = new InspectionResult();
     let verificationDetails = new VerificationDetails();
-    
-    verificationDetails.engineerComment = this.comment.value;
+    console.log("============");
+    console.log("the comment value is", this.comment.value);
+    console.log("============");
+
+    verificationDetails.engineerComment = this.dynamiComment;
     inspectionResult.severity = this.getSeverity(this.severityValue);
     inspectionResult.name = this.severityValue;
 
@@ -97,6 +108,7 @@ export class VerifyModalComponent implements OnInit {
       this.equipmentSingleViewService.addVerificationDetails(verificationDetails,this.inspectionId).subscribe((dataVerification:any)=>{
        if (dataVerification != null){
          this.equipmentSingleViewService.getAllInspections(this.equipmentId).subscribe((data:any) =>{
+           console.log("data for verify call is ",data);
           this.dataSharing.changeCurrentInspectionList(data);
          })
        }

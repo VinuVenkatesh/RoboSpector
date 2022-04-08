@@ -57,14 +57,14 @@ export function sortLocationAsc( a:Equipment, b:Equipment ) {
     return 0;
   }
 export function sortSevrityAsc( a:Equipment, b:Equipment ) {
-    const severityA = a.inspection?.verificationDetails?.severity;
-    const severityB = b.inspection?.verificationDetails?.severity;
+    const severityA = a.inspection?.verificationDetails?.inspectionResult?.severity;
+    const severityB = b.inspection?.verificationDetails?.inspectionResult?.severity;
     if (severityA == undefined || severityB == undefined) return -1;
     return severityA - severityB;
   }
 export function sortSevrityDsc( a:Equipment, b:Equipment ) {
-    const severityA = a.inspection?.verificationDetails?.severity;
-    const severityB = b.inspection?.verificationDetails?.severity;
+    const severityA = a.inspection?.verificationDetails?.inspectionResult?.severity;
+    const severityB = b.inspection?.verificationDetails?.inspectionResult?.severity;
     if (severityA == undefined || severityB == undefined) return -1;
     return severityB - severityA;
   }

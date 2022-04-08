@@ -1,5 +1,15 @@
 <div id = "table" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"  style="max-height:52vh;overflow: auto; display: grid;  gap: 20px;">
     <div *ngFor=" let item of equipment | dashboardOrderByPipe:sortColumnOrder.column:sortColumnOrder.order | dashboardPipe:searchText ">
-        <app-table-row [equipment]="item" [level]= 'item.inspection?.verificationDetails?.severity' [name] = "item.name" [age] = "item.aging" [location] = "item.location?.localtionurl " [collection]="item.inspection?.collectingTime"></app-table-row>
+        <app-table-row
+         [equipment]="item" 
+         [level]= 'item.inspection?.verificationDetails?.inspectionResult?.severity'
+         [name] = "item.name" [age] = "item.aging" [location] = "item.location?.localtionurl "
+         [collection]="item.inspection?.collectingTime"
+         [severityName]="item.inspection?.verificationDetails?.inspectionResult?.name"
+           
+           >
+        
+        </app-table-row>
+        {{item.inspection?.verificationDetails?.inspectionResult?.severity}}
     </div>
 </div>

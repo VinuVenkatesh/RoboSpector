@@ -1,4 +1,4 @@
-import { InspectionResult } from "./InspectionResult";
+import { VerificationDetails } from "../model/VerificationDetails.model";
 
 export class Inspection{
 
@@ -16,29 +16,6 @@ export class Inspection{
 
     collectingTime? : number;
 
-    verificationDetails?: {
-
-        id? : number;
-
-        verifiedBy?:number;
+    verificationDetails?: VerificationDetails;
         
-        name? : string;
-
-        severity? : number;
-
-        verifiedDate?: {
-
-            date? : string;
-    
-            time? : string;
-    
-        }
-
-        engineerComment?:string;
-
-        InspectionResult? : InspectionResult;
-
-        
-    }
-
 }

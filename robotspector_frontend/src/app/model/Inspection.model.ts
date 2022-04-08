@@ -1,3 +1,6 @@
+import { InspectionResult } from "../equipment-single-view/InspectionResult";
+import { VerificationDetails } from "./VerificationDetails.model";
+
 export class Inspection{
     id? : string;
     equipmentId? : number;
@@ -6,16 +9,6 @@ export class Inspection{
         time? : string;
     }
     collectingTime? : number;
-    verificationDetails?: {
-        verifiedBy? : string;
-        inspectionResult: {
-            name? : string;
-            severity? : number;
-        } 
-        verifiedDate?: {
-            date? : string;
-            time? : string;
-        }
-        engineerComment?: string;
-    }
+    verificationDetails?: VerificationDetails;
+    inpsectionresult?:InspectionResult;
 }

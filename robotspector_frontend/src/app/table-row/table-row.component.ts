@@ -22,6 +22,8 @@ export class TableRowComponent implements OnInit {
   isSelected:Boolean = false;
   @Input()
   equipment?:Equipment;
+  @Input()
+  severityName?:string;
   constructor(private dataSharing: DataService) { }
 
   ngOnInit(): void {
@@ -31,7 +33,9 @@ export class TableRowComponent implements OnInit {
       this.isSelected = this.equipment?.id == data ;
       
     })
-    
+    console.log("================");
+    console.log(this.equipment?.inspection?.verificationDetails?.inspectionResult?.severity);
+    console.log("================");
   }
 
   getColor(){

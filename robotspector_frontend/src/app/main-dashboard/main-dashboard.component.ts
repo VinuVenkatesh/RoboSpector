@@ -42,6 +42,8 @@ export class MainDashboardComponent implements OnInit {
       this.currentRole = data;
       console.log(this.currentRole);
     })
+
+    
   }
 
   onKeyUp(){

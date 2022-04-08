@@ -7,7 +7,6 @@ services:
 stages:
   - build
   - test
-  - deploy
 
 variables:
   ## Disable TLS Mode for DIND or enable using instructions from https://about.gitlab.com/releases/2019/07/31/docker-in-docker-with-docker-19-dot-03/
@@ -45,10 +44,3 @@ docker-test-production:
 
   only:
     - master
-
-docker-deploy-production:
-  variables:
-    ## Now Connect to Remote Docker Daemon on Deployment Machine using TLS.
-    DOCKER_HOST: tcp://$DEPLOYMENT_HOST_IP:2376
-    DOCKER_TLS_VERIFY: 1
-

@@ -22,6 +22,8 @@ export class EquipmentSingleViewService {
   }
 
   addVerificationDetails(verificationDetails : any, inspectionId:any){
+    console.log("verification ->",verificationDetails);
+    console.log("inspectionId ->",inspectionId);
     let url = this.inspectionServiceUrl + "/verify/" + inspectionId;
     return this.httpClient.put<VerificationDetails>(url,verificationDetails);
   }

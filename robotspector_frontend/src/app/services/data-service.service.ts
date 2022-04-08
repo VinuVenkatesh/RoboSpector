@@ -9,16 +9,31 @@ export class DataService {
   SharingData = new Subject();//subject
   detailedEquipmentData = new Subject();
   currentSelectedRowData = new Subject();
-  curentSelectedEquipment = new Subject();
+
+  private curentSelectedEquipmentBehaviourSubject = new BehaviorSubject(Equipment);
+  curentSelectedEquipment = this.curentSelectedEquipmentBehaviourSubject.asObservable();
+  
   currentDashboardInputData = new Subject();
+
   currentSortOrder = new Subject();
+  
   currentCreateModalState = new Subject();
+
   currentEquipmentLength = new Subject<string>();
+
   currentEquipmentList = new Subject<[Equipment]>();
+
+
+  private inspectionId = new BehaviorSubject('');
+  currentInspectionId = this.inspectionId.asObservable();
+
   currentAlertState = new Subject();
   currentVerifyModalState = new Subject<boolean>();
   showVerified =  new Subject<boolean>();
-  selectedSeverity = new Subject<string>();
+
+  
+  private selectedSeverityBehaviour = new BehaviorSubject("");
+  selectedSeverity = this.selectedSeverityBehaviour.asObservable();
 
   private equipmentId = new BehaviorSubject(0);
   currentEquipmentId = this.equipmentId.asObservable();
@@ -66,7 +81,7 @@ export class DataService {
     this.currentAlertState.next(data);
   }
   changeCurentSelectedEquipment(data:any){
-    this.curentSelectedEquipment.next(data);
+    this.curentSelectedEquipmentBehaviourSubject.next(data);
   }
   changeRole(newRole : string){
     this.role.next(newRole);
@@ -85,6 +100,10 @@ export class DataService {
     this.currentVerifyModalState.next(data);
   }
   changeSelectedSeverity(data:string){
-    this.selectedSeverity.next(data);
+    this.selectedSeverityBehaviour.next(data);
   }
+  changeCurrentInspectionId(data:string){
+    this.inspectionId.next(data);
+  }
+  
 }

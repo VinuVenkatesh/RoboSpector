@@ -37,6 +37,8 @@ import { InspectorCardNotVerifiedComponent } from './inspector-card-not-verified
 import { SwitchComponent } from './switch/switch.component';
 import { VerifyModalComponent } from './verify-modal/verify-modal.component';
 import { SeverityButtonComponent } from './severity-button/severity-button.component';
+import { FilterInspectionsPipe } from './filter-inspections.pipe';
+import { FilterInspectionsUnverifiedPipe } from './filter-inspections-unverified.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,6 +73,8 @@ import { SeverityButtonComponent } from './severity-button/severity-button.compo
     SwitchComponent,
     VerifyModalComponent,
     SeverityButtonComponent,
+    FilterInspectionsPipe,
+    FilterInspectionsUnverifiedPipe,
 
   ],
   imports: [

@@ -7,7 +7,7 @@ import { Equipment } from './equipment-single-view/Equipment';
 export class DashboardPipePipe implements PipeTransform {
 
   transform(allEquipment?:Equipment[], searchText?: string) {
-    if (allEquipment === undefined) return;
+  if (allEquipment === undefined) return;
     if (searchText === undefined || searchText == '' || searchText.length === 0) return allEquipment;
     let equipmentFound = [];
     let currentSearchText = searchText == undefined ? '': searchText; 

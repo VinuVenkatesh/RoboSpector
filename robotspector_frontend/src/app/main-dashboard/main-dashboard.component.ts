@@ -29,10 +29,6 @@ export class MainDashboardComponent implements OnInit {
   constructor(private dataSharing: DataService, private equipmentService:EquipmentService) { }
 
   ngOnInit(): void {
-    this.subscription = this.dataSharing.currentRole.subscribe(data => {
-      this.currentRole = data;
-      console.log(this.currentRole);
-    })
     this.dataSharing.detailedEquipmentData.subscribe((res:any) =>{
       this.title = res.name;
     })
@@ -46,9 +42,6 @@ export class MainDashboardComponent implements OnInit {
       this.currentRole = data;
       console.log(this.currentRole);
     })
-  }
-  ngOnDestroy(){
-    this.subscription?.unsubscribe();
   }
 
   onKeyUp(){

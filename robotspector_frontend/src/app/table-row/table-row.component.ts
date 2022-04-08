@@ -50,21 +50,18 @@ export class TableRowComponent implements OnInit {
     }
   }
   getAgeColor(){
-    switch(this.age){
-      case 1:
-      case 20:
+    let colorAge = this.age== undefined?0:this.age;
+    console.log(this.age);
+    switch(true){
+      case colorAge < 20:
         return "3BF0CF";
-      case 30:
+      case colorAge < 30:
         return "23B5D3";
-      case 40:
-      case 50:
+      case colorAge < 50:
         return "279AF1";
-      case 60:
-      case 70:
+      case colorAge <70:
         return "473BF0";
-      case 80:
-      case 90:
-      case 100:
+      case colorAge <100:
         return "EA526F";
       default:
         return "86E05C";

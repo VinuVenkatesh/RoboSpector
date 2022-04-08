@@ -48,5 +48,7 @@ export class PersonProfileComponent implements OnInit {
   }
   logout(){
     this.router.navigate(['']);
+    this.dataService.changeRole('guest')
+    this.dataService.changeUser_Name('Guest')
   }
 }

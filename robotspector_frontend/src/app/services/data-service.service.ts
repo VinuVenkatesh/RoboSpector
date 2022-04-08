@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Equipment } from '../equipment-single-view/equipment';
+import { Equipment } from '../equipment-single-view/Equipment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class DataService {
   private role = new BehaviorSubject('guest');
   currentRole = this.role.asObservable();
 
-  private userName = new BehaviorSubject('Kale');
+  private userName = new BehaviorSubject('Guest');
   currentUserName = this.userName.asObservable();
 
   private engineerName = new BehaviorSubject('Kevin');

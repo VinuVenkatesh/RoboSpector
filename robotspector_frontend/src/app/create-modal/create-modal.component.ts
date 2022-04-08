@@ -87,8 +87,8 @@ export class CreateModalComponent implements OnInit {
   onCreateEquipmentSubmit(){
     const equipmentToSend = new Equipment();
     const location = new Location();
-    const maxId = this.equipmentList.sort((a:any,b:any) => b.id - a.id)[0];
-    equipmentToSend.id = (maxId).toString();
+    const maxId = this.equipmentList.sort((a:any,b:any) => b.id - a.id)[0].id + 1;
+    equipmentToSend.id = maxId;
     const formValues = this.equipmentForm.value;
     location.localtionurl = formValues.locationurl;
     location.longitude = formValues.long;
@@ -97,7 +97,7 @@ export class CreateModalComponent implements OnInit {
 
     equipmentToSend.name = formValues.name;
     equipmentToSend.comment = formValues.comment;
-    equipmentToSend.aging = formValues.age;
+    equipmentToSend.aging = this.ageSliderValue;
     
     this.equipmentService.createEquipment(equipmentToSend).subscribe((createData:any) =>{
       if (createData != null){

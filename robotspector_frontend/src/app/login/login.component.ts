@@ -38,11 +38,10 @@ export class LoginComponent {
 
         }else{
           if (data!= null){
-            console.log("There is data");
             this.userRole = data["userRole"];
             this.service.setToken(data["token"]);
-            this.data.changeRole("guest");
-            this.data.changeUser_Name("Kyle");
+            this.data.changeRole(this.userRole);
+            this.data.changeUser_Name(data["userName"]);
             this.router.routeToDashboard();
           }
 
@@ -51,17 +50,8 @@ export class LoginComponent {
 
     }
 
-    goToDashboad() {
+    goToDashboard() {
       this.router.routeToDashboard();
     }
-    //   if (this.form.valid == false ){
 
-    //     this.submitMessage = "Username or password invalid"
-
-    //   }else{
-    //     this.submitMessage = "Suceess";
-
-    //   }
-
-    // }
 }

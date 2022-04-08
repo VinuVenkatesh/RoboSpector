@@ -23,11 +23,16 @@ export class InspectorCardNotVerifiedComponent implements OnInit {
 
   @Input()
   currentInspectionId?:string;
-  
+
+  role?:string;  
 
   constructor(private dataSharing:DataService) { }
 
   ngOnInit(): void {
+    this.dataSharing.currentRole.subscribe(data => {
+      this.role = data;
+    })
+
     this.dataSharing.currentVerifyModalState.subscribe((data:boolean) =>{
       this.currentVerifyModalState = data;
     })

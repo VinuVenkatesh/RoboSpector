@@ -14,7 +14,7 @@
         {{collectingTime}}
       </span>
     </div>
-    <div (click) = "onClickVerify()" style="background-color: #19B2EA; color:white; border-radius: 5px; font-weight: bold;
+    <div *ngIf="role === 'engineer'" (click) = "onClickVerify()" style="background-color: #19B2EA; color:white; border-radius: 5px; font-weight: bold;
     width: 90%; align-self: center; text-align: center; box-shadow: 2px 5px 0px 0px rgba(0,0,0,0.1); cursor: pointer;"
       class="d-flex align-items-center  py-2 justify-content-center">
       Verify

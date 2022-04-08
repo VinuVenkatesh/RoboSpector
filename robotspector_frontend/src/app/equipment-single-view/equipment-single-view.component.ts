@@ -15,6 +15,7 @@ export class EquipmentSingleViewComponent implements OnInit {
   currentView:String = "overview";
   viewTitles = {"Inspection":"Inspection", "Overview":"overview"};
   constructor(private dataSharing: DataService) {}
+  role?:string;
 
   @Input()
   title?:String;
@@ -22,7 +23,10 @@ export class EquipmentSingleViewComponent implements OnInit {
   currentVerifyModalState:boolean = false;
 
   ngOnInit(): void {
-
+    this.dataSharing.currentRole.subscribe(data => {
+      this.role = data
+    })
+    
     this.dataSharing.SharingData.subscribe((res:any) =>{
       this.currentView = res;
     })

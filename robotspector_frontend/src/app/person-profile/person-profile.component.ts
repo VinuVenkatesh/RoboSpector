@@ -15,12 +15,12 @@ export class PersonProfileComponent implements OnInit {
   backgroundColor:String = "transparent"
   showShadow:Boolean = false;
   userName?: string;
-  constructor(private router:Router, private dataServiceService : DataService) {}
+  constructor(private router:Router, private dataService : DataService) {}
 
   ngOnInit(): void {
     this.logoutButton = document.querySelector("#logout-button");
     this.logoutName = document.querySelector("#logout-name");
-    this.dataServiceService.currentUserName.subscribe(data =>{
+    this.dataService.currentUserName.subscribe(data =>{
       this.userName = data;
     })
   }
@@ -29,7 +29,7 @@ export class PersonProfileComponent implements OnInit {
     this.backgroundColor = "white";
     this.display = "block";
     this.showShadow = true
-    
+
   }
   onMouseLeave(e:MouseEvent){
     this.backgroundColor = "transparent";
@@ -43,7 +43,7 @@ export class PersonProfileComponent implements OnInit {
     return this.backgroundColor;
   }
   getBoxShadow(){
-  
+
     return this.showShadow ? "0px 10px 2px -3px rgba(0,0,0,0.1)" : '';
   }
   logout(){

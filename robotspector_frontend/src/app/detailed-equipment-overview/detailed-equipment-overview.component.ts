@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
-import { DetailedEquipmentOverview } from './DetailedEquipmentOverview';
+import { RouterService } from '../services/router.service';
+import { DetailedEquipmentOverview } from './detailedEquipmentOverview';
 @Component({
   selector: 'app-detailed-equipment-overview',
   templateUrl: './detailed-equipment-overview.component.html',
@@ -8,7 +9,7 @@ import { DetailedEquipmentOverview } from './DetailedEquipmentOverview';
 })
 export class DetailedEquipmentOverviewComponent implements OnInit {
 
-  constructor(private dataSharing: DataService) { }
+  constructor(private dataSharing: DataService, private router:RouterService) { }
 
   @Input()
   detailedEquipmentOverview?:DetailedEquipmentOverview;
@@ -26,6 +27,9 @@ export class DetailedEquipmentOverviewComponent implements OnInit {
     this.dataSharing.curentSelectedEquipment.subscribe((res:any) =>{
       this.currentEquipment = res;
     })
+  }
+  goToEquipmentSingleView(){
+    this.router.routeToEquipmentSingleView();
   }
   getColor(){
     switch(this.currentEquipment?.inspection?.verificationDetails?.severity){

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 import { DataService } from '../services/data-service.service';
-
+import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 @Component({
   selector: 'app-equipment-single-view',
   templateUrl: './equipment-single-view.component.html',
@@ -19,11 +18,16 @@ export class EquipmentSingleViewComponent implements OnInit {
 
   @Input()
   title?:String;
+  @Input()
+  currentVerifyModalState:boolean = false;
 
   ngOnInit(): void {
 
     this.dataSharing.SharingData.subscribe((res:any) =>{
       this.currentView = res;
+    })
+    this.dataSharing.currentVerifyModalState.subscribe((res:any)=>{
+      this.currentVerifyModalState = res;
     })
   }
   onMouseDown(e:MouseEvent){

@@ -16,8 +16,7 @@ export class LoginComponent {
     form: any;
     submitMessage: any;
 
-    constructor(private formBuilder:FormBuilder, private service:AuthenticationService, private router:RouterService, private data : DataService) {}
-    //one space between methods
+    constructor(private formBuilder:FormBuilder,private service:AuthenticationService, private router:RouterService,private data : DataService) {}
     ngOnInit() {
 
       this.form = this.formBuilder.group({

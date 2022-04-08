@@ -1,12 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Equipment } from '../equipment-single-view/Equipment';
+import { Equipment } from '../equipment-single-view/equipment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   SharingData = new Subject();//subject
+  detailedEquipmentData = new Subject();
+  currentSelectedRowData = new Subject();
+  curentSelectedEquipment = new Subject();
+  currentDashboardInputData = new Subject();
+  currentSortOrder = new Subject();
+  currentCreateModalState = new Subject();
+  currentEquipmentLength = new Subject<string>();
+  currentEquipmentList = new Subject<[Equipment]>();
+  currentAlertState = new Subject();
+  currentVerifyModalState = new Subject<boolean>();
+  showVerified =  new Subject<boolean>();
+  selectedSeverity = new Subject<string>();
 
   private role = new BehaviorSubject('guest');
   currentRole = this.role.asObservable();
@@ -17,28 +29,9 @@ export class DataService {
   private engineerName = new BehaviorSubject('Kevin');
   currentEngineerName = this.engineerName.asObservable();
 
-  detailedEquipmentData = new Subject();
-  currentSelectedRowData = new Subject();
-  curentSelectedEquipment = new Subject();
-  currentDashboardInputData = new Subject();
-  currentSortOrder = new Subject();
-  currentCreateModalState = new Subject();
-  currentEquipmentLength = new Subject<string>();
-  currentEquipmentList = new Subject<[Equipment]>();
-  currentAlertState = new Subject();
    constructor() { }
   changeDataSubject(data: any) {
     this.SharingData.next(data);
-  }
-  changeRole(newRole : string){
-    this.role.next(newRole);
-  }
-  changeUser_Name(newUserName : string){
-    this.userName.next(newUserName);
-  }
-
-  changeEngineerName(newEngineerName : string){
-    this.engineerName.next(newEngineerName);
   }
   changedetailedEquipmentData(data:any){
     this.detailedEquipmentData.next(data);
@@ -66,5 +59,24 @@ export class DataService {
   }
   changeCurentSelectedEquipment(data:any){
     this.curentSelectedEquipment.next(data);
+  }
+  changeRole(newRole : string){
+    this.role.next(newRole);
+  }
+  changeUser_Name(newUserName : string){
+    this.userName.next(newUserName);
+  }
+
+  changeEngineerName(newEngineerName : string){
+    this.engineerName.next(newEngineerName);
+  }
+  changeShowVerifiedStatus(data:boolean){
+    this.showVerified.next(data);
+  }
+  changeCurrentVerifyModalState(data:boolean){
+    this.currentVerifyModalState.next(data);
+  }
+  changeSelectedSeverity(data:string){
+    this.selectedSeverity.next(data);
   }
 }

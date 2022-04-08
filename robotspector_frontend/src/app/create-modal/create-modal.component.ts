@@ -44,6 +44,7 @@ export class CreateModalComponent implements OnInit {
   age = new FormControl();
   comment = new FormControl();
   equipmentLength?:string;
+  equipmentList:any;
   equipmentForm: any;
   @Input()
   ageSliderValue:any = 50;
@@ -56,10 +57,13 @@ export class CreateModalComponent implements OnInit {
       this.createModalState = res;
     })
     this.dataSharing.currentEquipmentLength.subscribe((data:string) =>{
-      console.log("===========");
-      console.log("The current length of data is", data);
-      console.log("===========");
+      
       this.equipmentLength = data;
+      
+    })
+    this.dataSharing.currentEquipmentList.subscribe((data:any) =>{
+      this.equipmentList = data;
+      console.log("log from current equipment");
     })
     this.equipmentForm = this.formBuilder.group({
       name: "",
@@ -70,6 +74,12 @@ export class CreateModalComponent implements OnInit {
       comment:"",
    })
   }
+  AfterViewInit():void{
+    this.dataSharing.currentEquipmentList.subscribe((data:any) =>{
+      this.equipmentList = data;
+      console.log("log from current equipment");
+    })
+  }
   toggleCreateModalState(){
     this.dataSharing.changeCurrentCreateModalState(false);
   }
@@ -77,7 +87,8 @@ export class CreateModalComponent implements OnInit {
   onCreateEquipmentSubmit(){
     const equipmentToSend = new Equipment();
     const location = new Location();
-    equipmentToSend.id = (parseInt(this.equipmentLength!) + 1).toString();
+    const maxId = this.equipmentList.sort((a:any,b:any) => b.id - a.id)[0];
+    equipmentToSend.id = (maxId).toString();
     const formValues = this.equipmentForm.value;
     location.localtionurl = formValues.locationurl;
     location.longitude = formValues.long;
@@ -90,7 +101,9 @@ export class CreateModalComponent implements OnInit {
     
     this.equipmentService.createEquipment(equipmentToSend).subscribe((createData:any) =>{
       if (createData != null){
-        this.equipmentService.getAllEquipment();
+        this.equipmentService.getAllEquipment().subscribe((data:any) =>{
+          this.dataSharing.changeCurrentEquipmentList(data);
+        })
       }
     });
     

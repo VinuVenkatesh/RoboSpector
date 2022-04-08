@@ -1,3 +1,5 @@
+import { InspectionResult } from "./InspectionResult";
+
 export class Inspection{
 
     id? : string;
@@ -18,10 +20,25 @@ export class Inspection{
 
         id? : number;
 
+        verifiedBy?:number;
+        
         name? : string;
 
         severity? : number;
 
+        verifiedDate?: {
+
+            date? : string;
+    
+            time? : string;
+    
+        }
+
+        engineerComment?:string;
+
+        InspectionResult? : InspectionResult;
+
+        
     }
 
 }

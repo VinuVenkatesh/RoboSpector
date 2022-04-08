@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./inspector-list.component.css">
-</head>
-
-
-<div id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="gap:10px; max-height:80vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
+<div [@fade] = "showVerified ? 'show' : 'hide'"
+*ngIf = "showVerified == false" id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="gap:10px; max-height:70vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
   <ul *ngFor="let inspection of inspectionList">
     <app-inspector-card  
     [date]=inspection.dateTime!.date 
@@ -18,6 +9,23 @@
     [verificationComment] = getVerificationComment(inspection) ></app-inspector-card>
   </ul>
 </div>
-
-</html>
-
+<div
+[@fade] =   "!showVerified ? 'show' : 'hide'"
+*ngIf = "showVerified "
+class="mr-auto ml-auto"
+  style="display: grid;gap:20px; 
+  grid-template-columns: 1fr 1fr 1fr; justify-content: 
+  space-between; width: 50vw; max-height:70vh; overflow: auto;"
+  id = "inspection_not_verified" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)">
+  <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  
+    <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  
+  
+  <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  <app-inspector-card-not-verified></app-inspector-card-not-verified>
+  
+</div>

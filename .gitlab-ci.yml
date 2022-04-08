@@ -38,10 +38,7 @@ docker-build-production:
 
 
 docker-test-production:
-  before_script:
-    ## Login to Gitlab Provided Container Registry for this project.
-    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-    ## Install Docker Compose 
+  ## Install Docker Compose 
   stage: test
   script:
     - echo "Run Tests here..."

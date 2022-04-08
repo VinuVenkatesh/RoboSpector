@@ -11,12 +11,12 @@ build_job1:
     tags:
         - docker
     script:
-        - echo "Maven build project"
+        - echo "maven build project"
         - "mvn clean install"
 build_job2:
     stage: test
     tags:
         - docker
     script:
-        - echo "Maven test project"
+        - echo "maven test project"
         - "mvn test"

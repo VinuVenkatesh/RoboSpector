@@ -52,17 +52,5 @@ docker-deploy-production:
     DOCKER_HOST: tcp://$DEPLOYMENT_HOST_IP:2376
     DOCKER_TLS_VERIFY: 1
 
-
-  stage: deploy
-  script:
-    # Copy Certs to access DEPLOYMENT_HOST
-    - mkdir -p ~/.docker
-    - echo "$TLSCACERT" > ~/.docker/ca.pem
-    - echo "$TLSCERT" > ~/.docker/cert.pem
-    - echo "$TLSKEY" > ~/.docker/key.pem
-    
-    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-    - docker stack deploy --compose-file docker-stack.yml voting_app
-
   only:
     - master

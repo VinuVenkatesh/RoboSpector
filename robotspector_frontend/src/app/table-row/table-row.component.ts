@@ -27,6 +27,7 @@ export class TableRowComponent implements OnInit {
   ngOnInit(): void {
     this.dataSharing.currentSelectedRowData.subscribe((data:any) =>{
       console.log("The data is", data);
+      this.dataSharing.changeEquipmentId(data);
       this.isSelected = this.equipment?.id == data ;
     })
   }
@@ -51,7 +52,6 @@ export class TableRowComponent implements OnInit {
   }
   getAgeColor(){
     let colorAge = this.age== undefined?0:this.age;
-    console.log(this.age);
     switch(true){
       case colorAge < 20:
         return "3BF0CF";

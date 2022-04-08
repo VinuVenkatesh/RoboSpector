@@ -20,6 +20,9 @@ export class DataService {
   showVerified =  new Subject<boolean>();
   selectedSeverity = new Subject<string>();
 
+  private equipmentId = new BehaviorSubject(0);
+  currentEquipmentId = this.equipmentId.asObservable();
+
   private role = new BehaviorSubject('guest');
   currentRole = this.role.asObservable();
 
@@ -33,6 +36,11 @@ export class DataService {
   changeDataSubject(data: any) {
     this.SharingData.next(data);
   }
+
+  changeEquipmentId(data :any){
+    this.equipmentId.next(data);
+  }
+
   changedetailedEquipmentData(data:any){
     this.detailedEquipmentData.next(data);
   }

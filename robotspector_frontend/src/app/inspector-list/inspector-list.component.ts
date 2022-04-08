@@ -37,11 +37,13 @@ export class InspectorListComponent implements OnInit {
   showVerified:boolean = false;
   constructor(private dataSharing: DataService, private equipmentSingleViewService: EquipmentSingleViewService) { }
   ngOnInit(): void {
-
-    this.equipmentSingleViewService.getAllInspections(3).subscribe(data =>{
-      this.inspectionList = data;
-      console.log(this.inspectionList);
+    this.dataSharing.currentEquipmentId.subscribe(x =>{
+      this.equipmentSingleViewService.getAllInspections(x).subscribe(data =>{
+        this.inspectionList = data;
+        console.log(this.inspectionList);
+      })
     })
+    
     this.dataSharing.currentRole.subscribe(data =>{
       this.currentRole = data;
       console.log(data);

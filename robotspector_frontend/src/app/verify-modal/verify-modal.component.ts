@@ -98,13 +98,6 @@ export class VerifyModalComponent implements OnInit {
     verificationDetails.inspectionResult = inspectionResult;
 
     verificationDetails.verifiedBy = this.verificationDetials.verifiedBy;
-    // this.equipmentService.createEquipment(equipmentToSend).subscribe((createData:any) =>{
-    //   if (createData != null){
-    //     this.equipmentService.getAllEquipment().subscribe((data:any) =>{
-    //       this.dataSharing.changeCurrentEquipmentList(data);
-    //     })
-    //   }
-    // });
       this.equipmentSingleViewService.addVerificationDetails(verificationDetails,this.inspectionId).subscribe((dataVerification:any)=>{
        if (dataVerification != null){
          this.equipmentSingleViewService.getAllInspections(this.equipmentId).subscribe((data:any) =>{

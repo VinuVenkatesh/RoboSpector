@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Equipment } from '../equipment-single-view/Equipment';
+import { Inspection } from '../model/Inspection.model';
 import { DataService } from '../services/data-service.service';
+import { EquipmentSingleViewService } from '../services/equipment-single-view.service';
 
 @Component({
   selector: 'app-table-row',
@@ -24,7 +26,12 @@ export class TableRowComponent implements OnInit {
   equipment?:Equipment;
   @Input()
   severityName?:string;
-  constructor(private dataSharing: DataService) { }
+  @Input()
+  inspectionList?:any;
+
+  @Input()
+  listOfSeverityNames?:any;
+  constructor(private dataSharing: DataService, private equipmentSingleViewService:EquipmentSingleViewService) { }
 
   ngOnInit(): void {
     this.dataSharing.currentSelectedRowData.subscribe((data:any) =>{
@@ -33,12 +40,25 @@ export class TableRowComponent implements OnInit {
       this.isSelected = this.equipment?.id == data ;
       
     })
-    console.log("================");
-    console.log(this.equipment?.inspection?.verificationDetails?.inspectionResult?.severity);
-    console.log("================");
+    
+      this.equipmentSingleViewService.getAllInspections(this.equipment?.id).subscribe(data =>{
+        this.inspectionList = data;
+        console.log("The inspection list is",this.inspectionList);
+        let withNames = this.inspectionList.filter((a:Inspection) => a.verificationDetails?.inspectionResult?.name != undefined || a.verificationDetails?.inspectionResult?.name != null );
+        let inspectionNames = withNames.map((a:Inspection) => a.verificationDetails?.inspectionResult?.severity);
+        console.log("das dasd asdadad asd",inspectionNames[this.getRandomInt(inspectionNames.length - 1)]);
+        this.level = inspectionNames[this.getRandomInt(inspectionNames.length - 1)];
+        console.log("the number is ",this.getRandomInt(inspectionNames.length - 1));
+        
+      })
+    
+  }
+   getRandomInt(max:any) {
+    return Math.floor(Math.random() * 10);
   }
 
   getColor(){
+  
     switch(this.level){
       case null:
         return "F05365";

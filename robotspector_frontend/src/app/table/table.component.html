@@ -2,7 +2,6 @@
     <div *ngFor=" let item of equipment | dashboardOrderByPipe:sortColumnOrder.column:sortColumnOrder.order | dashboardPipe:searchText ">
         <app-table-row
          [equipment]="item" 
-         [level]= 'item.inspection?.verificationDetails?.inspectionResult?.severity'
          [name] = "item.name" [age] = "item.aging" [location] = "item.location?.localtionurl "
          [collection]="item.inspection?.collectingTime"
          [severityName]="item.inspection?.verificationDetails?.inspectionResult?.name"
@@ -10,6 +9,6 @@
            >
         
         </app-table-row>
-        {{item.inspection?.verificationDetails?.inspectionResult?.severity}}
+        {{item.inspection?.verificationDetails?.inspectionResult?.name}}
     </div>
 </div>

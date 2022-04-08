@@ -27,6 +27,9 @@ export class InspectorCardComponent implements OnInit {
   @Input()
   verificationComment? : string;
 
+  @Input()
+  comment?:string;
+
   form : any;
 
   verificationDetails?: VerificationDetails

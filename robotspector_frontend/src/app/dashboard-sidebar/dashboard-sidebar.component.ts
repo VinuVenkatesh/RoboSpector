@@ -10,8 +10,8 @@ export class DashboardSidebarComponent implements OnInit {
 
   constructor() { }
 
-  dashboardButtonTitles:String[] = ["comments","inspection","location"];
-  dashboardButtonImages:String[] = ["comments_icon","inspection_icon","location_icon"];
+  dashboardButtonTitles:String[] = ["overview","inspection"];
+  dashboardButtonImages:String[] = ["comments_icon","inspection_icon"];
   ngOnInit(): void {
   }
   changeCurrentView(e:Event){

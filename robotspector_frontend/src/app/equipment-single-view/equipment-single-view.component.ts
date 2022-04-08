@@ -12,8 +12,8 @@ export class EquipmentSingleViewComponent implements OnInit {
   isDown:any = false;
   startX:any;
   scrollLeft:any;
-  currentView:String = "location";
-  viewTitles = {"Inspection":"Inspection", "Location":"Location", "Comments":"comments"};
+  currentView:String = "overview";
+  viewTitles = {"Inspection":"Inspection", "Overview":"overview"};
   constructor(private dataSharing: DataService) {}
 
   @Input()

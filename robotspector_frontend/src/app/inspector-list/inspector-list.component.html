@@ -6,6 +6,7 @@
     [severityLevel] = getSeverityLevel(inspection)
     [collectingTime]= inspection.collectingTime
     [verificationDate]= getVerificationDate(inspection)
+    [comment] = inspection?.verificationDetails?.engineerComment
     [verificationComment] = getVerificationComment(inspection) ></app-inspector-card>
   </ul>
 </div>
@@ -23,6 +24,7 @@ class="mr-auto ml-auto"
     [collectingTime]= inspection.collectingTime
     [date]=inspection.dateTime!.date 
     [currentInspectionId] = inspection!.id
+   
     ></app-inspector-card-not-verified>
   </ul>
   

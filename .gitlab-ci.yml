@@ -52,5 +52,3 @@ docker-deploy-production:
     DOCKER_HOST: tcp://$DEPLOYMENT_HOST_IP:2376
     DOCKER_TLS_VERIFY: 1
 
-  only:
-    - master

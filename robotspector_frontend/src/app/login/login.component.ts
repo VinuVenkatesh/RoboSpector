@@ -29,24 +29,37 @@ export class LoginComponent {
 
     loginSubmit() {
       // this.router.routeToDashboard();
+      if (this.form.valid == false ){
+  
+        this.submitMessage = "Username or password invalid"
+        return;
+      }
+      this.submitMessage = "";
+      try{
+        this.service.authenticateUser(this.form.value).subscribe((data:any) =>{
 
-      this.service.authenticateUser(this.form.value).subscribe((data:any) =>{
-
-        if (this.form.valid == false ){
-
-          this.submitMessage = "Username or password invalid"
-
-        }else{
-          if (data!= null){
-            this.userRole = data["userRole"];
-            this.service.setToken(data["token"]);
-            this.data.changeRole(this.userRole);
-            this.data.changeUser_Name(data["userName"]);
-            this.router.routeToDashboard();
+          if (this.form.valid == false ){
+  
+            this.submitMessage = "Username or password invalid"
+  
+          }else{
+            if (data!= null){
+  
+              console.log("log in data is", data);
+              this.userRole = data["userRole"];
+              this.service.setToken(data["token"]);
+              this.data.changeRole(this.userRole);
+              this.data.changeUser_Name(data["userName"]);
+              this.router.routeToDashboard();
+              return;
+            }
+            this.submitMessage = "Username or password invalid"
           }
-
-        }
-      })
+        })
+      }catch(e:any){
+        this.submitMessage = "Username or password invalid"
+      }
+      
 
     }
 

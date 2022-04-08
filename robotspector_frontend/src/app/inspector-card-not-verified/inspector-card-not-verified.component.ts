@@ -43,7 +43,7 @@ export class InspectorCardNotVerifiedComponent implements OnInit {
 
 
   onClickVerify(){
-    console.log("Verify clicked",this.currentInspectionId);
+    
     this.currentVerifyModalState = !this.currentVerifyModalState;
     this.dataSharing.changeCurrentVerifyModalState(this.currentVerifyModalState);
     this.dataSharing.changeCurrentInspectionId(this.currentInspectionId == undefined ? "":this.currentInspectionId);

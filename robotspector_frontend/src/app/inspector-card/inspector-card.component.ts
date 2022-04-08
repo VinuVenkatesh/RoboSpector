@@ -57,7 +57,7 @@ export class InspectorCardComponent implements OnInit {
         return "#E99363";
       case 4:
         return "#E05C5C";
-      case 5:
+      case 99:
         return "#A91212";
       default:
         return "#DDE05C";

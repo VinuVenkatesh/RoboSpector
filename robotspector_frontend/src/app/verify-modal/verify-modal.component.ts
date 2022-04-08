@@ -87,9 +87,7 @@ export class VerifyModalComponent implements OnInit {
 
     let inspectionResult = new InspectionResult();
     let verificationDetails = new VerificationDetails();
-    console.log("============");
-    console.log("the comment value is", this.comment.value);
-    console.log("============");
+    
 
     verificationDetails.engineerComment = this.dynamiComment;
     inspectionResult.severity = this.getSeverity(this.severityValue);

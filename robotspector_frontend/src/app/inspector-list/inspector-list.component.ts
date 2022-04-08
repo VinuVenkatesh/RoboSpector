@@ -57,6 +57,12 @@ export class InspectorListComponent implements OnInit {
     })
   }
   getSeverityLevel(inspection:any){
+    console.log("======");
+    let firstValue = this.inspectionList.filter((a) => a.id == inspection.id);
+    if (firstValue.length != 0){
+      return firstValue[0].verificationDetails?.inspectionResult?.severity
+    }
+    console.log("======");
     return inspection.verificationDetails?.inspectionResult.severity == undefined ? -1000 : inspection.verificationDetails?.inspectionResult.severity;
   }
 

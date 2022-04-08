@@ -43,12 +43,20 @@ export class TableRowComponent implements OnInit {
     
       this.equipmentSingleViewService.getAllInspections(this.equipment?.id).subscribe(data =>{
         this.inspectionList = data;
-        console.log("The inspection list is",this.inspectionList);
+        console.log("======");
+        let firstValue = this.inspectionList.filter((a:any) => a.id == this.equipment?.inspection?.id);
+       
+
+
+        if (firstValue.length != 0){
+          this.level = firstValue[0].verificationDetails?.inspectionResult?.severity;
+        }
+
         let withNames = this.inspectionList.filter((a:Inspection) => a.verificationDetails?.inspectionResult?.name != undefined || a.verificationDetails?.inspectionResult?.name != null );
         let inspectionNames = withNames.map((a:Inspection) => a.verificationDetails?.inspectionResult?.severity);
-        console.log("das dasd asdadad asd",inspectionNames[this.getRandomInt(inspectionNames.length - 1)]);
+        
         // this.level = inspectionNames[this.getRandomInt(inspectionNames.length - 1)];
-        console.log("the number is ",this.getRandomInt(inspectionNames.length - 1));
+        
         
       })
     

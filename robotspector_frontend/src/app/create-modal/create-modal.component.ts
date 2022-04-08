@@ -53,7 +53,6 @@ export class CreateModalComponent implements OnInit {
   
   ngOnInit(): void {
     this.dataSharing.currentCreateModalState.subscribe((res:any) =>{
-      console.log("The current modal state is", res);
       this.createModalState = res;
     })
     this.dataSharing.currentEquipmentLength.subscribe((data:string) =>{
@@ -63,7 +62,6 @@ export class CreateModalComponent implements OnInit {
     })
     this.dataSharing.currentEquipmentList.subscribe((data:any) =>{
       this.equipmentList = data;
-      console.log("log from current equipment");
     })
     this.equipmentForm = this.formBuilder.group({
       name: "",
@@ -77,7 +75,6 @@ export class CreateModalComponent implements OnInit {
   AfterViewInit():void{
     this.dataSharing.currentEquipmentList.subscribe((data:any) =>{
       this.equipmentList = data;
-      console.log("log from current equipment");
     })
   }
   toggleCreateModalState(){

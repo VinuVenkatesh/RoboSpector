@@ -2,7 +2,7 @@ package com.robospector.domain;
 
 public class VerificationDetails {
 
-	private int verifiedBy;
+	private String verifiedBy;
 	private DateTime verifiedDate;
 	private InspectionResult inspectionResult;
 	private String engineerComment;
@@ -11,7 +11,7 @@ public class VerificationDetails {
 		super();
 	}
 
-	public VerificationDetails(int verifiedBy, InspectionResult inspectionResult, String engineerComment) {
+	public VerificationDetails(String verifiedBy, InspectionResult inspectionResult, String engineerComment) {
 		super();
 		this.verifiedBy = verifiedBy;
 		this.verifiedDate = new DateTime();
@@ -19,11 +19,11 @@ public class VerificationDetails {
 		this.engineerComment = engineerComment;
 	}
 
-	public int getVerifiedBy() {
+	public String getVerifiedBy() {
 		return verifiedBy;
 	}
 
-	public void setVerifiedBy(int verifiedBy) {
+	public void setVerifiedBy(String verifiedBy) {
 		this.verifiedBy = verifiedBy;
 	}
 

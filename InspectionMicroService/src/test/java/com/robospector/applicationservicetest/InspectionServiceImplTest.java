@@ -34,7 +34,7 @@ public class InspectionServiceImplTest {
 	private static final String INSPECTION_ERROR_MESSAGE_1 = "No inspections exist for this equipment";
 	private static final String INSPECTION_ERROR_MESSAGE_2 = "The inspection does not exist";
 	private static final String ENGINEER_COMMENT = "This is a test comment";
-	private static final int ENGINEER_ID = 1;
+	private static final String ENGINEER_ID = "bob";
 	private static final InspectionResult INSPECTION_RESULT = new InspectionResult();
 	private static final int SEVERITY = 2;
 	private static final String NAME = "Minor wear";

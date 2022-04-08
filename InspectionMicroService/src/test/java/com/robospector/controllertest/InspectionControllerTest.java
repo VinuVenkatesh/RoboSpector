@@ -39,7 +39,7 @@ public class InspectionControllerTest {
 	private static final int VALID_EQUIPMENT_ID = 1;
 	private static final int INVALID_EQUIPMENT_ID = 10;
 	private static final String ENGINEER_COMMENT = "This is a test comment";
-	private static final int ENGINEER_ID = 1;
+	private static final String  ENGINEER_ID = "bob";
 	private static final InspectionResult INSPECTION_RESULT = new InspectionResult();
 	private static final int SEVERITY = 2;
 	private static final String NAME = "Minor wear";

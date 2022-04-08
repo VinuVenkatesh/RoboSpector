@@ -2,16 +2,16 @@ package com.robospector.controller.dto;
 
 public class VerificationDetailsDto {
 
-	private int verifiedBy;
+	private String verifiedBy;
 	private DateTimeDto verifiedDate;
 	private InspectionResultDto inspectionResult;
 	private String engineerComment;
 
-	public int getVerifiedBy() {
+	public String getVerifiedBy() {
 		return verifiedBy;
 	}
 
-	public void setVerifiedBy(int verifiedBy) {
+	public void setVerifiedBy(String verifiedBy) {
 		this.verifiedBy = verifiedBy;
 	}
 

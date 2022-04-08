@@ -1,0 +1,34 @@
+<div [@fade] = "showVerified ? 'show' : 'hide'"
+*ngIf = "showVerified == false" id = "comments_inspection" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"class="pb-2 justify-items-start" style="padding-right: 25px; gap:10px; max-height:70vh;overflow: auto; display: grid; font-family: 'Montserrat';" >
+  <ul *ngFor="let inspection of inspectionList | filterInspections">
+    <app-inspector-card  
+    [date]=inspection.dateTime!.date 
+    [severityLevel] = getSeverityLevel(inspection)
+    [collectingTime]= inspection.collectingTime
+    [verificationDate]= getVerificationDate(inspection)
+    [comment] = inspection?.verificationDetails?.engineerComment
+    [verificationComment] = getVerificationComment(inspection) ></app-inspector-card>
+  </ul>
+</div>
+<div
+[@fade] =   "!showVerified ? 'show' : 'hide'"
+*ngIf = "showVerified "
+class="mr-auto ml-auto"
+  style="display: grid;gap:20px; 
+  grid-template-columns: 1fr 1fr 1fr; justify-content: 
+  space-between; width: 50vw; max-height:70vh; overflow: auto;
+  "
+  id = "inspection_not_verified" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)">
+  
+  <ul  *ngFor="let inspection of inspectionList | filterInspectionsUnverified">
+    <app-inspector-card-not-verified
+    [collectingTime]= inspection.collectingTime
+    [date]=inspection.dateTime!.date 
+    [currentInspectionId] = inspection!.id
+   
+    ></app-inspector-card-not-verified>
+  </ul>
+  
+  
+  
+</div>

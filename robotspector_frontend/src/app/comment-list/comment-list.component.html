@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./comment-list.component.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+<div style="font-family: 'Montserrat'; max-width: 70%;">
+    <div class="ml-2 d-flex" style="margin-right: auto;  width: 100%; ">
+        <div class = "d-flex justify-content-center" style="margin-right: auto;">
+            <div class = "d-flex mb-2 py-2 align-items-center" style="gap:10px;  max-width:max-content;">
+                <span style="color:#6DCEF1;  font-size: small;" >Joseph gehbeb</span>
+                <div style="border-radius: 50%; border-width: 5px; width: 10px; height: 10px; background-color: #C4C4C4;"></div>
+                <span style="color: #B7B7B7; font-size: small;">January 10th 2021</span>
+            </div>
+          </div>
+    </div>
+    
+        <div id = "comments" (mousedown)="onMouseDown($event)" (mouseleave)="onMouseLeave($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" style="max-height:45vh;overflow: auto; display: grid; font-family: 'Montserrat';"  class="align-content-start">
+            <span style="font-size:medium; line-height: 2;">{{comment}}</span>
+        </div>
+</div>
+
+
+</html>
+
+

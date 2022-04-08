@@ -1,0 +1,44 @@
+
+<html>
+
+
+<head>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+<link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+        <link rel="stylesheet" href="./equipment-single-view.component.css">
+        
+</head>
+
+<div class = "d-flex justify-content-between container" style="font-family: 'Montserrat', sans-serif;  width: 100vw; height: 70vh; ">
+    <app-dashboard-sidebar  ></app-dashboard-sidebar>
+    <app-verify-modal *ngIf = currentVerifyModalState ></app-verify-modal>
+    
+
+
+  <div  *ngIf = "currentView.toLocaleLowerCase().includes(viewTitles['Inspection'].toLowerCase())" style="width: 80%;background-color: rgba(25, 178, 234, .011);" class = "ml-4 align-items-start">
+   <app-main-header title = "Inspections"></app-main-header>
+   <app-inspector-list></app-inspector-list>
+  </div>
+
+    <div  *ngIf = "currentView.toLocaleLowerCase().includes(viewTitles['Overview'].toLowerCase())" style="width: 65%; margin-left: 1rem">
+
+    <app-main-header title = "Overview"></app-main-header>
+    
+   <div style="padding-left:35px; display:grid;  grid-template-columns: 1fr; grid-template-rows: min-content; row-gap: 0px; height: 70vh; width: 65%;  ">
+   
+    
+
+     <app-image-list></app-image-list>
+     
+    <app-location-view></app-location-view>
+    
+   </div>
+   
+</div> 
+    <app-inspector-profile></app-inspector-profile>
+</div>
+</html>

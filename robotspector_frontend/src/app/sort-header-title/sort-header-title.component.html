@@ -1,0 +1,4 @@
+<div (click) = "onClickSort()" class = "d-flex justify-content-between"  style=" cursor: pointer; gap: 10px;  width: min-content;">
+    <span>{{title}}</span>
+    <img [@changeSortSorder]="asc ? 'asc' : 'dsc'"  style="object-fit:contain; " src = "../../assets/images/sort.png"/>
+</div>

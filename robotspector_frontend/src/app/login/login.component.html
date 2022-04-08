@@ -1,0 +1,48 @@
+
+<section style="font-family: 'Montserrat', sans-serif;">
+  
+    <div class="d-flex  vw-100 vh-100" >
+        <div class="d-flex p-2  " style="width: 50vw;  " >
+            <div  class = "d-flex  pt-2 d-flex flex-column justify-content-center ">
+                <h1 class="p-2 text-white mb-4" style=" margin-left: 5rem; font-weight: 900; background-color: #19B2EA; max-width: fit-content; word-spacing: 30px;  letter-spacing: 6px;">
+                    RoboSpector
+                </h1>
+                <span class = "pb-4" style="font-size: 1.5rem;margin-left: 5rem;  " >
+                    <span class="p-1 " style="color: #19B2EA; font-weight: 900;">
+                        Organize
+                    </span> your equipment <br> inspections
+                     <span class="p-1 " style="color: #19B2EA; font-weight: 900;">
+                        Fast 
+                    </span>
+                </span>
+
+                <form [formGroup] = "form" action="" (ngSubmit) = "loginSubmit()" style="margin-left: 5rem;">
+                    <div class="form-group pb-2" >
+                      <label style="font-weight: 600;" for="formGroupExampleInput">Username</label>
+                      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" formControlName = "username">
+                    </div>
+                    <div class="form-group">
+                      <label style="font-weight: 600;" for="formGroupExampleInput2">Password</label>
+                      <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" formControlName = "password">
+                    </div>
+
+                   <span *ngIf="submitMessage" class="error-message" style="color:#FF5C5C; ">{{submitMessage}}</span>
+                    <input type = "submit" class = "p-2 mt-4 text-white " style = "width: 100%;   border-radius: .25rem; background-color:#19B2EA; font-weight: 600; border:none ;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);"  value = "Log in">
+        
+                </form>
+                <button (click)="goToDashboard()" class = "d-flex  pt-2 d-flex  justify-content-center mt-2" style="background-color: transparent; margin-left: 2.5rem;font-weight: 600;  border: transparent; width: 100%; color: #19B2EA;; ">
+                    Continue as guest
+                </button>
+          
+                </div>
+        </div>
+        <div class="p-2 d-flex justify-content-center"  style=" width: 50vw;  object-fit:contain; background-image: radial-gradient( circle farthest-corner at 7.2% 13.6%,  rgba(37,249,245,1) 0%, rgba(8,70,218,1) 90% );">
+            
+            <div style = "margin-top: auto; margin-bottom: auto; ">
+                <img src="../../assets/images/hero-robot-2.png" style = "object-fit:contain; width: 100%; height: 250px;"alt="Girl in a jacket" width="500" height="600">
+                <p class = "text-white pt-5"  style="letter-spacing: 3px; font-weight: 200;">   Get your equipment organized in a few clicks </p>
+            </div>
+           
+        </div>
+      </div>
+    </section>

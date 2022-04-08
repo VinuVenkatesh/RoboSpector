@@ -1,0 +1,20 @@
+<div [ngStyle]="{'background-color': '#' + getSelectionStatus() , 'color' : '#' + this.getTextColor() , 'font-weight': getFontSize()}" (click)="changeDetailedEquipmentOverview()"style="background-color:#F7F7FF; justify-content: space-evenly;border-radius : .5rem; font-size: small;" class = " p-2 d-flex align-items-center justify-content-between">
+    <span style="max-width: 5px; text-transform: capitalize;">{{name}}  </span>
+    <span style=" max-width: 10px;text-align: center; ">{{location}}</span>
+    <div class = "d-flex r-auto align-items-center justify-content-center font-size: x-small;" [ngStyle]="{'border-color': '#' + getAgeColor(),'color' : '#' + this.getTextColor()}" style=" color:black; border-radius: 50%; width: 50px; height: 50px; border: 2px solid #EA526F;">
+        {{age}}
+    </div>
+    <div class="px-3 mb-auto mt-auto align-self-end p-2  d-flex align-items-center justify-content-center" 
+     [ngStyle]="{'background-color': '#' + getColor()}"
+      style=" max-height: 1.2rem; max-width:80%; text-align: center;  border-top-left-radius: 15px; border-bottom-right-radius: 15px; color:white" >
+        <span class="mr-2" style="font-size:x-small;  font-weight: bold;">
+           Severity
+        </span>
+        <div   class="mr-2" style="border-radius: 50%; background-color: white; width: 5px; height: 5px;"></div>
+        <span style="font-size:x-small;">
+             {{level}}
+            <span *ngIf = 'level == undefined' >TBA</span>
+             
+        </span>
+    </div>
+</div>

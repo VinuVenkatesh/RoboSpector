@@ -29,7 +29,9 @@ export class TableRowComponent implements OnInit {
       console.log("The data is", data);
       this.dataSharing.changeEquipmentId(data);
       this.isSelected = this.equipment?.id == data ;
+      
     })
+    
   }
 
   getColor(){

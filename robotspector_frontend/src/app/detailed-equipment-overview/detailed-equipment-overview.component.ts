@@ -31,6 +31,9 @@ export class DetailedEquipmentOverviewComponent implements OnInit {
   goToEquipmentSingleView(){
     this.router.routeToEquipmentSingleView();
   }
+  getSeverityName(){
+    return this.currentEquipment?.inspection?.verificationDetails?.severity != undefined ? this.currentEquipment?.inspection?.verificationDetails?.severity: 'Inspection TBA'
+  }
   getColor(){
     switch(this.currentEquipment?.inspection?.verificationDetails?.severity){
       case undefined:

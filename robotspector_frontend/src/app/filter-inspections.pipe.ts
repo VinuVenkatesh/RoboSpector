@@ -1,16 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Equipment } from './equipment-single-view/Equipment';
-import { Inspection } from './equipment-single-view/Inpsection';
+import { Inspection } from './model/Inspection.model';
+
 
 @Pipe({
   name: 'filterInspections'
 })
 export class FilterInspectionsPipe implements PipeTransform {
 
-  transform(allEquipment?:Inspection[], searchText?: string) {
-    if (allEquipment === undefined) return;
+  transform(allInspection:Inspection[], searchText?: string) {
+    if (allInspection === undefined) return ;
 
-    return allEquipment.filter(a => a.verificationDetails != null);
+    return allInspection.filter(a => a.verificationDetails != null);
 
   }
 

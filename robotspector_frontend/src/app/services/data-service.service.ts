@@ -23,6 +23,7 @@ export class DataService {
 
   currentEquipmentList = new Subject<[Equipment]>();
 
+  listOfInspections = new Subject<any>();
 
   private inspectionId = new BehaviorSubject('');
   currentInspectionId = this.inspectionId.asObservable();
@@ -104,6 +105,9 @@ export class DataService {
   }
   changeCurrentInspectionId(data:string){
     this.inspectionId.next(data);
+  }
+  changeCurrentInspectionList(data:any){
+    this.listOfInspections.next(data);
   }
   
 }

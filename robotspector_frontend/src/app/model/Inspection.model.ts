@@ -7,7 +7,7 @@ export class Inspection{
     }
     collectingTime? : number;
     verificationDetails?: {
-        verifiedBy? : number;
+        verifiedBy? : string;
         inspectionResult: {
             name? : string;
             severity? : number;

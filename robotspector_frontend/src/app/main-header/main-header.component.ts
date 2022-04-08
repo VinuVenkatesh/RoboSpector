@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DataService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-main-header',
@@ -9,9 +10,14 @@ export class MainHeaderComponent implements OnInit {
 
   @Input()
   title?:String;
-  constructor() { }
+  @Input()
+  equipmentName?:string;
+  constructor(private dataSharing:DataService) { }
 
   ngOnInit(): void {
+    this.dataSharing.curentSelectedEquipment.subscribe((data:any) =>{
+      this.equipmentName = data.name;
+    })
   }
 
 }

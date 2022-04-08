@@ -1,5 +1,5 @@
 export class VerificationDetails{
-    verifiedBy? :number;
+    verifiedBy? :string;
     inspectionResult?:{
         name?:string;
         severity?:number;

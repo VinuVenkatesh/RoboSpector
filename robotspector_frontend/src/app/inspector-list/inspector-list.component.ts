@@ -32,6 +32,7 @@ export class InspectorListComponent implements OnInit {
   comment:String = `Sturdy , albeit needs further inspection potential mechanical issues Sturdy ,
   albeit needs further needs further inspection Sturdy , albeit needs further inspection
   potential mechanical issues Sturdy , albeit needs further needs albeit  ..............`
+  @Input()
   inspectionList : Inspection[] = [];
   @Input()
   showVerified:boolean = false;
@@ -50,6 +51,9 @@ export class InspectorListComponent implements OnInit {
     })
     this.dataSharing.showVerified.subscribe((data:any) =>{
       this.showVerified = data;
+    })
+    this.dataSharing.listOfInspections.subscribe((data:any)=>{
+      this.inspectionList = data;
     })
   }
   getSeverityLevel(inspection:any){

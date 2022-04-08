@@ -13,7 +13,6 @@ export class EquipmentSingleViewService {
 
   equipmentServiceUrl = "http://localhost:8002"
   inspectionServiceUrl = "http://localhost:8004"
-
   constructor(private httpClient:HttpClient) { }
 
   getAllInspections(equipmentId:any){
@@ -37,5 +36,6 @@ export class EquipmentSingleViewService {
     let url = this.inspectionServiceUrl + "/recent/verified/" + equipmentId;
     return this.httpClient.get<Inspection>(url);
   }
+  
 
 }

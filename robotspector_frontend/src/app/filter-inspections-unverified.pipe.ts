@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Inspection } from './equipment-single-view/Inpsection';
+import { Inspection } from './model/Inspection.model';
+
 
 @Pipe({
   name: 'filterInspectionsUnverified'

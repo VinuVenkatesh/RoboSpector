@@ -10,14 +10,17 @@ import { EquipmentSingleViewService } from '../services/equipment-single-view.se
 export class InspectorProfileComponent implements OnInit {
 
   engineerName?: string;
-  engineerId?:number;
+  engineerId?:string;
   constructor(private dataServiceService : DataService, private equipmentSingleViewService: EquipmentSingleViewService) { }
 
   ngOnInit(): void {
-    this.equipmentSingleViewService.getMostRecentVerification(3).subscribe(data =>{
-      this.engineerId = data.verificationDetails?.verifiedBy;
-      console.log(this.engineerId);
+    this.dataServiceService.currentEquipmentId.subscribe((equipmentData:any) =>{
+      this.equipmentSingleViewService.getMostRecentVerification(equipmentData).subscribe(data =>{
+        this.engineerId = data.verificationDetails?.verifiedBy;
+      })
+  
     })
+    
   }
 
 }

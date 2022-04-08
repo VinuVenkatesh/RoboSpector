@@ -39,6 +39,10 @@ export class VerifyModalComponent implements OnInit {
 
   @Input()
   verificationDetials = new VerificationDetails();
+
+  @Input()
+  equipmentId?:string;
+
   inspectionId:string = "";
   constructor(private dataSharing:DataService,private formBuilder:FormBuilder,private equipmentSingleViewService:EquipmentSingleViewService) { }
 
@@ -59,10 +63,12 @@ export class VerifyModalComponent implements OnInit {
    this.dataSharing.selectedSeverity.subscribe((data:any) =>{
     this.severityValue = data;
    })
+   this.dataSharing.currentEquipmentId.subscribe((data:any) =>{
+    this.equipmentId = data;
+   })
   }
   onClickCancel(){
-    this.showModal = !this.showModal;
-    this.dataSharing.changeCurrentVerifyModalState(this.showModal);
+    this.toggleModalState();
   }
   toggleModalState(){
     this.showModal = !this.showModal;
@@ -70,7 +76,7 @@ export class VerifyModalComponent implements OnInit {
   }
 
   onVerifySubmit(){
-    console.log();
+
     let inspectionResult = new InspectionResult();
     let verificationDetails = new VerificationDetails();
     
@@ -81,14 +87,21 @@ export class VerifyModalComponent implements OnInit {
     verificationDetails.inspectionResult = inspectionResult;
 
     verificationDetails.verifiedBy = this.verificationDetials.verifiedBy;
-
-      this.equipmentSingleViewService.addVerificationDetails(verificationDetails,this.inspectionId).subscribe((data:any)=>{
-        console.log("inspection is", data);
+    // this.equipmentService.createEquipment(equipmentToSend).subscribe((createData:any) =>{
+    //   if (createData != null){
+    //     this.equipmentService.getAllEquipment().subscribe((data:any) =>{
+    //       this.dataSharing.changeCurrentEquipmentList(data);
+    //     })
+    //   }
+    // });
+      this.equipmentSingleViewService.addVerificationDetails(verificationDetails,this.inspectionId).subscribe((dataVerification:any)=>{
+       if (dataVerification != null){
+         this.equipmentSingleViewService.getAllInspections(this.equipmentId).subscribe((data:any) =>{
+          this.dataSharing.changeCurrentInspectionList(data);
+         })
+       }
       })
-    if (this.verificationDetials.inspectionResult?.severity != null){
-     
-      
-    }
+      this.toggleModalState();
     
   }
   getSeverity(severityVal:any){

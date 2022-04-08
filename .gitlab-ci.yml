@@ -1,0 +1,71 @@
+image: docker:19.03.1
+
+services:
+  - docker:19.03.1-dind
+
+## Should contain at least these three stages for a basic CI/CD
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  ## Disable TLS Mode for DIND or enable using instructions from https://about.gitlab.com/releases/2019/07/31/docker-in-docker-with-docker-19-dot-03/
+  DOCKER_TLS_CERTDIR: ""
+  CI_BUILD_TOKEN: T8HypfG3CHq8xtNABLqX
+
+
+docker-build-production:
+  before_script:
+    ## Login to Gitlab Provided Container Registry for this project.
+    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+    ## Install Docker Compose 
+    - which docker-compose || apk add --no-cache docker-compose
+
+  stage: build
+  script:
+    - docker-compose build --pull --compress --force-rm
+    - docker push "$CI_REGISTRY_IMAGE"/EquipmentService:latest
+    - docker push "$CI_REGISTRY_IMAGE"/gatewayrobospector:latest
+    - docker push "$CI_REGISTRY_IMAGE"/InspectionMicroService:latest
+    - docker push "$CI_REGISTRY_IMAGE"/InspectionResultMicroService:latest
+    - docker push "$CI_REGISTRY_IMAGE"/LoginMicroService:latest
+    - docker push "$CI_REGISTRY_IMAGE"/RoboSpectorEurekaServer:latest
+    - docker push "$CI_REGISTRY_IMAGE"/robotspector_frontend:latest
+
+  only:
+    - master
+
+
+docker-test-production:
+  before_script:
+    ## Login to Gitlab Provided Container Registry for this project.
+    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+    ## Install Docker Compose 
+  stage: test
+  script:
+    - echo "Run Tests here..."
+
+  only:
+    - master
+
+docker-deploy-production:
+  variables:
+    ## Now Connect to Remote Docker Daemon on Deployment Machine using TLS.
+    DOCKER_HOST: tcp://$DEPLOYMENT_HOST_IP:2376
+    DOCKER_TLS_VERIFY: 1
+
+
+  stage: deploy
+  script:
+    # Copy Certs to access DEPLOYMENT_HOST
+    - mkdir -p ~/.docker
+    - echo "$TLSCACERT" > ~/.docker/ca.pem
+    - echo "$TLSCERT" > ~/.docker/cert.pem
+    - echo "$TLSKEY" > ~/.docker/key.pem
+    
+    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+    - docker stack deploy --compose-file docker-stack.yml voting_app
+
+  only:
+    - master
